@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TypeMaster - Lessons</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lessons.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="brand-icon">⌨</div>
+
+        <div>
+          <h1>TypeMaster</h1>
+          <p>Typing Platform</p>
+        </div>
+      </div>
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+        <a href="lessons.html" class="nav-link active">
+          <span>▣</span>
+          Lessons
+        </a>
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+      <div class="home-streak">
+        <div class="home-streak-icon">🔥</div>
+
+        <div>
+          <small>Current Streak</small>
+          <strong id="sidebarStreak">0 Days</strong>
+          <p>Keep practicing!</p>
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <header class="header">
+
+        <div>
+          <p class="date">Learning Center 📚</p>
+          <h2>Improve your typing step by step</h2>
+        </div>
+
+        <div class="header-actions">
+
+          <button id="themeButton" class="theme-button" type="button">
+            🌙 Dark Mode
+          </button>
+
+          <div class="avatar">N</div>
+
+        </div>
+
+      </header>
+
+
+      <!-- LESSON PAGE -->
+      <div class="lessons-page">
+
+        <!-- HERO -->
+        <section class="lessons-hero">
+
+          <div class="lessons-hero-content">
+
+            <span>TYPEMASTER LESSONS</span>
+
+            <h1>
+              Master your keyboard.
+            </h1>
+
+            <p>
+              Learn proper finger placement, improve accuracy,
+              and build typing speed step by step.
+            </p>
+
+          </div>
+
+          <div class="lessons-hero-art">
+            ⌨
+          </div>
+
+        </section>
+
+
+        <!-- PROGRESS -->
+        <section class="lesson-progress-top">
+
+          <div>
+            <span>YOUR PROGRESS</span>
+
+            <h3>
+              Learning journey
+            </h3>
+          </div>
+
+          <strong id="progressText">
+            0 / 12
+          </strong>
+
+          <div class="progress-track">
+            <div id="progressBar" class="progress-fill">
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- CONTINUE -->
+        <section class="continue-section">
+
+          <div class="section-heading">
+
+            <span>CONTINUE LEARNING</span>
+
+            <h2>
+              Start your next lesson
+            </h2>
+
+          </div>
+
+          <div class="continue-card">
+
+            <div class="continue-icon">
+              🖐️
+            </div>
+
+            <div class="continue-info">
+
+              <span id="nextLessonNumber">
+                LESSON 01
+              </span>
+
+              <h3 id="nextLessonTitle">
+                Home Row Basics
+              </h3>
+
+              <p id="nextLessonDescription">
+                Learn the correct starting position
+                for your fingers.
+              </p>
+
+              <small id="nextLessonMeta">
+                Beginner · Multiple exercises
+              </small>
+
+            </div>
+
+            <button id="continueButton" class="continue-button" type="button">
+              Start Lesson →
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- LIBRARY -->
+        <section class="lesson-library">
+
+          <div class="library-heading">
+
+            <div>
+              <span>LESSON LIBRARY</span>
+
+              <h2>
+                Your typing journey
+              </h2>
+            </div>
+
+            <div class="lesson-filters">
+
+              <button class="filter-button active" data-filter="all" type="button">
+                All
+              </button>
+
+              <button class="filter-button" data-filter="Beginner" type="button">
+                Beginner
+              </button>
+
+              <button class="filter-button" data-filter="Intermediate" type="button">
+                Intermediate
+              </button>
+
+              <button class="filter-button" data-filter="Advanced" type="button">
+                Advanced
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- JS WILL CREATE ALL 12 LESSONS HERE -->
+          <div id="lessonsGrid" class="lessons-grid">
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+<script src="Js/api.js"></script>
+<script src="Js/app.js"></script>
+<script src="Js/lessons.js"></script>
+
+</body>
+
+</html>

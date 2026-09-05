@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232563eb'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='55'%3E⌨%3C/text%3E%3C/svg%3E">
+
+  <title>TypeMaster - Home</title>
+  <script>
+    (function () {
+      const theme = localStorage.getItem("typemaster-theme");
+
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark-mode");
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="brand-icon">⌨</div>
+
+        <div>
+          <h1>TypeMaster</h1>
+          <p>Typing Platform</p>
+        </div>
+      </div>
+
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link active">
+          <span>⌂</span>
+          Home
+        </a>
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+
+      <div class="home-streak">
+
+        <div class="home-streak-icon">
+          🔥
+        </div>
+
+        <div>
+          <small>Current Streak</small>
+          <strong id="homeCurrentStreak">0 Days</strong>
+          <p>Keep practicing!</p>
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HEADER -->
+      <header class="header">
+
+        <div>
+          <p class="date">
+            Welcome back 👋
+          </p>
+
+          <h2>
+            Ready to improve your typing?
+          </h2>
+        </div>
+
+
+        <div class="header-actions">
+
+          <button id="themeButton" class="theme-button" type="button">
+            🌙 Dark Mode
+          </button>
+
+
+          <button id="notificationButton" class="home-notification" type="button">
+            🔔
+            <span id="notificationCount">2</span>
+          </button>
+          <div id="notificationPanel" class="notification-panel">
+
+            <div class="notification-header">
+              <strong>Notifications</strong>
+
+              <button id="clearNotifications" type="button">
+                🗑 Clear All
+              </button>
+
+            </div>
+
+            <div id="notificationList" class="notification-list">
+
+              <div class="notification-item">
+                <div class="notification-icon">🎯</div>
+                <div>
+                  <strong>Welcome to TypeMaster!</strong>
+                  <p>Start practicing to improve your typing.</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <button id="profileButton" class="home-profile" type="button">
+
+            <div class="home-avatar" id="homeAvatar">
+              U
+            </div>
+
+            <span id="homeUserName">User</span>
+
+            <b>⌄</b>
+
+          </button>
+
+
+          <div id="profileMenu" class="home-profile-menu">
+
+            <div class="home-profile-top">
+
+              <div class="home-large-avatar" id="homeLargeAvatar">
+                U
+              </div>
+
+              <div>
+                <strong id="homeProfileName">User</strong>
+                <small>Typing enthusiast</small>
+              </div>
+
+            </div>
+
+            <hr>
+
+            <a href="profile.html">
+              👤 Profile
+            </a>
+
+            <a href="profile.html">
+              🏅 Achievements
+            </a>
+
+            <a href="settings.html">
+              ⚙ Settings
+            </a>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- HOME CONTENT -->
+      <div class="home-page">
+
+
+        <!-- HERO -->
+        <section class="home-hero">
+
+          <div class="home-hero-content">
+
+            <span class="home-eyebrow">
+              TYPEMASTER
+            </span>
+
+            <h1>
+              Type faster.<br>
+              Type smarter.
+            </h1>
+
+            <p>
+              Build your typing speed, improve accuracy,
+              and track your progress with regular practice.
+            </p>
+
+
+            <div class="home-hero-buttons">
+
+              <a href="practice.html" class="home-primary-btn">
+                Start Practicing →
+              </a>
+
+              <a href="typing-test.html" class="home-secondary-btn">
+                Take a Test
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <div class="home-hero-art">
+
+            <div class="home-speed-card">
+
+              <span>BEST SPEED</span>
+
+              <strong id="heroBestWpm">
+                0
+              </strong>
+
+              <small>WPM</small>
+
+            </div>
+
+
+            <div class="home-keyboard">
+
+              <div>⌨</div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- STATS -->
+        <section class="home-stats">
+
+
+          <div class="home-stat-card">
+
+            <div class="home-stat-icon blue">
+              ⚡
+            </div>
+
+            <div>
+              <span>Best WPM</span>
+
+              <strong id="homeBestWpm">
+                0
+              </strong>
+
+              <small>
+                Personal best
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="home-stat-card">
+
+            <div class="home-stat-icon green">
+              🎯
+            </div>
+
+            <div>
+              <span>Best Accuracy</span>
+
+              <strong id="homeBestAccuracy">
+                0%
+              </strong>
+
+              <small>
+                Accuracy record
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="home-stat-card">
+
+            <div class="home-stat-icon purple">
+              📊
+            </div>
+
+            <div>
+              <span>Tests Completed</span>
+
+              <strong id="homeTotalTests">
+                0
+              </strong>
+
+              <small>
+                Keep improving
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="home-stat-card">
+
+            <div class="home-stat-icon orange">
+              🔥
+            </div>
+
+            <div>
+              <span>Current Streak</span>
+
+              <strong id="homeStreakValue">
+                0
+              </strong>
+
+              <small>
+                Days
+              </small>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- QUICK START -->
+        <section class="home-quick">
+
+          <div class="home-section-heading">
+
+            <div>
+              <span>QUICK START</span>
+
+              <h2>
+                Choose your next activity
+              </h2>
+            </div>
+
+          </div>
+
+
+          <div class="home-quick-grid">
+
+
+            <a href="practice.html" class="home-quick-card">
+
+              <div class="home-quick-icon practice">
+                ⌨
+              </div>
+
+              <div>
+                <h3>
+                  Practice Typing
+                </h3>
+
+                <p>
+                  Choose a passage and practice
+                  at your own pace.
+                </p>
+              </div>
+
+              <b>→</b>
+
+            </a>
+
+
+            <a href="typing-test.html" class="home-quick-card">
+
+              <div class="home-quick-icon test">
+                🎯
+              </div>
+
+              <div>
+                <h3>
+                  Typing Test
+                </h3>
+
+                <p>
+                  Test your real typing speed
+                  and accuracy.
+                </p>
+              </div>
+
+              <b>→</b>
+
+            </a>
+
+
+            <a href="progress.html" class="home-quick-card">
+
+              <div class="home-quick-icon progress">
+                📈
+              </div>
+
+              <div>
+                <h3>
+                  View Progress
+                </h3>
+
+                <p>
+                  See your results and
+                  improvement over time.
+                </p>
+              </div>
+
+              <b>→</b>
+
+            </a>
+
+          </div>
+
+        </section>
+
+
+        <!-- BOTTOM -->
+        <section class="home-bottom">
+
+          <div class="home-tip">
+
+            <div class="home-tip-icon">
+              💡
+            </div>
+
+            <div>
+
+              <span>DAILY TIP</span>
+
+              <h3>
+                Accuracy first, speed second.
+              </h3>
+
+              <p>
+                Slow down when necessary.
+                Correct typing habits will naturally
+                increase your speed.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="home-go-progress">
+
+            <span>
+              Your Progress
+            </span>
+
+            <strong>
+              Keep going!
+            </strong>
+
+            <a href="progress.html">
+              View Analytics →
+            </a>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="Js/api.js"></script>
+  <script src="Js/app.js"></script>
+  <script src="Js/home.js"></script>
+
+</body>
+
+</html>

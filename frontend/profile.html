@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TypeMaster - Profile</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/profile.css">
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ⌨
+                </div>
+
+                <div>
+
+                    <h1>
+                        TypeMaster
+                    </h1>
+
+                    <p>
+                        Typing Platform
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <nav class="navigation">
+
+                <a href="index.html" class="nav-link">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+
+                <a href="practice.html" class="nav-link">
+                    <span>⌨</span>
+                    Practice
+                </a>
+
+
+                <a href="typing-test.html" class="nav-link">
+                    <span>◉</span>
+                    Typing Test
+                </a>
+
+
+                <a href="lessons.html" class="nav-link">
+                    <span>▣</span>
+                    Lessons
+                </a>
+
+
+                <a href="dailychallenge.html" class="nav-link">
+                    <span>⚡</span>
+                    Daily Challenge
+                </a>
+
+
+                <a href="leaderboard.html" class="nav-link">
+                    <span>🏆</span>
+                    Leaderboard
+                </a>
+
+
+                <a href="progress.html" class="nav-link">
+                    <span>◒</span>
+                    Progress
+                </a>
+
+
+                <a href="profile.html" class="nav-link active">
+                    <span>♙</span>
+                    Profile
+                </a>
+
+
+                <a href="settings.html" class="nav-link">
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+
+            <div class="home-streak">
+
+                <div class="home-streak-icon">
+                    🔥
+                </div>
+
+                <div>
+
+                    <small>
+                        Current Streak
+                    </small>
+
+                    <strong id="sidebarStreak">0 Days</strong>
+
+                    <p>
+                        Keep practicing!
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="main">
+
+
+            <!-- HEADER -->
+
+            <header class="header">
+
+                <div>
+
+                    <p class="date">
+                        Your account 👤
+                    </p>
+
+                    <h2>
+                        My Profile
+                    </h2>
+
+                </div>
+
+
+                <div class="header-actions">
+
+                    <button id="themeButton" class="theme-button" type="button">
+                        🌙 Dark Mode
+                    </button>
+
+
+                    <button class="home-notification" type="button">
+                        🔔
+                        <span>2</span>
+                    </button>
+
+
+                    <button id="profileButton" class="home-profile" type="button">
+
+                        <div id="profilePageAvatar" class="home-avatar">
+                            N
+                        </div>
+
+                        <span id="profilePageUserName">
+                            Neel
+                        </span>
+
+                        <b>
+                            ⌄
+                        </b>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- PROFILE PAGE -->
+
+            <div class="profile-page">
+
+
+                <!-- PROFILE HERO -->
+
+                <section class="profile-hero">
+
+                    <div class="profile-avatar">
+                        N
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <span>
+                            TYPEMASTER MEMBER
+                        </span>
+
+                        <h1 id="profilePageMainName">
+                            Neel
+                        </h1>
+
+                        <p id="profilePageDescription">
+                            Typing enthusiast
+                        </p>
+
+                        <small id="profileMemberSince">
+                            Member since 2026
+                        </small>
+                    </div>
+
+
+                    <div class="profile-actions">
+
+                        <button id="editProfileButton" class="profile-edit-button" type="button">
+                            ✏ Edit Profile
+                        </button>
+
+                        <div class="profile-auth-buttons">
+
+                            <button id="signInButton" class="profile-signin-button" type="button">
+                                🔐 Sign In
+                            </button>
+
+                            <button id="logoutButton" class="profile-logout-button" type="button">
+                                🚪 Logout
+                            </button>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+            </section>
+
+
+            <!-- PROFILE STATS -->
+
+            <section class="profile-stats">
+
+                <div class="profile-stat-card">
+
+                    <div class="profile-stat-icon blue">
+                        ⚡
+                    </div>
+
+                    <div>
+
+                        <span>
+                            BEST WPM
+                        </span>
+
+                        <strong id="profileBestWpm">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-stat-card">
+
+                    <div class="profile-stat-icon green">
+                        🎯
+                    </div>
+
+                    <div>
+
+                        <span>
+                            BEST ACCURACY
+                        </span>
+
+                        <strong id="profileBestAccuracy">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-stat-card">
+
+                    <div class="profile-stat-icon orange">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <span>
+                            CURRENT STREAK
+                        </span>
+
+                        <strong id="profileStreak">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-stat-card">
+
+                    <div class="profile-stat-icon purple">
+                        🏆
+                    </div>
+
+                    <div>
+
+                        <span>
+                            TESTS COMPLETED
+                        </span>
+
+                        <strong id="profileTests">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ACHIEVEMENTS -->
+
+            <section class="profile-achievements">
+
+                <div class="profile-section-heading">
+
+                    <span>
+                        ACHIEVEMENTS
+                    </span>
+
+                    <h2>
+                        Your Milestones
+                    </h2>
+
+                </div>
+
+
+                <div class="achievement-grid">
+
+
+                    <div class="achievement-card">
+
+                        <div class="achievement-icon">
+                            🚀
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                First Test
+                            </strong>
+
+                            <p>
+                                Complete your first typing test.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="achievement-card">
+
+                        <div class="achievement-icon">
+                            ⚡
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Speed Demon
+                            </strong>
+
+                            <p>
+                                Reach 50 WPM.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="achievement-card">
+
+                        <div class="achievement-icon">
+                            🎯
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Accuracy Master
+                            </strong>
+
+                            <p>
+                                Reach 95% accuracy.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="achievement-card">
+
+                        <div class="achievement-icon">
+                            🔥
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                On Fire
+                            </strong>
+
+                            <p>
+                                Maintain a 7 day streak.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+    </div>
+
+    </main>
+
+    </div>
+
+
+    <script src="Js/api.js"></script>
+    <script src="Js/app.js"></script>
+    <script src="Js/profile.js"></script>
+
+</body>
+
+</html>

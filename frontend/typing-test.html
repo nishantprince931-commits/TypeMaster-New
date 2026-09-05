@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Typing Test - TypeMaster</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/typing-test.css">
+
+</head>
+
+
+<body>
+
+  <div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          ⌨
+        </div>
+
+        <div>
+
+          <h1>
+            TypeMaster
+          </h1>
+
+          <p>
+            Typing Platform
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+
+        <a href="typing-test.html" class="nav-link active">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+
+        <!-- FIXED LESSONS LINK -->
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+      <!-- HEADER -->
+
+      <header class="header">
+
+        <div>
+
+          <p class="date">
+            Typing Test
+          </p>
+
+          <h2>
+            Test your typing skills ⌨
+          </h2>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button id="themeButton" class="theme-button" type="button">
+            🌙 Dark Mode
+          </button>
+
+
+          <div class="avatar">
+            N
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- PAGE -->
+
+      <div class="typing-page">
+
+
+        <div class="typing-heading">
+
+          <div>
+
+            <p class="section-label">
+              TYPING TEST
+            </p>
+
+            <h1 id="testTitle">
+              Typing Test
+            </h1>
+
+            <p>
+              Start typing below. The timer starts automatically.
+            </p>
+
+          </div>
+
+
+          <button id="backButton" class="back-button" type="button">
+            ← Back
+          </button>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="test-stats">
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ⏱
+            </div>
+
+            <div>
+
+              <small>
+                TIME
+              </small>
+
+              <strong id="timer">
+                01:00
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon purple">
+              ⚡
+            </div>
+
+            <div>
+
+              <small>
+                WPM
+              </small>
+
+              <strong id="wpm">
+                0
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon green">
+              🎯
+            </div>
+
+            <div>
+
+              <small>
+                ACCURACY
+              </small>
+
+              <strong id="accuracy">
+                100%
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon red">
+              ⚠
+            </div>
+
+            <div>
+
+              <small>
+                MISTAKES
+              </small>
+
+              <strong id="mistakes">
+                0
+              </strong>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- TEST BOX -->
+
+        <section class="typing-box">
+
+
+          <div class="typing-box-header">
+
+            <div>
+
+              <h2>
+                Type the text
+              </h2>
+
+              <p>
+                Match the text exactly and type as accurately as possible.
+              </p>
+
+            </div>
+
+
+            <span id="status" class="status">
+              Ready
+            </span>
+
+          </div>
+
+
+          <!-- ORIGINAL TEXT -->
+
+          <div id="testText" class="test-text"></div>
+
+
+          <!-- INPUT -->
+
+          <div class="input-heading">
+
+            <span>
+              YOUR TYPING
+            </span>
+
+            <small>
+              Start typing below
+            </small>
+
+          </div>
+
+
+          <textarea id="typingInput" class="typing-input" placeholder="Click here and start typing..."
+            spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+
+          <!-- BUTTONS -->
+
+          <div class="test-buttons">
+
+            <button id="startTestButton" class="start-button" type="button">
+              ▶ Start Test
+            </button>
+
+            <button id="finishButton" class="finish-button" type="button" disabled>
+              ✓ Finish Test
+            </button>
+
+            <button id="resetButton" class="reset-button" type="button">
+              ↻ Reset
+            </button>
+
+          </div>
+
+
+          <!-- RESULT -->
+
+          <div id="resultBox" class="result-box"></div>
+
+
+        </section>
+
+
+        <!-- TIPS -->
+
+        <div class="tips-grid">
+
+
+          <div class="tip-card">
+
+            <div>
+              💡
+            </div>
+
+            <div>
+
+              <strong>
+                Tip
+              </strong>
+
+              <p>
+                Focus on accuracy first. Speed will improve naturally with practice.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="tip-card">
+
+            <div>
+              🎯
+            </div>
+
+            <div>
+
+              <strong>
+                Goal
+              </strong>
+
+              <p>
+                Try to maintain a steady rhythm instead of rushing.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="Js/app.js"></script>
+  <script src="Js/settings.js"></script>
+  <script src="Js/typing-test.js"></script>
+
+</body>
+
+</html>

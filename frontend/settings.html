@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <script>
+  (function () {
+    const theme =
+      localStorage.getItem("typemaster-theme");
+
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark-mode");
+    }
+  })();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Settings - TypeMaster</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/settings.css">
+
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          ⌨
+        </div>
+
+        <div>
+
+          <h1>TypeMaster</h1>
+
+          <p>Typing Platform</p>
+
+        </div>
+
+      </div>
+
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+        <a href="settings.html" class="nav-link active">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <!-- HEADER -->
+
+      <header class="header">
+
+        <div>
+
+          <p class="date">
+            Settings
+          </p>
+
+          <h2>
+            Customize your experience ⚙
+          </h2>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button
+            id="themeButton"
+            class="theme-button"
+            type="button">
+
+            🌙 Dark Mode
+
+          </button>
+
+
+          <div class="avatar">
+            N
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- SETTINGS PAGE -->
+
+      <div class="settings-page">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="settings-heading">
+
+          <div>
+
+            <span class="eyebrow">
+              PREFERENCES
+            </span>
+
+            <h1>
+              Settings
+            </h1>
+
+            <p>
+              Customize TypeMaster to match the way you like to practice.
+            </p>
+
+          </div>
+
+
+          <button
+            id="resetSettingsButton"
+            class="reset-settings-button"
+            type="button">
+
+            ↻ Reset Settings
+
+          </button>
+
+        </div>
+
+
+        <!-- =====================================
+             APPEARANCE
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🎨
+            </div>
+
+            <div>
+
+              <h2>
+                Appearance
+              </h2>
+
+              <p>
+                Change how TypeMaster looks.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <!-- THEME -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Theme
+                </strong>
+
+                <span>
+                  Choose between light and dark mode.
+                </span>
+
+              </div>
+
+
+              <select
+                id="themeSetting"
+                class="setting-select">
+
+                <option value="light">
+                  Light
+                </option>
+
+                <option value="dark">
+                  Dark
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- REDUCE ANIMATIONS -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Reduce Animations
+                </strong>
+
+                <span>
+                  Reduce visual animations and transitions.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="reduceAnimations"
+                  type="checkbox">
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TYPING PREFERENCES
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              ⌨
+            </div>
+
+            <div>
+
+              <h2>
+                Typing Preferences
+              </h2>
+
+              <p>
+                Control the information and feedback shown while typing.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <!-- SOUND -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Sound Effects
+                </strong>
+
+                <span>
+                  Play sounds while typing.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="soundEffects"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <!-- LIVE WPM -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Live WPM
+                </strong>
+
+                <span>
+                  Show your typing speed during a test.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="liveWpm"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <!-- LIVE ACCURACY -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Live Accuracy
+                </strong>
+
+                <span>
+                  Show accuracy while typing.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="liveAccuracy"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <!-- HIGHLIGHT MISTAKES -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Highlight Mistakes
+                </strong>
+
+                <span>
+                  Highlight incorrect characters.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="highlightMistakes"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TYPING INTERFACE
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🖥️
+            </div>
+
+            <div>
+
+              <h2>
+                Typing Interface
+              </h2>
+
+              <p>
+                Customize the typing area and text appearance.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <!-- PARAGRAPH FONT SIZE -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Paragraph Font Size
+                </strong>
+
+                <span>
+                  Change the size of the typing paragraph.
+                </span>
+
+              </div>
+
+
+              <select
+                id="paragraphFontSize"
+                class="setting-select">
+
+                <option value="small">
+                  Small
+                </option>
+
+                <option value="medium" selected>
+                  Medium
+                </option>
+
+                <option value="large">
+                  Large
+                </option>
+
+                <option value="extra-large">
+                  Extra Large
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- TEXT WIDTH -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Text Width
+                </strong>
+
+                <span>
+                  Choose the width of the typing area.
+                </span>
+
+              </div>
+
+
+              <select
+                id="textWidth"
+                class="setting-select">
+
+                <option value="compact">
+                  Compact
+                </option>
+
+                <option value="normal" selected>
+                  Normal
+                </option>
+
+                <option value="wide">
+                  Wide
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- CURSOR -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Cursor Style
+                </strong>
+
+                <span>
+                  Choose your typing cursor style.
+                </span>
+
+              </div>
+
+
+              <select
+                id="cursorStyle"
+                class="setting-select">
+
+                <option value="line" selected>
+                  Line
+                </option>
+
+                <option value="block">
+                  Block
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- VIRTUAL KEYBOARD -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Virtual Keyboard
+                </strong>
+
+                <span>
+                  Show the virtual keyboard during practice.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="virtualKeyboard"
+                  type="checkbox">
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TEST SETTINGS
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🧪
+            </div>
+
+            <div>
+
+              <h2>
+                Test Settings
+              </h2>
+
+              <p>
+                Set your default typing test behavior.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <!-- DURATION -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Default Duration
+                </strong>
+
+                <span>
+                  Choose your default practice duration.
+                </span>
+
+              </div>
+
+
+              <select
+                id="defaultDuration"
+                class="setting-select">
+
+                <option value="1">
+                  1 Minute
+                </option>
+
+                <option value="2">
+                  2 Minutes
+                </option>
+
+                <option value="3">
+                  3 Minutes
+                </option>
+
+                <option value="5" selected>
+                  5 Minutes
+                </option>
+
+                <option value="10">
+                  10 Minutes
+                </option>
+
+                <option value="15">
+                  15 Minutes
+                </option>
+
+                <option value="20">
+                  20 Minutes
+                </option>
+
+                <option value="30">
+                  30 Minutes
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- AUTO START -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Auto Start Test
+                </strong>
+
+                <span>
+                  Start the test automatically when typing begins.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="autoStart"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <!-- SHOW TIMER -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Show Timer
+                </strong>
+
+                <span>
+                  Display the countdown timer during tests.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="showTimer"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             GOALS
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🎯
+            </div>
+
+            <div>
+
+              <h2>
+                Goals
+              </h2>
+
+              <p>
+                Set personal typing goals.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  WPM Goal
+                </strong>
+
+                <span>
+                  Your target typing speed.
+                </span>
+
+              </div>
+
+
+              <input
+                id="wpmGoal"
+                class="number-input"
+                type="number"
+                min="1"
+                max="300"
+                value="60">
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Accuracy Goal
+                </strong>
+
+                <span>
+                  Your target typing accuracy.
+                </span>
+
+              </div>
+
+
+              <input
+                id="accuracyGoal"
+                class="number-input"
+                type="number"
+                min="1"
+                max="100"
+                value="95">
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Daily Practice
+                </strong>
+
+                <span>
+                  Your daily practice target in minutes.
+                </span>
+
+              </div>
+
+
+              <input
+                id="practiceGoal"
+                class="number-input"
+                type="number"
+                min="1"
+                max="180"
+                value="15">
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             NOTIFICATIONS
+        ====================================== -->
+
+        <section class="settings-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🔔
+            </div>
+
+            <div>
+
+              <h2>
+                Notifications
+              </h2>
+
+              <p>
+                Choose which reminders you want.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Daily Challenge
+                </strong>
+
+                <span>
+                  Remind me about the daily challenge.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="dailyChallengeNotification"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Achievements
+                </strong>
+
+                <span>
+                  Show milestone and achievement notifications.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="achievementNotification"
+                  type="checkbox"
+                  checked>
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Practice Reminder
+                </strong>
+
+                <span>
+                  Remind me to practice regularly.
+                </span>
+
+              </div>
+
+
+              <label class="switch">
+
+                <input
+                  id="practiceNotification"
+                  type="checkbox">
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             DATA & PRIVACY
+        ====================================== -->
+
+        <section class="settings-section danger-section">
+
+          <div class="settings-section-heading">
+
+            <div class="settings-section-icon">
+              🗑️
+            </div>
+
+            <div>
+
+              <h2>
+                Data & Privacy
+              </h2>
+
+              <p>
+                Manage your saved TypeMaster data.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-card">
+
+
+            <!-- CLEAR HISTORY -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Clear Typing History
+                </strong>
+
+                <span>
+                  Delete all saved typing test results.
+                </span>
+
+              </div>
+
+
+              <button
+                id="clearHistoryButton"
+                class="danger-button"
+                type="button">
+
+                Clear History
+
+              </button>
+
+            </div>
+
+
+            <!-- RESET PROGRESS -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Reset Progress
+                </strong>
+
+                <span>
+                  Reset lessons and progress data.
+                </span>
+
+              </div>
+
+
+              <button
+                id="resetProgressButton"
+                class="danger-button"
+                type="button">
+
+                Reset Progress
+
+              </button>
+
+            </div>
+
+
+            <!-- CLEAR ALL -->
+
+            <div class="setting-row">
+
+              <div>
+
+                <strong>
+                  Clear All Data
+                </strong>
+
+                <span>
+                  Remove all TypeMaster data from this browser.
+                </span>
+
+              </div>
+
+
+              <button
+                id="clearAllDataButton"
+                class="danger-button"
+                type="button">
+
+                Clear All Data
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- SAVE -->
+
+        <div class="settings-save-area">
+
+          <span id="saveMessage">
+            Your settings are saved automatically.
+          </span>
+
+
+          <button
+            id="saveSettingsButton"
+            class="save-settings-button"
+            type="button">
+
+            ✓ Save Settings
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="Js/app.js"></script>
+  <script src="Js/settings.js"></script>
+
+</body>
+
+</html>

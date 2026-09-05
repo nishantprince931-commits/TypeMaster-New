@@ -1,0 +1,1123 @@
+/* =========================================
+   TYPEMASTER - PROFILE
+========================================= */
+
+.profile-page {
+  padding: 28px 34px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   PROFILE HERO
+========================================= */
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 26px 28px;
+  margin-bottom: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow:
+    0 5px 18px
+    rgba(15, 23, 42, 0.04);
+}
+
+.profile-avatar {
+  width: 82px;
+  height: 82px;
+
+  flex: 0 0 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info > span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #2563eb;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1.4px;
+}
+
+.profile-info h1 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.profile-info p {
+  margin: 5px 0 3px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.profile-info small {
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.profile-edit-button {
+  padding: 10px 15px;
+
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.profile-edit-button:hover {
+  background: #dbeafe;
+}
+
+
+/* =========================================
+   PROFILE STATS
+========================================= */
+
+.profile-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 28px;
+}
+
+.profile-stat-card {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 90px;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 4px 14px
+    rgba(15, 23, 42, 0.04);
+}
+
+.profile-stat-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  font-size: 19px;
+}
+
+.profile-stat-icon.blue {
+  background: #eff6ff;
+}
+
+.profile-stat-icon.green {
+  background: #ecfdf5;
+}
+
+.profile-stat-icon.orange {
+  background: #fff7ed;
+}
+
+.profile-stat-icon.purple {
+  background: #f5f3ff;
+}
+
+.profile-stat-card span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.9px;
+}
+
+.profile-stat-card strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.profile-section-heading {
+  margin-bottom: 13px;
+}
+
+.profile-section-heading span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #2563eb;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1.4px;
+}
+
+.profile-section-heading h2 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+
+/* =========================================
+   ACHIEVEMENTS
+========================================= */
+
+.profile-achievements {
+  margin-bottom: 25px;
+}
+
+.achievement-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 12px;
+}
+
+.achievement-card {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 4px 14px
+    rgba(15, 23, 42, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 22px
+    rgba(15, 23, 42, 0.07);
+}
+
+.achievement-icon {
+  width: 45px;
+  height: 45px;
+
+  flex: 0 0 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+
+  font-size: 21px;
+}
+
+.achievement-card strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.achievement-card p {
+  margin: 5px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode .profile-hero,
+body.dark-mode .profile-stat-card,
+body.dark-mode .achievement-card {
+  background: #111827;
+
+  border-color: #334155;
+}
+
+body.dark-mode .profile-info h1,
+body.dark-mode .profile-stat-card strong,
+body.dark-mode .profile-section-heading h2,
+body.dark-mode .achievement-card strong {
+  color: #f8fafc;
+}
+
+body.dark-mode .profile-info p,
+body.dark-mode .achievement-card p {
+  color: #94a3b8;
+}
+
+body.dark-mode .profile-edit-button {
+  background: #172554;
+
+  border-color: #1e40af;
+}
+
+body.dark-mode .profile-stat-icon.blue,
+body.dark-mode .profile-avatar {
+  background: #172554;
+}
+
+body.dark-mode .profile-stat-icon.green {
+  background: #052e16;
+}
+
+body.dark-mode .profile-stat-icon.orange {
+  background: #431407;
+}
+
+body.dark-mode .profile-stat-icon.purple {
+  background: #2e1065;
+}
+
+body.dark-mode .achievement-icon {
+  background: #172554;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .profile-stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .profile-page {
+    padding: 22px 18px 35px;
+  }
+
+  .profile-hero {
+    flex-wrap: wrap;
+  }
+
+  .profile-edit-button {
+    width: 100%;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .profile-page {
+    padding: 18px 12px 30px;
+  }
+
+  .profile-hero {
+    padding: 20px;
+  }
+
+  .profile-avatar {
+    width: 68px;
+    height: 68px;
+
+    flex-basis: 68px;
+
+    font-size: 25px;
+  }
+
+  .profile-info h1 {
+    font-size: 24px;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+}
+/* =========================================
+   AUTH BUTTONS
+========================================= */
+
+.profile-auth-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-signin-button,
+.profile-logout-button {
+  padding: 9px 13px;
+
+  border-radius: 9px;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.profile-signin-button {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.profile-logout-button {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.profile-signin-button:hover {
+  background: #dbeafe;
+}
+
+.profile-logout-button:hover {
+  background: #fee2e2;
+}
+
+@media (max-width: 700px) {
+
+  .profile-auth-buttons {
+    width: 100%;
+  }
+
+  .profile-signin-button,
+  .profile-logout-button {
+    flex: 1;
+  }
+
+}
+/* =========================================
+   PROFILE HERO - FINAL POLISH
+========================================= */
+
+.profile-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 30px;
+  min-height: 118px;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+
+/* AUTH BUTTON AREA */
+
+.profile-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+
+/* Put buttons on the right */
+
+.profile-hero .profile-auth-buttons {
+  margin-top: 0;
+  margin-left: auto;
+  order: 3;
+}
+
+
+/* EDIT */
+
+.profile-edit-button {
+  white-space: nowrap;
+  height: 38px;
+  padding: 0 16px;
+}
+
+
+/* SIGN IN */
+
+.profile-signin-button {
+  height: 38px;
+  padding: 0 18px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.profile-signin-button:hover {
+  background: #dbeafe;
+}
+
+
+/* LOGOUT */
+
+.profile-logout-button {
+  height: 38px;
+  padding: 0 18px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #fff5f5;
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.profile-logout-button:hover {
+  background: #fee2e2;
+}
+
+
+/* =========================================
+   STAT CARDS
+========================================= */
+
+.profile-stat-card {
+  min-height: 105px;
+  padding: 18px;
+}
+
+.profile-stat-card strong {
+  font-size: 24px;
+}
+
+
+/* =========================================
+   ACHIEVEMENT CARDS
+========================================= */
+
+.achievement-card {
+  min-height: 92px;
+  padding: 18px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .profile-hero {
+    flex-wrap: wrap;
+  }
+
+  .profile-hero .profile-auth-buttons {
+    width: 100%;
+    margin-left: 0;
+    order: 4;
+  }
+
+  .profile-edit-button {
+    margin-left: auto;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .profile-hero {
+    padding: 20px;
+  }
+
+  .profile-hero .profile-auth-buttons {
+    flex-direction: column;
+  }
+
+  .profile-edit-button,
+  .profile-signin-button,
+  .profile-logout-button {
+    width: 100%;
+  }
+
+}
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.profile-actions .profile-auth-buttons {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+
+  .profile-actions {
+    width: 100%;
+    align-items: stretch;
+    margin-left: 0;
+  }
+
+}
+/* =========================================
+   PROFILE WIDTH / ALIGNMENT FIX
+========================================= */
+
+.profile-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 30px 40px;
+  box-sizing: border-box;
+}
+
+
+/* HERO */
+
+.profile-hero {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+
+/* STATS */
+
+.profile-stats {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+
+/* ACHIEVEMENTS */
+
+.profile-achievements {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+.achievement-grid {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+
+/* ALL CARDS */
+
+.profile-stat-card,
+.achievement-card {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+
+/* ACTIONS */
+
+.profile-actions {
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   DESKTOP BALANCE
+========================================= */
+
+@media (min-width: 1000px) {
+
+  .profile-page {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .profile-page {
+    max-width: 100%;
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .profile-page {
+    padding: 20px 14px 30px;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+/* =========================================
+   DARK MODE - FINAL FIX
+========================================= */
+
+/* Header text */
+body.dark-mode .header .date {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .header h2 {
+  color: #f8fafc !important;
+}
+
+
+/* Profile text */
+body.dark-mode .profile-info p,
+body.dark-mode .profile-info small {
+  color: #94a3b8 !important;
+}
+
+
+/* Achievement description */
+body.dark-mode .achievement-card p {
+  color: #94a3b8 !important;
+}
+
+
+/* Sidebar text */
+body.dark-mode .navigation .nav-link {
+  color: #cbd5e1 !important;
+}
+
+
+/* Remove slow transition from profile elements */
+.profile-page,
+.profile-page *,
+.profile-hero,
+.profile-stat-card,
+.achievement-card {
+  transition: none;
+}
+
+
+/* Keep hover smooth */
+.profile-edit-button,
+.profile-signin-button,
+.profile-logout-button,
+.achievement-card {
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+/* =========================================
+   PERFORMANCE FIX
+   Dark Mode / Profile lag fix
+========================================= */
+
+/* Prevent hover movement from causing repaint */
+.profile-page .achievement-card:hover {
+  transform: none !important;
+}
+
+
+/* Keep page rendering stable */
+.profile-page {
+  contain: layout paint;
+}
+
+
+/* Cards should not use heavy shadows */
+.profile-hero,
+.profile-stat-card,
+.achievement-card {
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+
+/* Dark mode shadows */
+body.dark-mode .profile-hero,
+body.dark-mode .profile-stat-card,
+body.dark-mode .achievement-card {
+  box-shadow: none;
+}
+/* ========================================
+   MILESTONE STATUS
+======================================== */
+
+.milestone-status {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* COMPLETED */
+
+.milestone-status.completed {
+  color: #16803c;
+  background: #e9f9ef;
+}
+
+
+/* LOCKED */
+
+.milestone-status.locked {
+  color: #7b8494;
+  background: #f1f3f6;
+}
+
+
+/* COMPLETED CARD */
+
+.milestone-completed {
+  border-color: #b9e7c8;
+}
+
+
+/* LOCKED CARD */
+
+.milestone-locked {
+  opacity: 0.75;
+}
+
+
+/* DARK MODE */
+
+body.dark-mode .milestone-status.completed {
+  color: #7ee2a2;
+  background: rgba(34, 197, 94, 0.15);
+}
+
+body.dark-mode .milestone-status.locked {
+  color: #aab4c4;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .milestone-completed {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+/* ========================================
+   EDIT PROFILE MODAL
+======================================== */
+
+.edit-profile-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.edit-profile-box {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow:
+    0 20px 50px
+    rgba(15, 23, 42, 0.18);
+}
+
+.edit-profile-box h2 {
+  margin: 0 0 5px;
+
+  color: #0f172a;
+
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.edit-profile-box > p {
+  margin: 0 0 20px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.edit-profile-field {
+  margin-bottom: 15px;
+}
+
+.edit-profile-field label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #475569;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.edit-profile-field input,
+.edit-profile-field textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+
+  background: #f8fafc;
+
+  color: #0f172a;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  outline: none;
+}
+
+.edit-profile-field textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.edit-profile-field input:focus,
+.edit-profile-field textarea:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+}
+
+.edit-profile-buttons {
+  display: flex;
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+.edit-profile-save,
+.edit-profile-cancel {
+  flex: 1;
+
+  height: 40px;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.edit-profile-save {
+  border: 1px solid #2563eb;
+
+  background: #2563eb;
+
+  color: #ffffff;
+}
+
+.edit-profile-cancel {
+  border: 1px solid #dbe3ec;
+
+  background: #f8fafc;
+
+  color: #475569;
+}
+
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+body.dark-mode .edit-profile-box {
+  background: #111827;
+  border-color: #334155;
+}
+
+body.dark-mode .edit-profile-box h2 {
+  color: #f8fafc;
+}
+
+body.dark-mode .edit-profile-box > p {
+  color: #94a3b8;
+}
+
+body.dark-mode .edit-profile-field label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .edit-profile-field input,
+body.dark-mode .edit-profile-field textarea {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+body.dark-mode .edit-profile-field input:focus,
+body.dark-mode .edit-profile-field textarea:focus {
+  background: #0f172a;
+}
+
+body.dark-mode .edit-profile-cancel {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+/* ========================================
+   FORGOT PASSWORD
+======================================== */
+
+.forgot-password-button {
+  display: block;
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.forgot-password-button:hover {
+  text-decoration: underline;
+}

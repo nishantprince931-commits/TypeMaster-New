@@ -1,0 +1,1890 @@
+/* =====================================================
+   TYPEMASTER COMMON STYLE
+   Safe for all pages
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f6f8fc;
+  color: #0f172a;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+  min-height: 100vh;
+
+  display: flex;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 220px;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e2e8f0;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 100;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+  min-height: 78px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #eef2f7;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 19px;
+}
+
+.brand h1 {
+  margin: 0;
+
+  font-size: 16px;
+
+  line-height: 1.2;
+}
+
+.brand p {
+  margin: 3px 0 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  padding: 18px 11px;
+}
+
+.nav-link {
+  min-height: 41px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 12px;
+
+  border-radius: 9px;
+
+  color: #475569;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+}
+
+.nav-link span {
+  width: 20px;
+
+  text-align: center;
+
+  font-size: 15px;
+}
+
+.nav-link:hover {
+  background: #f1f5f9;
+
+  color: #2563eb;
+}
+
+.nav-link.active {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 15px rgba(37, 99, 235, 0.18);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+  width: calc(100% - 220px);
+
+  min-height: 100vh;
+
+  margin-left: 220px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+  position: relative;
+
+  min-height: 74px;
+
+  padding: 0 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.date {
+  margin: 0 0 3px;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+.header h2 {
+  margin: 0;
+
+  font-size: 15px;
+}
+
+.header-actions {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+/* =====================================================
+   THEME BUTTON
+===================================================== */
+
+.theme-button {
+  height: 37px;
+
+  padding: 0 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #dbe3ee;
+
+  border-radius: 9px;
+
+  color: #334155;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.theme-button:hover {
+  border-color: #2563eb;
+
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   HOME STREAK
+===================================================== */
+
+.home-streak {
+  margin: auto 12px 16px;
+
+  padding: 14px;
+
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+}
+
+.home-streak-icon {
+  font-size: 22px;
+}
+
+.home-streak small {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+.home-streak strong {
+  display: block;
+
+  color: #f59e0b;
+
+  font-size: 16px;
+}
+
+.home-streak p {
+  margin: 2px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+
+/* =====================================================
+   HOME PAGE
+===================================================== */
+
+.home-page {
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding: 28px;
+}
+
+
+/* =====================================================
+   HOME HERO
+===================================================== */
+
+.home-hero {
+  min-height: 295px;
+
+  padding: 38px 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  border-radius: 21px;
+
+  background:
+    radial-gradient(
+      circle at 85% 45%,
+      rgba(99, 102, 241, 0.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #eef5ff,
+      #f0edff
+    );
+
+  border: 1px solid #dbeafe;
+}
+
+.home-eyebrow {
+  color: #2563eb;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.home-hero h1 {
+  margin: 10px 0 13px;
+
+  font-size: 39px;
+
+  line-height: 1.1;
+
+  letter-spacing: -1px;
+}
+
+.home-hero p {
+  max-width: 520px;
+
+  margin: 0 0 22px;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  line-height: 1.65;
+}
+
+.home-hero-buttons {
+  display: flex;
+
+  gap: 10px;
+}
+
+.home-primary-btn,
+.home-secondary-btn {
+  min-height: 42px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 17px;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.home-primary-btn {
+  background: #2563eb;
+
+  color: white;
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.2);
+}
+
+.home-secondary-btn {
+  background: white;
+
+  color: #2563eb;
+
+  border: 1px solid #bfdbfe;
+}
+
+
+/* =====================================================
+   HERO ART
+===================================================== */
+
+.home-hero-art {
+  position: relative;
+
+  width: 330px;
+  height: 210px;
+
+  flex-shrink: 0;
+}
+
+.home-speed-card {
+  position: absolute;
+
+  top: 5px;
+  left: 20px;
+
+  width: 120px;
+
+  padding: 16px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 14px 30px rgba(37, 99, 235, 0.12);
+}
+
+.home-speed-card span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.home-speed-card strong {
+  display: inline-block;
+
+  margin-top: 3px;
+
+  color: #2563eb;
+
+  font-size: 34px;
+}
+
+.home-speed-card small {
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+.home-keyboard {
+  position: absolute;
+
+  right: 0;
+  bottom: 15px;
+
+  width: 250px;
+  height: 105px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e0e7ff,
+      #c7d2fe
+    );
+
+  border: 3px solid #6366f1;
+
+  transform: rotate(-6deg);
+
+  box-shadow:
+    0 18px 30px rgba(79, 70, 229, 0.16);
+}
+
+.home-keyboard div {
+  font-size: 60px;
+}
+
+
+/* =====================================================
+   HOME STATS
+===================================================== */
+
+.home-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-top: 17px;
+}
+
+.home-stat-card {
+  min-height: 102px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+}
+
+.home-stat-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  font-size: 21px;
+}
+
+.home-stat-icon.blue {
+  background: #eff6ff;
+}
+
+.home-stat-icon.green {
+  background: #ecfdf5;
+}
+
+.home-stat-icon.purple {
+  background: #f5f3ff;
+}
+
+.home-stat-icon.orange {
+  background: #fff7ed;
+}
+
+.home-stat-card span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+.home-stat-card strong {
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 24px;
+}
+
+.home-stat-card small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+
+/* =====================================================
+   QUICK
+===================================================== */
+
+.home-quick {
+  margin-top: 28px;
+}
+
+.home-section-heading span {
+  color: #2563eb;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.home-section-heading h2 {
+  margin: 4px 0 14px;
+
+  font-size: 21px;
+}
+
+.home-quick-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+}
+
+.home-quick-card {
+  min-height: 125px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 17px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  color: inherit;
+
+  transition: 0.2s;
+}
+
+.home-quick-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 12px 25px rgba(15, 23, 42, 0.07);
+}
+
+.home-quick-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  font-size: 21px;
+}
+
+.home-quick-icon.practice {
+  background: #fff1e8;
+}
+
+.home-quick-icon.test {
+  background: #ecfdf5;
+}
+
+.home-quick-icon.progress {
+  background: #f5f3ff;
+}
+
+.home-quick-card div:nth-child(2) {
+  flex: 1;
+}
+
+.home-quick-card h3 {
+  margin: 0 0 5px;
+
+  font-size: 13px;
+}
+
+.home-quick-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+.home-quick-card > b {
+  color: #2563eb;
+
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   BOTTOM
+===================================================== */
+
+.home-bottom {
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 14px;
+
+  margin-top: 17px;
+}
+
+.home-tip,
+.home-go-progress {
+  padding: 17px;
+
+  border-radius: 14px;
+
+  border: 1px solid #e2e8f0;
+
+  background: white;
+}
+
+.home-tip {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+.home-tip-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #fff7ed;
+
+  font-size: 20px;
+}
+
+.home-tip span,
+.home-go-progress span {
+  color: #2563eb;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.home-tip h3 {
+  margin: 3px 0;
+
+  font-size: 13px;
+}
+
+.home-tip p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+.home-go-progress strong {
+  display: block;
+
+  margin: 5px 0 8px;
+
+  font-size: 15px;
+}
+
+.home-go-progress a {
+  color: #2563eb;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.home-notification {
+  position: relative;
+
+  width: 37px;
+  height: 37px;
+
+  border: none;
+
+  background: transparent;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+.home-notification:hover {
+  background: #f1f5f9;
+}
+
+.home-notification span {
+  position: absolute;
+
+  top: 1px;
+  right: 1px;
+
+  width: 15px;
+  height: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  color: white;
+
+  font-size: 8px;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.home-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  padding: 3px 6px;
+
+  border-radius: 9px;
+}
+
+.home-profile:hover {
+  background: #f1f5f9;
+}
+
+.home-avatar,
+.home-large-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #dbeafe;
+
+  color: #2563eb;
+
+  font-weight: 800;
+}
+
+.home-avatar {
+  width: 36px;
+  height: 36px;
+
+  font-size: 12px;
+}
+
+.home-profile span {
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.home-profile b {
+  color: #64748b;
+}
+
+
+/* =====================================================
+   PROFILE MENU
+===================================================== */
+
+.home-profile-menu {
+  position: absolute;
+
+  top: 48px;
+  right: 0;
+
+  width: 235px;
+
+  padding: 12px;
+
+  display: none;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.13);
+
+  z-index: 200;
+}
+
+.home-profile-menu.show {
+  display: block;
+}
+
+.home-profile-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 4px;
+}
+
+.home-large-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.home-profile-top strong {
+  display: block;
+
+  font-size: 12px;
+}
+
+.home-profile-top small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+.home-profile-menu hr {
+  border: none;
+
+  border-top: 1px solid #e2e8f0;
+
+  margin: 10px 0;
+}
+
+.home-profile-menu a {
+  display: block;
+
+  padding: 9px;
+
+  border-radius: 7px;
+
+  color: #475569;
+
+  font-size: 11px;
+}
+
+.home-profile-menu a:hover {
+  background: #f1f5f9;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode {
+  background: #0b1120;
+
+  color: #e2e8f0;
+}
+/* Zero-flash theme background */
+html.dark-mode {
+  background: #0b1120;
+}
+
+html.dark-mode body {
+  background: #0b1120;
+  color: #e2e8f0;
+}
+
+body.dark-mode .sidebar,
+body.dark-mode .header,
+body.dark-mode .home-stat-card,
+body.dark-mode .home-quick-card,
+body.dark-mode .home-tip,
+body.dark-mode .home-go-progress,
+body.dark-mode .home-profile-menu {
+  background: #111827;
+
+  border-color: #263449;
+}
+
+body.dark-mode .brand {
+  border-color: #263449;
+}
+
+body.dark-mode .brand h1,
+body.dark-mode .header h2,
+body.dark-mode .home-hero h1,
+body.dark-mode .home-section-heading h2,
+body.dark-mode .home-stat-card strong,
+body.dark-mode .home-quick-card h3,
+body.dark-mode .home-tip h3 {
+  color: #f8fafc;
+}
+
+body.dark-mode .nav-link {
+  color: #94a3b8;
+}
+
+body.dark-mode .nav-link:hover {
+  background: #1e293b;
+}
+
+body.dark-mode .nav-link.active {
+  background: #2563eb;
+
+  color: white;
+}
+
+body.dark-mode .theme-button {
+  background: #111827;
+
+  border-color: #334155;
+
+  color: #e2e8f0;
+}
+
+body.dark-mode .home-streak {
+  background: #111827;
+
+  border-color: #263449;
+}
+
+body.dark-mode .home-hero {
+  background:
+    radial-gradient(
+      circle at 85% 45%,
+      rgba(99, 102, 241, 0.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #111827,
+      #172554
+    );
+
+  border-color: #263449;
+}
+
+body.dark-mode .home-secondary-btn,
+body.dark-mode .home-speed-card {
+  background: #111827;
+}
+
+body.dark-mode .home-hero p,
+body.dark-mode .home-stat-card span,
+body.dark-mode .home-stat-card small,
+body.dark-mode .home-quick-card p,
+body.dark-mode .home-tip p {
+  color: #94a3b8;
+}
+
+body.dark-mode .home-profile:hover,
+body.dark-mode .home-notification:hover {
+  background: #1e293b;
+}
+
+body.dark-mode .home-profile-menu a {
+  color: #cbd5e1;
+}
+
+body.dark-mode .home-profile-menu a:hover {
+  background: #1e293b;
+}
+
+body.dark-mode .home-profile-menu hr {
+  border-color: #334155;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .home-stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .home-hero-art {
+    display: none;
+  }
+
+  .home-quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 750px) {
+
+  .sidebar {
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+  }
+
+  .app {
+    display: block;
+  }
+
+  .main {
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .navigation {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .home-streak {
+    display: none;
+  }
+
+  .header {
+    padding: 12px 18px;
+  }
+
+  .home-page {
+    padding: 18px;
+  }
+
+  .home-hero {
+    padding: 28px;
+  }
+
+  .home-bottom {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .home-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero h1 {
+    font-size: 30px;
+  }
+
+  .home-hero-buttons {
+    flex-direction: column;
+  }
+
+  .home-primary-btn,
+  .home-secondary-btn {
+    width: 100%;
+  }
+
+  .home-profile span,
+  .home-profile b {
+    display: none;
+  }
+
+}
+/* Prevent theme flicker */
+html {
+  background: #f6f8fc;
+}
+
+body.dark-mode {
+  background: #0b1120;
+}
+/* =====================================================
+   TYPEMASTER HOME - POLISH
+===================================================== */
+
+/* Smooth global feel */
+.home-page,
+.home-page a,
+.home-page button,
+.home-stat-card,
+.home-quick-card,
+.home-tip,
+.home-go-progress,
+.home-speed-card,
+.home-keyboard,
+.home-notification,
+.home-profile {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+
+/* =====================================================
+   HEADER POLISH
+===================================================== */
+
+.header {
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+}
+
+.theme-button {
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.theme-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.10);
+}
+
+.home-notification {
+  border: 1px solid transparent;
+}
+
+.home-notification:hover {
+  transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   HERO POLISH
+===================================================== */
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  box-shadow:
+    0 12px 35px rgba(37, 99, 235, 0.06);
+}
+
+.home-hero::before {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  right: -70px;
+  top: -90px;
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.08);
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+.home-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.home-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+
+  border-radius: 99px;
+  background: #2563eb;
+}
+
+.home-hero h1 {
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.home-hero p {
+  max-width: 500px;
+}
+
+
+/* =====================================================
+   HERO BUTTONS
+===================================================== */
+
+.home-primary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-primary-btn::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.20),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.home-primary-btn:hover::after {
+  left: 140%;
+}
+
+.home-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 11px 25px rgba(37, 99, 235, 0.25);
+}
+
+.home-primary-btn:active,
+.home-secondary-btn:active {
+  transform: translateY(0);
+}
+
+.home-secondary-btn:hover {
+  transform: translateY(-2px);
+  background: #f8fbff;
+  border-color: #93c5fd;
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =====================================================
+   HERO ART
+===================================================== */
+
+.home-speed-card {
+  z-index: 3;
+}
+
+.home-speed-card:hover {
+  transform: translateY(-3px) rotate(1deg);
+  box-shadow:
+    0 18px 35px rgba(37, 99, 235, 0.16);
+}
+
+.home-keyboard {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.home-keyboard:hover {
+  transform: rotate(-3deg) translateY(-4px);
+  box-shadow:
+    0 22px 38px rgba(79, 70, 229, 0.20);
+}
+
+
+/* =====================================================
+   STATS POLISH
+===================================================== */
+
+.home-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-stat-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 3px;
+  height: 100%;
+
+  background: #2563eb;
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.home-stat-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #d5e3f5;
+
+  box-shadow:
+    0 12px 26px rgba(15, 23, 42, 0.07);
+}
+
+.home-stat-card:hover::before {
+  opacity: 1;
+}
+
+.home-stat-card strong {
+  font-weight: 800;
+}
+
+
+/* Different stat accents */
+
+.home-stat-card:nth-child(2)::before {
+  background: #16a34a;
+}
+
+.home-stat-card:nth-child(3)::before {
+  background: #7c3aed;
+}
+
+.home-stat-card:nth-child(4)::before {
+  background: #f59e0b;
+}
+
+.home-stat-icon {
+  transition:
+    transform 0.2s ease;
+}
+
+.home-stat-card:hover .home-stat-icon {
+  transform: scale(1.06);
+}
+
+
+/* =====================================================
+   QUICK START
+===================================================== */
+
+.home-quick-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-quick-card::after {
+  content: "";
+
+  position: absolute;
+  width: 80px;
+  height: 80px;
+
+  right: -35px;
+  bottom: -40px;
+
+  border-radius: 50%;
+
+  background: rgba(37, 99, 235, 0.04);
+
+  transition: transform 0.25s ease;
+}
+
+.home-quick-card:hover::after {
+  transform: scale(1.8);
+}
+
+.home-quick-card:hover {
+  transform: translateY(-4px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.home-quick-icon {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-quick-card:hover .home-quick-icon {
+  transform: scale(1.07);
+}
+
+.home-quick-card > b {
+  transition:
+    transform 0.2s ease;
+}
+
+.home-quick-card:hover > b {
+  transform: translateX(4px);
+}
+
+
+/* =====================================================
+   BOTTOM CARDS
+===================================================== */
+
+.home-tip,
+.home-go-progress {
+  box-shadow:
+    0 4px 15px rgba(15, 23, 42, 0.025);
+}
+
+.home-tip:hover,
+.home-go-progress:hover {
+  transform: translateY(-2px);
+
+  border-color: #d5e3f5;
+
+  box-shadow:
+    0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.home-tip-icon {
+  transition:
+    transform 0.2s ease;
+}
+
+.home-tip:hover .home-tip-icon {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.home-go-progress a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.home-go-progress a:hover {
+  text-decoration: underline;
+}
+
+
+/* =====================================================
+   PROFILE MENU POLISH
+===================================================== */
+
+.home-profile {
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-profile:hover {
+  transform: translateY(-1px);
+}
+
+.home-profile-menu {
+  transform-origin: top right;
+  animation: profileMenuIn 0.16s ease-out;
+}
+
+@keyframes profileMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.home-profile-menu a {
+  transition:
+    background-color 0.15s ease,
+    padding-left 0.15s ease;
+}
+
+.home-profile-menu a:hover {
+  padding-left: 12px;
+}
+
+
+/* =====================================================
+   STREAK CARD
+===================================================== */
+
+.home-streak {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-streak:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.home-streak-icon {
+  transition:
+    transform 0.25s ease;
+}
+
+.home-streak:hover .home-streak-icon {
+  transform: scale(1.12) rotate(-4deg);
+}
+
+
+/* =====================================================
+   DARK MODE POLISH
+===================================================== */
+
+body.dark-mode .home-stat-card:hover,
+body.dark-mode .home-quick-card:hover,
+body.dark-mode .home-tip:hover,
+body.dark-mode .home-go-progress:hover {
+  border-color: #334155;
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+body.dark-mode .home-secondary-btn:hover {
+  background: #172033;
+  border-color: #3b82f6;
+}
+
+body.dark-mode .home-stat-card::before {
+  opacity: 0;
+}
+
+body.dark-mode .home-stat-card:hover::before {
+  opacity: 1;
+}
+
+body.dark-mode .home-quick-card::after {
+  background: rgba(96, 165, 250, 0.05);
+}
+
+body.dark-mode .home-profile-menu {
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .home-streak:hover {
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+.home-page a:focus-visible,
+.home-page button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 2px;
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .home-page *,
+  .home-page *::before,
+  .home-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE POLISH
+===================================================== */
+
+@media (max-width: 750px) {
+
+  .home-hero {
+    box-shadow:
+      0 8px 22px rgba(37, 99, 235, 0.05);
+  }
+
+  .home-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .home-stat-card:hover,
+  .home-quick-card:hover,
+  .home-tip:hover,
+  .home-go-progress:hover {
+    transform: none;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .home-page {
+    padding: 14px;
+  }
+
+  .home-hero {
+    border-radius: 17px;
+    padding: 24px 20px;
+  }
+
+  .home-stat-card,
+  .home-quick-card,
+  .home-tip,
+  .home-go-progress {
+    border-radius: 12px;
+  }
+
+  .home-primary-btn,
+  .home-secondary-btn {
+    min-height: 44px;
+  }
+
+}
+/* ========================================
+   NOTIFICATION PANEL
+======================================== */
+
+.notification-panel {
+  position: absolute;
+  top: 70px;
+  right: 70px;
+  width: 340px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+}
+
+.notification-panel.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notification-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 16px;
+}
+
+.notification-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.notification-item strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.notification-item p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+/* =====================================================
+   CLEAR ALL NOTIFICATIONS BUTTON
+   ===================================================== */
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#clearNotifications {
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+#clearNotifications:hover {
+    background: #eff6ff;
+    text-decoration: underline;
+}

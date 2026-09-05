@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Progress - TypeMaster</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/progress.css">
+
+</head>
+
+
+<body>
+
+  <div class="app">
+
+
+    <!-- ================================
+       SIDEBAR
+  ================================= -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          ⌨
+        </div>
+
+        <div>
+
+          <h1>
+            TypeMaster
+          </h1>
+
+          <p>
+            Typing Platform
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+
+        <!-- FIXED LESSONS LINK -->
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+
+        <a href="progress.html" class="nav-link active">
+          <span>◒</span>
+          Progress
+        </a>
+
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- ================================
+       MAIN
+  ================================= -->
+
+    <main class="main">
+
+
+      <!-- HEADER -->
+
+      <header class="header">
+
+        <div>
+
+          <p class="date">
+            Your Progress
+          </p>
+
+          <h2>
+            Track your improvement 📊
+          </h2>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button id="themeButton" class="theme-button" type="button">
+            🌙 Dark Mode
+          </button>
+
+          <div class="avatar">
+            N
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- ================================
+         PROGRESS PAGE
+    ================================= -->
+
+      <div class="progress-page">
+
+
+        <!-- TITLE -->
+
+        <section class="progress-header">
+
+          <div>
+
+            <span class="page-badge">
+              PERFORMANCE
+            </span>
+
+            <h1>
+              My Progress
+            </h1>
+
+            <p>
+              Keep practicing and watch your typing skills improve.
+            </p>
+
+          </div>
+
+
+          <div class="progress-status">
+
+            <span class="status-dot"></span>
+
+            <span id="statusText">
+              Keep practicing
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- ================================
+           MAIN STAT CARDS
+      ================================= -->
+
+        <section class="progress-stats">
+
+
+          <div class="progress-card">
+
+            <div class="card-top">
+
+              <div class="card-icon blue">
+                📝
+              </div>
+
+              <span class="card-tag">
+                TESTS
+              </span>
+
+            </div>
+
+            <span class="card-title">
+              Total Tests
+            </span>
+
+            <strong id="totalTests">
+              0
+            </strong>
+
+            <small>
+              Completed typing tests
+            </small>
+
+          </div>
+
+
+          <div class="progress-card">
+
+            <div class="card-top">
+
+              <div class="card-icon orange">
+                ⚡
+              </div>
+
+              <span class="card-tag">
+                BEST
+              </span>
+
+            </div>
+
+            <span class="card-title">
+              Best WPM
+            </span>
+
+            <strong id="bestWpm">
+              0
+            </strong>
+
+            <small>
+              Your fastest speed
+            </small>
+
+          </div>
+
+
+          <div class="progress-card">
+
+            <div class="card-top">
+
+              <div class="card-icon purple">
+                📈
+              </div>
+
+              <span class="card-tag">
+                AVERAGE
+              </span>
+
+            </div>
+
+            <span class="card-title">
+              Average WPM
+            </span>
+
+            <strong id="averageWpm">
+              0
+            </strong>
+
+            <small>
+              Average typing speed
+            </small>
+
+          </div>
+
+
+          <div class="progress-card">
+
+            <div class="card-top">
+
+              <div class="card-icon green">
+                🎯
+              </div>
+
+              <span class="card-tag">
+                ACCURACY
+              </span>
+
+            </div>
+
+            <span class="card-title">
+              Best Accuracy
+            </span>
+
+            <strong id="bestAccuracy">
+              0%
+            </strong>
+
+            <small>
+              Highest accuracy
+            </small>
+
+          </div>
+
+
+        </section>
+        <!-- ================================================
+   DAILY CHALLENGE STATS
+================================================= -->
+
+        <section class="daily-progress-section">
+
+          <div class="daily-progress-heading">
+
+            <div>
+              <span>DAILY CHALLENGE</span>
+
+              <h2>
+                Daily Performance
+              </h2>
+
+              <p>
+                Your Daily Challenge performance at a glance.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="daily-progress-grid">
+
+
+            <!-- DAILY BEST WPM -->
+
+            <div class="daily-progress-card">
+
+              <div class="daily-progress-icon blue">
+                ⚡
+              </div>
+
+              <div>
+
+                <span>
+                  BEST DAILY WPM
+                </span>
+
+                <strong id="dailyBestWpm">
+                  0
+                </strong>
+
+                <small>
+                  Fastest Daily Challenge speed
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <!-- DAILY ACCURACY -->
+
+            <div class="daily-progress-card">
+
+              <div class="daily-progress-icon green">
+                🎯
+              </div>
+
+              <div>
+
+                <span>
+                  DAILY ACCURACY
+                </span>
+
+                <strong id="dailyAccuracy">
+                  0%
+                </strong>
+
+                <small>
+                  Best Daily Challenge accuracy
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <!-- DAILY STREAK -->
+
+            <div class="daily-progress-card">
+
+              <div class="daily-progress-icon orange">
+                🔥
+              </div>
+
+              <div>
+
+                <span>
+                  DAILY STREAK
+                </span>
+
+                <strong id="dailyStreak">
+                  0
+                </strong>
+
+                <small>
+                  Consecutive challenge days
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <!-- COMPLETED -->
+
+            <div class="daily-progress-card">
+
+              <div class="daily-progress-icon purple">
+                🏆
+              </div>
+
+              <div>
+
+                <span>
+                  CHALLENGES COMPLETED
+                </span>
+
+                <strong id="dailyCompleted">
+                  0
+                </strong>
+
+                <small>
+                  Total Daily Challenges
+                </small>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </section>
+        <!-- =================================================
+     LESSONS PROGRESS
+================================================= -->
+
+        <section class="daily-progress-section">
+
+          <div class="daily-progress-heading">
+
+            <div>
+              <span>LESSONS</span>
+
+              <h2>
+                Lessons Progress
+              </h2>
+
+              <p>
+                Track your progress across all 12 typing lessons.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="daily-stats-grid">
+
+            <div class="daily-stat-card">
+              <span class="card-title">
+                Completed Lessons
+              </span>
+
+              <strong id="lessonsCompleted">
+                0 / 12
+              </strong>
+
+              <small>
+                Lessons completed
+              </small>
+            </div>
+
+            <div class="daily-stat-card">
+              <span class="card-title">
+                Overall Progress
+              </span>
+
+              <strong id="lessonsOverallProgress">
+                0%
+              </strong>
+
+              <small>
+                Course completion
+              </small>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="progress-track">
+              <div id="lessonsProgressFill" class="progress-fill" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!-- =================================================
+     LESSON-BY-LESSON PROGRESS
+================================================= -->
+
+        <section class="lesson-breakdown-section">
+
+          <div class="daily-progress-heading">
+            <div>
+              <span>COURSE BREAKDOWN</span>
+
+              <h2>
+                Lesson Progress
+              </h2>
+
+              <p>
+                See your progress for each typing lesson.
+              </p>
+            </div>
+          </div>
+
+          <div id="lessonBreakdown" class="lesson-breakdown-grid">
+          </div>
+
+        </section>
+        <!-- ================================
+           INSIGHT CARDS
+      ================================= -->
+
+        <section class="insight-grid">
+
+
+          <div class="insight-card">
+
+            <div class="insight-icon">
+              🚀
+            </div>
+
+            <div>
+
+              <span>
+                WPM IMPROVEMENT
+              </span>
+
+              <strong id="wpmImprovement">
+                +0%
+              </strong>
+
+              <small id="wpmImprovementText">
+                Start your journey
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="insight-card">
+
+            <div class="insight-icon">
+              🎯
+            </div>
+
+            <div>
+
+              <span>
+                ACCURACY IMPROVEMENT
+              </span>
+
+              <strong id="accuracyImprovement">
+                +0%
+              </strong>
+
+              <small id="accuracyImprovementText">
+                Keep practicing
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="insight-card">
+
+            <div class="insight-icon">
+              🔥
+            </div>
+
+            <div>
+
+              <span>
+                PRACTICE STREAK
+              </span>
+
+              <strong id="streak">
+                0 days
+              </strong>
+
+              <small>
+                Keep your momentum going
+              </small>
+
+            </div>
+
+          </div>
+
+
+        </section>
+
+
+        <!-- ================================
+           CHARTS
+      ================================= -->
+
+        <section class="charts-section">
+
+
+          <!-- WPM -->
+
+          <div class="chart-card">
+
+            <div class="chart-header">
+
+              <div>
+
+                <span class="chart-label">
+                  PERFORMANCE
+                </span>
+
+                <h2>
+                  WPM Progress
+                </h2>
+
+                <p>
+                  Your typing speed over recent tests
+                </p>
+
+              </div>
+
+
+              <div class="chart-icon">
+                ⚡
+              </div>
+
+            </div>
+
+
+            <div class="chart-wrapper">
+
+              <canvas id="wpmChart"></canvas>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACCURACY -->
+
+          <div class="chart-card">
+
+            <div class="chart-header">
+
+              <div>
+
+                <span class="chart-label green-label">
+                  ACCURACY
+                </span>
+
+                <h2>
+                  Accuracy Progress
+                </h2>
+
+                <p>
+                  How accurately you type
+                </p>
+
+              </div>
+
+
+              <div class="chart-icon green-icon">
+                🎯
+              </div>
+
+            </div>
+
+
+            <div class="chart-wrapper">
+
+              <canvas id="accuracyChart"></canvas>
+
+            </div>
+
+          </div>
+
+
+        </section>
+
+
+        <!-- ================================
+           RECENT TESTS
+      ================================= -->
+
+        <section class="history-box">
+
+
+          <div class="history-header">
+
+            <div>
+
+              <span class="chart-label">
+                ACTIVITY
+              </span>
+
+              <h2>
+                Recent Tests
+              </h2>
+
+              <p>
+                Your latest typing test results
+              </p>
+
+            </div>
+
+
+            <button id="clearHistory" class="clear-button" type="button">
+              🗑 Clear History
+            </button>
+
+          </div>
+
+
+          <div id="historyContainer">
+
+            <div class="empty">
+
+              <div class="empty-icon">
+                📝
+              </div>
+
+              <strong>
+                No tests completed yet
+              </strong>
+
+              <p>
+                Complete your first typing test to start tracking progress.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </section>
+
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="Js/app.js"></script>
+
+  <script src="Js/progress.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Daily Challenge | TypeMaster</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/dailychallenge.css">
+</head>
+
+<body>
+
+  <!-- =========================================
+       SIDEBAR
+  ========================================== -->
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        ⌨
+      </div>
+
+      <div>
+        <h1>TypeMaster</h1>
+        <p>Typing Platform</p>
+      </div>
+
+    </div>
+
+
+    <nav class="navigation">
+
+      <a href="index.html" class="nav-link">
+        <span>⌂</span>
+        Home
+      </a>
+
+
+      <a href="practice.html" class="nav-link">
+        <span>⌨</span>
+        Practice
+      </a>
+
+
+      <a href="typing-test.html" class="nav-link">
+        <span>◉</span>
+        Typing Test
+      </a>
+
+
+      <a href="lessons.html" class="nav-link">
+        <span>▣</span>
+        Lessons
+      </a>
+
+
+      <a href="dailychallenge.html" class="nav-link active">
+        <span>⚡</span>
+        Daily Challenge
+      </a>
+
+
+      <a href="leaderboard.html" class="nav-link">
+        <span>🏆</span>
+        Leaderboard
+      </a>
+
+
+      <a href="progress.html" class="nav-link">
+        <span>◒</span>
+        Progress
+      </a>
+
+
+      <a href="profile.html" class="nav-link">
+        <span>♙</span>
+        Profile
+      </a>
+
+
+      <a href="settings.html" class="nav-link">
+        <span>⚙</span>
+        Settings
+      </a>
+
+    </nav>
+
+
+    <div class="home-streak">
+
+      <div class="home-streak-icon">
+        🔥
+      </div>
+
+      <div>
+
+        <small>Current Streak</small>
+
+        <strong id="sidebarStreak">0 Days</strong>
+
+        <p>Keep practicing!</p>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
+  <main class="daily-main">
+
+    <!-- HEADER -->
+
+    <header class="daily-header">
+
+      <div>
+
+        <span class="daily-eyebrow">
+          DAILY CHALLENGE
+        </span>
+
+        <h1>
+          Today's Typing Challenge
+        </h1>
+
+        <p>
+          Test your speed and accuracy with a new
+          challenge every day.
+        </p>
+
+      </div>
+
+
+      <div class="daily-header-actions">
+
+        <button id="themeButton" class="theme-button" type="button">
+          🌙 Dark Mode
+        </button>
+
+        <div class="avatar" id="dailyProfileAvatar"></div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =======================================
+         CHALLENGE CARD
+    ======================================== -->
+
+    <section id="dailyChallenge" class="daily-challenge-card">
+
+      <!-- TOP INFO -->
+
+      <div class="daily-top-info">
+
+        <div class="daily-date">
+
+          <span>
+            TODAY
+          </span>
+
+          <strong id="challengeDate">
+            Loading...
+          </strong>
+
+        </div>
+
+
+        <div class="daily-streak">
+
+          <span>
+            🔥 STREAK
+          </span>
+
+          <strong id="streakValue">
+            0 days
+          </strong>
+
+        </div>
+
+
+        <div class="daily-best">
+
+          <span>
+            BEST
+          </span>
+
+          <strong id="bestWpm">
+            0 WPM
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================
+           START SCREEN
+      ====================================== -->
+
+      <div id="dailyStartScreen" class="daily-start-screen">
+
+        <div class="daily-icon">
+          ⚡
+        </div>
+
+        <h2>
+          Ready for today's challenge?
+        </h2>
+
+        <p>
+          Type the text as quickly and accurately
+          as you can.
+        </p>
+
+        <div class="challenge-rules">
+
+          <div>
+            <strong>
+              60
+            </strong>
+
+            <span>
+              Seconds
+            </span>
+          </div>
+
+          <div>
+            <strong>
+              1
+            </strong>
+
+            <span>
+              Challenge
+            </span>
+          </div>
+
+          <div>
+            <strong>
+              WPM
+            </strong>
+
+            <span>
+              Scored
+            </span>
+          </div>
+
+        </div>
+
+
+        <button id="startDailyButton" class="start-daily-button" type="button">
+          Start Challenge →
+        </button>
+        <div id="dailyCompletedBadge" class="daily-completed-badge hidden">
+          ✓ Completed Today
+        </div>
+      </div>
+
+      <!-- =====================================
+           TYPING SCREEN
+      ====================================== -->
+
+      <div id="dailyTypingScreen" class="daily-typing-screen hidden">
+
+        <!-- STATS -->
+
+        <div class="daily-stats">
+
+          <div class="daily-stat">
+
+            <span>
+              TIME
+            </span>
+
+            <strong id="dailyTimer">
+              01:00
+            </strong>
+
+          </div>
+
+
+          <div class="daily-stat">
+
+            <span>
+              WPM
+            </span>
+
+            <strong id="dailyWpm">
+              0
+            </strong>
+
+          </div>
+
+
+          <div class="daily-stat">
+
+            <span>
+              ACCURACY
+            </span>
+
+            <strong id="dailyAccuracy">
+              100%
+            </strong>
+
+          </div>
+
+
+          <div class="daily-stat">
+
+            <span>
+              MISTAKES
+            </span>
+
+            <strong id="dailyMistakes">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- TEXT -->
+
+        <div class="daily-text-wrapper">
+
+          <div id="dailyText" class="daily-text"></div>
+
+        </div>
+
+
+        <!-- INPUT -->
+
+        <textarea id="dailyInput" class="daily-input" placeholder="Start typing here..." autocomplete="off"
+          autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+
+
+        <div id="dailyMessage" class="daily-message">
+          Start typing to begin the challenge.
+        </div>
+
+      </div>
+
+
+      <!-- =====================================
+           RESULT SCREEN
+      ====================================== -->
+
+      <div id="dailyResultScreen" class="daily-result-screen hidden">
+
+        <div class="result-icon">
+          🏆
+        </div>
+
+        <h2>
+          Challenge Complete!
+        </h2>
+
+        <p>
+          Great job! Here is your result.
+        </p>
+
+
+        <div class="result-stats">
+
+          <div>
+            <span>
+              WPM
+            </span>
+
+            <strong id="resultWpm">
+              0
+            </strong>
+          </div>
+
+
+          <div>
+            <span>
+              ACCURACY
+            </span>
+
+            <strong id="resultAccuracy">
+              0%
+            </strong>
+          </div>
+
+
+          <div>
+            <span>
+              MISTAKES
+            </span>
+
+            <strong id="resultMistakes">
+              0
+            </strong>
+          </div>
+
+
+          <div>
+            <span>
+              SCORE
+            </span>
+
+            <strong id="resultScore">
+              0
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div id="resultMessage" class="result-message"></div>
+
+
+        <button id="tryAgainButton" class="try-again-button" type="button">
+          Try Again
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         DAILY INFO
+    ======================================== -->
+
+    <section class="daily-info-grid">
+
+      <div class="daily-info-card">
+
+        <div class="info-icon">
+          🔥
+        </div>
+
+        <div>
+
+          <h3>
+            Keep your streak
+          </h3>
+
+          <p>
+            Complete today's challenge to
+            maintain your daily streak.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="daily-info-card">
+
+        <div class="info-icon">
+          🎯
+        </div>
+
+        <div>
+
+          <h3>
+            Improve every day
+          </h3>
+
+          <p>
+            Focus on accuracy first, then
+            gradually increase your speed.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="daily-info-card">
+
+        <div class="info-icon">
+          🏆
+        </div>
+
+        <div>
+
+          <h3>
+            Beat your best
+          </h3>
+
+          <p>
+            Your best daily WPM is saved
+            automatically.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- DAILY CHALLENGE HISTORY -->
+
+    <section class="daily-history-section">
+
+      <div class="daily-history-heading">
+
+        <div>
+          <span>HISTORY</span>
+          <h2>Recent Challenges</h2>
+        </div>
+
+        <button id="clearDailyHistory" type="button" class="clear-history-button">
+          Clear History
+        </button>
+
+      </div>
+
+
+      <div id="dailyHistoryList" class="daily-history-list">
+
+        <div class="daily-history-empty">
+          No challenge history yet.
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+
+  <script src="Js/app.js"></script>
+  <script src="Js/dailychallenge.js"></script>
+</body>
+
+</html>

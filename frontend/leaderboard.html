@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TypeMaster - Leaderboard</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/leaderboard.css">
+
+</head>
+
+
+<body>
+
+  <div class="app">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          ⌨
+        </div>
+
+        <div>
+
+          <h1>
+            TypeMaster
+          </h1>
+
+          <p>
+            Typing Platform
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+
+        <a href="practice.html" class="nav-link">
+          <span>⌨</span>
+          Practice
+        </a>
+
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+
+        <a href="leaderboard.html" class="nav-link active">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+
+      <div class="home-streak">
+
+        <div class="home-streak-icon">
+          🔥
+        </div>
+
+        <div>
+
+          <small>
+            Current Streak
+          </small>
+
+          <strong id="sidebarStreak">0 Days</strong>
+
+          <p>
+            Keep practicing!
+          </p>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="main">
+
+
+      <!-- HEADER -->
+
+      <header class="header">
+
+        <div>
+
+          <p class="date">
+            Compete & improve 🏆
+          </p>
+
+          <h2>
+            Typing Leaderboard
+          </h2>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button id="themeButton" class="theme-button" type="button">
+            🌙 Dark Mode
+          </button>
+
+
+          <button class="home-notification" type="button">
+            🔔
+            <span>2</span>
+          </button>
+
+
+          <div class="avatar" id="leaderboardProfileAvatar"></div>
+
+          <div id="profileMenu" class="home-profile-menu">
+
+            <div class="home-profile-top">
+
+              <div id="leaderboardMenuAvatar" class="home-large-avatar">
+                N
+              </div>
+
+              <div>
+
+                <strong id="leaderboardMenuUserName">
+                  Neel
+                </strong>
+
+                <small>
+                  Typing enthusiast
+                </small>
+
+              </div>
+
+            </div>
+
+            <hr>
+
+            <a href="#">
+              👤 Profile
+            </a>
+
+            <a href="#">
+              🏅 Achievements
+            </a>
+
+            <a href="#">
+              ⚙ Settings
+            </a>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- =========================================
+           LEADERBOARD PAGE
+      ========================================== -->
+
+      <div class="leaderboard-page">
+
+
+        <!-- TITLE -->
+
+        <section class="leaderboard-hero">
+
+          <span>
+            TYPEMASTER
+          </span>
+
+          <h1>
+            Global Leaderboard
+          </h1>
+
+          <p>
+            See how your typing speed compares
+            with other players.
+          </p>
+
+        </section>
+
+
+        <!-- FILTERS -->
+
+        <section class="leaderboard-filters">
+
+          <button class="leaderboard-filter active" data-board="wpm" type="button">
+            ⚡ Speed
+          </button>
+
+
+          <button class="leaderboard-filter" data-board="accuracy" type="button">
+            🎯 Accuracy
+          </button>
+
+
+          <button class="leaderboard-filter" data-board="daily" type="button">
+            🔥 Daily Challenge
+          </button>
+
+        </section>
+
+
+        <!-- TOP THREE -->
+
+        <section class="leaderboard-podium">
+
+          <div class="podium-card second">
+
+            <div class="podium-rank">
+              2
+            </div>
+
+            <div class="podium-avatar" id="podiumSecondAvatar">
+              —
+            </div>
+            <strong id="podiumSecondName">
+              —
+            </strong>
+            <span id="podiumSecondScore">
+              —
+            </span>
+
+          </div>
+
+
+          <div class="podium-card first">
+
+            <div class="podium-rank">
+              1
+            </div>
+
+            <div class="podium-avatar" id="podiumFirstAvatar">
+              —
+            </div>
+            <strong id="podiumFirstName">
+              —
+            </strong>
+            <span id="podiumFirstScore">
+              —
+            </span>
+          </div>
+
+
+          <div class="podium-card third">
+
+            <div class="podium-rank">
+              3
+            </div>
+
+            <div class="podium-avatar" id="podiumThirdAvatar">
+              —
+            </div>
+
+            <strong id="podiumThirdName">
+              —
+            </strong>
+
+            <span id="podiumThirdScore">
+              —
+            </span>
+          </div>
+
+        </section>
+
+
+        <!-- LEADERBOARD LIST -->
+
+        <section class="leaderboard-list-section">
+
+          <div class="leaderboard-list-heading">
+
+            <div>
+
+              <span>
+                TOP PLAYERS
+              </span>
+
+              <h2>
+                Rankings
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div id="leaderboardList" class="leaderboard-list">
+
+            <!-- JS DATA WILL APPEAR HERE -->
+
+          </div>
+
+        </section>
+
+
+        <!-- YOUR RANK -->
+
+        <section class="your-rank-card">
+
+          <div class="your-rank-icon">
+            🏆
+          </div>
+
+          <div>
+
+            <span>
+              YOUR CURRENT RANK
+            </span>
+
+            <strong id="yourRank">
+              —
+            </strong>
+
+          </div>
+
+          <div class="your-rank-score">
+
+            <span id="yourBestLabel">BEST WPM</span>
+
+            <strong id="yourBestWpm">
+              0
+            </strong>
+
+          </div>
+
+        </section>
+
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="Js/app.js"></script>
+
+  <script src="Js/leaderboard.js"></script>
+
+</body>
+
+</html>

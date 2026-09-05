@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Practice - TypeMaster</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/practice.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="brand-icon">⌨</div>
+
+        <div>
+          <h1>TypeMaster</h1>
+          <p>Typing Platform</p>
+        </div>
+      </div>
+
+      <nav class="navigation">
+
+        <a href="index.html" class="nav-link">
+          <span>⌂</span>
+          Home
+        </a>
+
+        <a href="practice.html" class="nav-link active">
+          <span>⌨</span>
+          Practice
+        </a>
+
+        <a href="typing-test.html" class="nav-link">
+          <span>◉</span>
+          Typing Test
+        </a>
+
+        <a href="lessons.html" class="nav-link">
+          <span>▣</span>
+          Lessons
+        </a>
+
+        <a href="dailychallenge.html" class="nav-link">
+          <span>⚡</span>
+          Daily Challenge
+        </a>
+
+        <a href="leaderboard.html" class="nav-link">
+          <span>🏆</span>
+          Leaderboard
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <span>◒</span>
+          Progress
+        </a>
+
+        <a href="profile.html" class="nav-link">
+          <span>♙</span>
+          Profile
+        </a>
+
+        <a href="settings.html" class="nav-link">
+          <span>⚙</span>
+          Settings
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HEADER -->
+      <header class="header">
+
+        <div>
+          <p class="date">Practice</p>
+
+          <h2>
+            Improve your typing ⌨
+          </h2>
+        </div>
+
+        <div class="header-actions">
+
+          <button
+            id="themeButton"
+            class="theme-button"
+            type="button">
+            🌙 Dark Mode
+          </button>
+
+          <div class="avatar">N</div>
+
+        </div>
+
+      </header>
+
+
+      <!-- PAGE -->
+      <div class="practice-page">
+
+        <div class="practice-header">
+
+          <div>
+
+            <span class="eyebrow">
+              TYPING PRACTICE
+            </span>
+
+            <h1>
+              Choose a practice text
+            </h1>
+
+            <p>
+              Select a passage and practice your typing speed and accuracy.
+            </p>
+
+          </div>
+
+          <div class="practice-status">
+            ● Ready to practice
+          </div>
+
+        </div>
+
+
+        <!-- DURATION -->
+        <section class="duration-box">
+
+          <div class="duration-title">
+            Test Duration
+          </div>
+
+          <div class="duration-buttons">
+
+            <button type="button" data-duration="1">
+              1 Minute
+            </button>
+
+            <button type="button" data-duration="2">
+              2 Minutes
+            </button>
+
+            <button type="button" data-duration="3">
+              3 Minutes
+            </button>
+
+            <button type="button" data-duration="5">
+              5 Minutes
+            </button>
+
+            <button type="button" data-duration="10">
+              10 Minutes
+            </button>
+
+            <button type="button" data-duration="15">
+              15 Minutes
+            </button>
+
+            <button type="button" data-duration="20">
+              20 Minutes
+            </button>
+
+            <button type="button" data-duration="30">
+              30 Minutes
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- PRACTICE CARDS -->
+        <section class="practice-grid">
+
+          <article
+            class="practice-card"
+            data-id="journey"
+            tabindex="0">
+
+            <div class="card-icon">📖</div>
+
+            <h2>
+              A Journey Through Learning
+            </h2>
+
+            <p>
+              Improve your typing with a passage about learning,
+              patience, practice, and progress.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+
+          <article
+            class="practice-card"
+            data-id="habits"
+            tabindex="0">
+
+            <div class="card-icon">🌱</div>
+
+            <h2>
+              Building Better Habits
+            </h2>
+
+            <p>
+              Learn how small daily habits can create meaningful improvement.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+
+          <article
+            class="practice-card"
+            data-id="technology"
+            tabindex="0">
+
+            <div class="card-icon">💻</div>
+
+            <h2>
+              The Future of Technology
+            </h2>
+
+            <p>
+              Practice typing with a passage about technology
+              and the digital world.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+
+          <article
+            class="practice-card"
+            data-id="daily"
+            tabindex="0">
+
+            <div class="card-icon">🎯</div>
+
+            <h2>
+              Power of Daily Practice
+            </h2>
+
+            <p>
+              A focused passage about consistency,
+              accuracy, and daily improvement.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+
+          <article
+            class="practice-card"
+            data-id="places"
+            tabindex="0">
+
+            <div class="card-icon">🌎</div>
+
+            <h2>
+              Discovering New Places
+            </h2>
+
+            <p>
+              Improve your typing while exploring travel,
+              places, and different cultures.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+
+          <article
+            class="practice-card"
+            data-id="future"
+            tabindex="0">
+
+            <div class="card-icon">🚀</div>
+
+            <h2>
+              A Bright Future
+            </h2>
+
+            <p>
+              Practice typing with a passage about education,
+              goals, confidence, and success.
+            </p>
+
+            <div class="card-meta">
+              <span>📝 Practice</span>
+              <span>◷ Typing</span>
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- SELECTED PRACTICE -->
+        <section
+          id="selectedTextSection"
+          class="selected-text-section">
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+<script src="Js/app.js"></script>
+<script src="Js/practice.js"></script>
+
+
+</body>
+
+</html>
