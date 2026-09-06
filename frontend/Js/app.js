@@ -203,7 +203,7 @@ async function loadCommonProfile() {
 
     const response =
       await fetch(
-        `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`
+        `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`
       );
 
 
@@ -534,7 +534,7 @@ async function loadCommonStreak() {
 
     const response =
       await fetch(
-        `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`
+        `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`
       );
 
     const data =

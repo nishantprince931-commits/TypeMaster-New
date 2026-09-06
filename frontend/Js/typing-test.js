@@ -747,7 +747,7 @@ async function saveResultForProgress(stats) {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/typing-test/save",
+      "https://typemaster-backend-01.onrender.com/api/typing-test/save",
       {
         method: "POST",
 

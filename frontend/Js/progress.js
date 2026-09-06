@@ -27,7 +27,7 @@ async function loadHistory() {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/typing-test/history/${encodeURIComponent(userId)}`
+      `https://typemaster-backend-01.onrender.com/api/typing-test/history/${encodeURIComponent(userId)}`
     );
 
 
@@ -1287,7 +1287,7 @@ if (clearHistoryButton) {
 
         const response =
           await fetch(
-            `http://localhost:5000/api/typing-test/history/${encodeURIComponent(userId)}`,
+            `https://typemaster-backend-01.onrender.com/api/typing-test/history/${encodeURIComponent(userId)}`,
             {
               method: "DELETE"
             }
@@ -1371,7 +1371,7 @@ async function loadLessonsProgress() {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/lessons/progress/${encodeURIComponent(userId)}`
+      `https://typemaster-backend-01.onrender.com/api/lessons/progress/${encodeURIComponent(userId)}`
     );
 
     const data = await response.json();
@@ -1586,7 +1586,7 @@ async function loadDailyChallengeHistory() {
 
     const response =
       await fetch(
-        `http://localhost:5000/api/daily-challenge/history/${encodeURIComponent(userId)}`
+        `https://typemaster-backend-01.onrender.com/api/daily-challenge/history/${encodeURIComponent(userId)}`
       );
 
 

@@ -25,7 +25,7 @@ async function loadDbAchievements() {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/achievements/${encodeURIComponent(userId)}`
+      `https://typemaster-backend-01.onrender.com/api/achievements/${encodeURIComponent(userId)}`
     );
 
     const data = await response.json();
@@ -66,7 +66,7 @@ async function loadDbTypingHistory() {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/typing-test/history/${encodeURIComponent(userId)}`
+      `https://typemaster-backend-01.onrender.com/api/typing-test/history/${encodeURIComponent(userId)}`
     );
 
     const data = await response.json();
@@ -133,7 +133,7 @@ async function loadDbProfile() {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`
+      `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`
     );
 
     const data = await response.json();
@@ -859,7 +859,7 @@ document.addEventListener(
 
               const response =
                 await fetch(
-                  `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`,
+                  `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`,
                   {
                     method: "PUT",
                     headers: {

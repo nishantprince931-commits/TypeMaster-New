@@ -24,15 +24,15 @@ async function loadDbLeaderboards() {
     ] = await Promise.all([
 
       fetch(
-        "http://localhost:5000/api/typing-test/leaderboard"
+        "https://typemaster-backend-01.onrender.com/api/typing-test/leaderboard"
       ),
 
       fetch(
-        "http://localhost:5000/api/typing-test/accuracy-leaderboard"
+        "https://typemaster-backend-01.onrender.com/api/typing-test/accuracy-leaderboard"
       ),
 
       fetch(
-        "http://localhost:5000/api/typing-test/daily-leaderboard"
+        "https://typemaster-backend-01.onrender.com/api/typing-test/daily-leaderboard"
       )
 
     ]);
@@ -671,7 +671,7 @@ async function loadLeaderboardProfile() {
 
     const response =
       await fetch(
-        `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`
+        `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`
       );
 
     const data =

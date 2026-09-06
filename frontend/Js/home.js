@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const response =
             await fetch(
-              `http://localhost:5000/api/notifications/${encodeURIComponent(userId)}`,
+              `https://typemaster-backend-01.onrender.com/api/notifications/${encodeURIComponent(userId)}`,
               {
                 method: "DELETE"
               }
@@ -385,7 +385,7 @@ document.addEventListener(
 
     const response =
       await fetch(
-        `http://localhost:5000/api/auth/profile/${encodeURIComponent(userId)}`
+        `https://typemaster-backend-01.onrender.com/api/auth/profile/${encodeURIComponent(userId)}`
       );
 
     const data =

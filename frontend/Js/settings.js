@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const response =
         await fetch(
-          `http://localhost:5000/api/auth/settings/${encodeURIComponent(userId)}`
+          `https://typemaster-backend-01.onrender.com/api/auth/settings/${encodeURIComponent(userId)}`
         );
 
       const data =
@@ -722,7 +722,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const response =
           await fetch(
-            `http://localhost:5000/api/auth/settings/${encodeURIComponent(userId)}`,
+            `https://typemaster-backend-01.onrender.com/api/auth/settings/${encodeURIComponent(userId)}`,
             {
               method: "PUT",
               headers: {
@@ -944,7 +944,7 @@ if (resetButton) {
       if (userId) {
 
         const response = await fetch(
-          `http://localhost:5000/api/auth/settings/${encodeURIComponent(userId)}`,
+          `https://typemaster-backend-01.onrender.com/api/auth/settings/${encodeURIComponent(userId)}`,
           {
             method: "PUT",
             headers: {
@@ -1059,7 +1059,7 @@ if (resetButton) {
 
           const response =
             await fetch(
-              `http://localhost:5000/api/typing-test/history/${encodeURIComponent(userId)}`,
+              `https://typemaster-backend-01.onrender.com/api/typing-test/history/${encodeURIComponent(userId)}`,
               {
                 method: "DELETE"
               }
@@ -1140,7 +1140,7 @@ if (resetButton) {
 
           const response =
             await fetch(
-              `http://localhost:5000/api/lessons/progress/${encodeURIComponent(userId)}`,
+              `https://typemaster-backend-01.onrender.com/api/lessons/progress/${encodeURIComponent(userId)}`,
               {
                 method: "DELETE"
               }
@@ -1220,7 +1220,7 @@ if (resetButton) {
 
           const response =
             await fetch(
-              `http://localhost:5000/api/typing-test/clear-all/${encodeURIComponent(userId)}`,
+              `https://typemaster-backend-01.onrender.com/api/typing-test/clear-all/${encodeURIComponent(userId)}`,
               {
                 method: "DELETE"
               }

@@ -9,7 +9,7 @@
 // =====================================================
 
 const DAILY_API_BASE =
-    "http://localhost:5000/api/daily-challenge";
+    "https://typemaster-backend-01.onrender.com/api/daily-challenge";
 
 
 // =====================================================
@@ -827,7 +827,7 @@ async function clearDailyHistoryFromDB() {
 
         const response =
             await fetch(
-                `http://localhost:5000/api/daily-challenge/history/${encodeURIComponent(userId)}`,
+                `https://typemaster-backend-01.onrender.com/api/daily-challenge/history/${encodeURIComponent(userId)}`,
                 {
                     method: "DELETE"
                 }
