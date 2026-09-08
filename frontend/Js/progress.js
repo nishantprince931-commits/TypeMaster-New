@@ -44,29 +44,38 @@ async function loadHistory() {
     }
 
 
-    testHistory =
-      Array.isArray(data.history)
-        ? data.history.map((item) => ({
+testHistory =
+  Array.isArray(data.history)
+    ? data.history.map((item) => ({
 
-            title: "Typing Test",
+        title: "Typing Test",
 
-            wpm:
-              Number(item.wpm) || 0,
+        wpm:
+          Number(item.wpm) || 0,
 
-            accuracy:
-              Number(item.accuracy) || 0,
+        accuracy:
+          Number(item.accuracy) || 0,
 
-            mistakes:
-              Number(item.wrongCharacters) || 0,
+        mistakes:
+          Number(item.wrongCharacters) || 0,
 
-            duration:
-              Number(item.durationSeconds) || 0,
+        duration:
+          Number(item.durationSeconds) || 0,
 
-            date:
-              item.createdAt
+        correctCharacters:
+          Number(item.correctCharacters) || 0,
 
-          }))
-        : [];
+        wrongCharacters:
+          Number(item.wrongCharacters) || 0,
+
+        text: 
+        item.typingText || item.text || "",
+
+        date:
+          item.createdAt
+
+      }))
+    : [];
 
 
   } catch (error) {
@@ -185,6 +194,36 @@ function getDate(test) {
 
 
   return date;
+
+}
+function formatHistoryDate(value) {
+
+  if (!value) {
+    return "Completed";
+  }
+
+  const date =
+    new Date(value);
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return "Completed";
+  }
+
+  return date.toLocaleString(
+    undefined,
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    }
+  );
 
 }
 
@@ -597,9 +636,8 @@ function renderHistory() {
           </strong>
 
           <span>
-            ${test.date || "Completed"}
+            ${formatHistoryDate(test.date)} • ${Math.round((Number(test.duration) || 0) / 60)} min
           </span>
-
         </div>
 
 
@@ -644,7 +682,13 @@ function renderHistory() {
           </div>
 
         </div>
-
+        <button
+           class="history-print-button"
+           type="button"
+          onclick="printHistoryTest(${index})"
+           >
+           🖨️ Print
+           </button>
       `;
 
 
@@ -656,8 +700,408 @@ function renderHistory() {
   );
 
 }
+function printHistoryTest(index) {
+
+  const recent =
+    [...testHistory]
+      .reverse()
+      .slice(0, 10);
+
+  const test = recent[index];
+  const savedProfile = localStorage.getItem("typemaster-profile");
+
+let userName = "TypeMaster User";
+
+if (savedProfile) {
+  try {
+    const profile = JSON.parse(savedProfile);
+
+    if (profile?.name) {
+      userName = profile.name;
+    }
+  } catch (error) {
+    console.error("Could not load profile name:", error);
+  }
+}
+
+  if (!test) {
+    return;
+  }
+
+  const printWindow =
+    window.open("", "_blank");
+
+  if (!printWindow) {
+    alert("Please allow pop-ups to print the report.");
+    return;
+  }
+
+  const duration =
+    Math.round(
+      (Number(test.duration) || 0) / 60
+    );
+
+  const wpm =
+    getWpm(test);
+
+  const accuracy =
+    getAccuracy(test);
+
+  const mistakes =
+    Number(test.mistakes) || 0;
+
+  const correctCharacters =
+    Number(test.correctCharacters) || 0;
+
+  const wrongCharacters =
+    Number(test.wrongCharacters) || mistakes;
+
+  const totalCharacters =
+    correctCharacters + wrongCharacters;
+
+  printWindow.document.write(`
+
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+      <meta charset="UTF-8">
+
+      <title>
+        TypeMaster - Typing Test Report
+      </title>
+
+      <style>
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 40px;
+          background: #f8fafc;
+          font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+          color: #0f172a;
+        }
+
+        .report {
+          max-width: 900px;
+          margin: 0 auto;
+          background: white;
+          border-radius: 18px;
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+        }
+
+        .header {
+          padding: 30px 35px;
+          border-bottom: 1px solid #e2e8f0;
+        }
+
+        .brand {
+          font-size: 28px;
+          font-weight: 800;
+          margin-bottom: 6px;
+        }
+
+        .subtitle {
+          font-size: 14px;
+          color: #64748b;
+        }
+
+        .test-title {
+          margin-top: 25px;
+          font-size: 22px;
+          font-weight: 700;
+        }
+
+        .date {
+          margin-top: 7px;
+          font-size: 13px;
+          color: #64748b;
+        }
+
+        .content {
+          padding: 30px 35px;
+        }
+
+        .section-title {
+          font-size: 15px;
+          font-weight: 700;
+          margin-bottom: 15px;
+        }
+
+        .stats {
+          display: grid;
+          grid-template-columns:
+            repeat(4, 1fr);
+          gap: 14px;
+          margin-bottom: 30px;
+        }
+
+        .stat {
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 18px;
+        }
+
+        .stat-label {
+          font-size: 11px;
+          font-weight: 700;
+          color: #64748b;
+          letter-spacing: 0.5px;
+          margin-bottom: 8px;
+        }
+
+        .stat-value {
+          font-size: 25px;
+          font-weight: 800;
+        }
+
+        .details {
+          display: grid;
+          grid-template-columns:
+            repeat(3, 1fr);
+          gap: 14px;
+          margin-bottom: 30px;
+        }
+
+        .detail {
+          background: #f8fafc;
+          border-radius: 10px;
+          padding: 15px;
+        }
+
+        .detail-label {
+          font-size: 11px;
+          color: #64748b;
+          margin-bottom: 5px;
+        }
+
+        .detail-value {
+          font-size: 17px;
+          font-weight: 700;
+        }
+
+        .typing-box {
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 22px;
+          line-height: 1.8;
+          font-size: 15px;
+          white-space: pre-wrap;
+          color: #334155;
+        }
+
+        .footer {
+          padding: 20px 35px;
+          border-top: 1px solid #e2e8f0;
+          font-size: 12px;
+          color: #64748b;
+          text-align: center;
+        }
+
+        @media print {
+
+          body {
+            padding: 0;
+            background: white;
+          }
+
+          .report {
+            border: none;
+            border-radius: 0;
+            max-width: none;
+          }
+
+        }
+
+      </style>
+
+    </head>
+
+    <body>
+
+      <div class="report">
+
+        <div class="header">
+
+          <div class="brand">
+            TypeMaster
+          </div>
+
+          <div class="subtitle">
+            Professional Typing Test Report
+          </div>
+
+           <div class="test-title">
+             Typing Test Results
+           </div>
+
+           <div class="user-name">
+             ${userName}
+           </div>
+
+           <div class="date">
+            ${formatHistoryDate(test.date)}
+          </div>
+
+        </div>
 
 
+        <div class="content">
+
+          <div class="section-title">
+            PERFORMANCE
+          </div>
+
+
+          <div class="stats">
+
+            <div class="stat">
+
+              <div class="stat-label">
+                WPM
+              </div>
+
+              <div class="stat-value">
+                ${wpm}
+              </div>
+
+            </div>
+
+
+            <div class="stat">
+
+              <div class="stat-label">
+                ACCURACY
+              </div>
+
+              <div class="stat-value">
+                ${accuracy}%
+              </div>
+
+            </div>
+
+
+            <div class="stat">
+
+              <div class="stat-label">
+                TEST DURATION
+              </div>
+
+              <div class="stat-value">
+                ${duration} min
+              </div>
+
+            </div>
+
+
+            <div class="stat">
+
+              <div class="stat-label">
+                MISTAKES
+              </div>
+
+              <div class="stat-value">
+                ${mistakes}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="section-title">
+            TEST DETAILS
+          </div>
+
+
+          <div class="details">
+
+            <div class="detail">
+
+              <div class="detail-label">
+                CORRECT CHARACTERS
+              </div>
+
+              <div class="detail-value">
+                ${correctCharacters}
+              </div>
+
+            </div>
+
+
+            <div class="detail">
+
+              <div class="detail-label">
+                WRONG CHARACTERS
+              </div>
+
+              <div class="detail-value">
+                ${wrongCharacters}
+              </div>
+
+            </div>
+
+
+            <div class="detail">
+
+              <div class="detail-label">
+                TOTAL CHARACTERS
+              </div>
+
+              <div class="detail-value">
+                ${totalCharacters}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="section-title">
+            TYPING TEXT
+          </div>
+
+
+          <div class="typing-box">
+            ${test.text || "Typing test text is not available in saved history."}
+          </div>
+
+        </div>
+
+
+        <div class="footer">
+          Generated by TypeMaster
+        </div>
+
+      </div>
+
+    </body>
+
+    </html>
+
+  `);
+
+  printWindow.document.close();
+
+  printWindow.focus();
+
+  setTimeout(
+    () => {
+      printWindow.print();
+    },
+    300
+  );
+
+}
 // ========================================
 // MODERN CHART
 // ========================================
@@ -1455,9 +1899,9 @@ function updateLessonsProgress() {
 
     const progress = lesson
       ? Math.max(
-          0,
-          Math.min(100, Number(lesson.progress) || 0)
-        )
+        0,
+        Math.min(100, Number(lesson.progress) || 0)
+      )
       : 0;
 
     const completed =
@@ -1473,21 +1917,19 @@ function updateLessonsProgress() {
       <div class="lesson-breakdown-top">
 
         <div class="lesson-breakdown-number">
-          ${
-            completed
-              ? "✓"
-              : String(lessonNumber).padStart(2, "0")
-          }
+          ${completed
+        ? "✓"
+        : String(lessonNumber).padStart(2, "0")
+      }
         </div>
 
         <span class="lesson-breakdown-status">
-          ${
-            completed
-              ? "Completed"
-              : progress > 0
-                ? "In Progress"
-                : "Not Started"
-          }
+          ${completed
+        ? "Completed"
+        : progress > 0
+          ? "In Progress"
+          : "Not Started"
+      }
         </span>
 
       </div>
@@ -1497,13 +1939,12 @@ function updateLessonsProgress() {
       </span>
 
       <span class="lesson-breakdown-meta">
-        ${
-          completed
-            ? "Lesson completed"
-            : progress > 0
-              ? "Keep practicing"
-              : "Start this lesson"
-        }
+        ${completed
+        ? "Lesson completed"
+        : progress > 0
+          ? "Keep practicing"
+          : "Start this lesson"
+      }
       </span>
 
       <div class="lesson-breakdown-track">
@@ -1995,10 +2436,9 @@ async function updateDailyChallengeProgress() {
   if (dailyStreak) {
 
     dailyStreak.textContent =
-      `${streak} ${
-        streak === 1
-          ? "day"
-          : "days"
+      `${streak} ${streak === 1
+        ? "day"
+        : "days"
       }`;
 
   }
