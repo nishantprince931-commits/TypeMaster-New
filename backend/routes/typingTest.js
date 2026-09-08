@@ -366,6 +366,7 @@ router.post("/save", async (req, res) => {
     const {
       userId,
       typingTextId,
+      typingText,
       testType,
       durationSeconds,
       wpm,
@@ -410,41 +411,44 @@ router.post("/save", async (req, res) => {
     const result = await pool.query(
 
       `INSERT INTO "TypingTest"
-      (
-        id,
-        "userId",
-        "typingTextId",
-        "testType",
-        "durationSeconds",
-        wpm,
-        accuracy,
-        "correctCharacters",
-        "wrongCharacters",
-        errors,
-        "practiceSeconds",
-        "createdAt"
-      )
-      VALUES
-      (
-        $1,
-        $2,
-        $3,
-        $4,
-        $5,
-        $6,
-        $7,
-        $8,
-        $9,
-        $10,
-        $11,
-        NOW()
-      )
-      RETURNING *`,
+  (
+    id,
+    "userId",
+    "typingTextId",
+    "typingText",
+    "testType",
+    "durationSeconds",
+    wpm,
+    accuracy,
+    "correctCharacters",
+    "wrongCharacters",
+    errors,
+    "practiceSeconds",
+    "createdAt"
+  )
+  VALUES
+  (
+    $1,
+    $2,
+    $3,
+    $4,
+    $5,
+    $6,
+    $7,
+    $8,
+    $9,
+    $10,
+    $11,
+    $12,
+    NOW()
+  )
+  RETURNING *`,
 
       [
         id,
         userId,
         typingTextId || null,
+        typingText || null,
         testType || "typing-test",
         Number(durationSeconds) || 0,
         Number(wpm) || 0,
@@ -532,6 +536,7 @@ router.get("/history/:userId", async (req, res) => {
         id,
         "userId",
         "typingTextId",
+        "typingText",
         "testType",
         "durationSeconds",
         wpm,
@@ -909,47 +914,47 @@ module.exports = router;
 
 router.delete("/history/:userId", async (req, res) => {
 
-    const pool = req.app.locals.pool;
+  const pool = req.app.locals.pool;
 
-    try {
+  try {
 
-        const { userId } = req.params;
+    const { userId } = req.params;
 
-        if (!userId) {
+    if (!userId) {
 
-            return res.status(400).json({
-                success: false,
-                message: "User ID is required"
-            });
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required"
+      });
 
-        }
+    }
 
-        const result = await pool.query(
-            `
+    const result = await pool.query(
+      `
             DELETE FROM "TypingTest"
             WHERE "userId" = $1
             `,
-            [userId]
-        );
+      [userId]
+    );
 
-        return res.json({
-            success: true,
-            message: "Typing test history cleared successfully",
-            deletedCount: result.rowCount
-        });
+    return res.json({
+      success: true,
+      message: "Typing test history cleared successfully",
+      deletedCount: result.rowCount
+    });
 
-    } catch (error) {
+  } catch (error) {
 
-        console.error(
-            "Clear typing history error:",
-            error
-        );
+    console.error(
+      "Clear typing history error:",
+      error
+    );
 
-        return res.status(500).json({
-            success: false,
-            message: "Failed to clear typing history"
-        });
+    return res.status(500).json({
+      success: false,
+      message: "Failed to clear typing history"
+    });
 
-    }
+  }
 
 });
