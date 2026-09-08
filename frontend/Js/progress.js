@@ -44,38 +44,40 @@ async function loadHistory() {
     }
 
 
-testHistory =
-  Array.isArray(data.history)
-    ? data.history.map((item) => ({
+    testHistory =
+      Array.isArray(data.history)
+        ? data.history.map((item) => ({
 
-        title: "Typing Test",
+          title: "Typing Test",
 
-        wpm:
-          Number(item.wpm) || 0,
+          wpm:
+            Number(item.wpm) || 0,
 
-        accuracy:
-          Number(item.accuracy) || 0,
+          accuracy:
+            Number(item.accuracy) || 0,
 
-        mistakes:
-          Number(item.wrongCharacters) || 0,
+          mistakes:
+            Number(item.wrongCharacters) || 0,
 
-        duration:
-          Number(item.durationSeconds) || 0,
+          duration:
+            Number(item.durationSeconds) || 0,
 
-        correctCharacters:
-          Number(item.correctCharacters) || 0,
+          correctCharacters:
+            Number(item.correctCharacters) || 0,
 
-        wrongCharacters:
-          Number(item.wrongCharacters) || 0,
+          wrongCharacters:
+            Number(item.wrongCharacters) || 0,
 
-        text: 
-        item.typingText || item.text || "",
+          text:
+            item.typingText || item.text || "",
 
-        date:
-          item.createdAt
+          typedText:
+            item.typedText || "",
+          date:
+            item.createdAt
 
-      }))
-    : [];
+        }))
+        : [];
 
 
   } catch (error) {
@@ -710,19 +712,19 @@ function printHistoryTest(index) {
   const test = recent[index];
   const savedProfile = localStorage.getItem("typemaster-profile");
 
-let userName = "TypeMaster User";
+  let userName = "TypeMaster User";
 
-if (savedProfile) {
-  try {
-    const profile = JSON.parse(savedProfile);
+  if (savedProfile) {
+    try {
+      const profile = JSON.parse(savedProfile);
 
-    if (profile?.name) {
-      userName = profile.name;
+      if (profile?.name) {
+        userName = profile.name;
+      }
+    } catch (error) {
+      console.error("Could not load profile name:", error);
     }
-  } catch (error) {
-    console.error("Could not load profile name:", error);
   }
-}
 
   if (!test) {
     return;
@@ -758,7 +760,13 @@ if (savedProfile) {
 
   const totalCharacters =
     correctCharacters + wrongCharacters;
+  let typedReport = [];
 
+  try {
+    typedReport = JSON.parse(test.typedText || "[]");
+  } catch (error) {
+    console.error("Could not parse typed text:", error);
+  }
   printWindow.document.write(`
 
     <!DOCTYPE html>
@@ -1070,10 +1078,18 @@ if (savedProfile) {
             TYPING TEXT
           </div>
 
+       <div class="typing-box">
+  ${typedReport.map(item => {
+    if (item.typed === item.correct) {
+      return `<span>${item.typed}</span>`;
+    }
 
-          <div class="typing-box">
-            ${test.text || "Typing test text is not available in saved history."}
-          </div>
+    return `
+      <span class="wrong-char">${item.typed}</span>
+      <span class="correct-char">→ ${item.correct}</span>
+    `;
+  }).join("")}
+       </div>
 
         </div>
 
