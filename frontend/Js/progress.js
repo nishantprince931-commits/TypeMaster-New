@@ -767,6 +767,19 @@ function printHistoryTest(index) {
   } catch (error) {
     console.error("Could not parse typed text:", error);
   }
+
+  const typedHtml = typedReport
+    .map((item) => {
+      if (item.typed === item.correct) {
+        return `<span>${item.typed}</span>`;
+      }
+
+      return `
+      <span class="wrong-char">${item.typed}</span>
+      <span class="correct-char">→ ${item.correct}</span>
+    `;
+    })
+    .join("");
   printWindow.document.write(`
 
     <!DOCTYPE html>
@@ -905,6 +918,17 @@ function printHistoryTest(index) {
           font-size: 15px;
           white-space: pre-wrap;
           color: #334155;
+        }
+          .wrong-char {
+          color: #dc2626;
+          font-weight: 700;
+          text-decoration: underline;
+        }
+
+        .correct-char {
+          color: #16a34a;
+          font-weight: 700;
+          margin-left: 4px;
         }
 
         .footer {
@@ -1077,20 +1101,9 @@ function printHistoryTest(index) {
           <div class="section-title">
             TYPING TEXT
           </div>
-
-       <div class="typing-box">
-  ${typedReport.map(item => {
-    if (item.typed === item.correct) {
-      return `<span>${item.typed}</span>`;
-    }
-
-    return `
-      <span class="wrong-char">${item.typed}</span>
-      <span class="correct-char">→ ${item.correct}</span>
-    `;
-  }).join("")}
-       </div>
-
+          <div class="typing-box">
+            ${typedHtml}
+          </div>
         </div>
 
 
