@@ -215,6 +215,10 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   let finished = false;
   let timerId = null;
 
+  // Practice se selected paragraph
+  const currentText = test.text;
+  let totalCorrect = 0;
+  let totalWrong = 0;
 
   // ========================================
   // INITIAL
@@ -464,8 +468,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     const fragment =
       document.createDocumentFragment();
 
+    let currentSpan = null;
 
-    [...test.text].forEach(
+    [...currentText].forEach(
       (character, index) => {
 
         const span =
@@ -473,7 +478,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
         span.textContent =
           character;
-
 
         if (index < value.length) {
 
@@ -488,11 +492,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
             span.className =
               "incorrect";
-
           }
 
         }
-
         else if (
           index === value.length &&
           started &&
@@ -502,66 +504,76 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           span.className =
             "current";
 
+          currentSpan = span;
         }
 
-
         fragment.appendChild(span);
-
       }
     );
-
 
     textEl.appendChild(fragment);
 
     applyTypingSettings();
 
+    const textContainer = textEl;
+
+    if (currentSpan && started && !finished) {
+      const containerTop =
+        textContainer.getBoundingClientRect().top;
+
+      const containerBottom =
+        textContainer.getBoundingClientRect().bottom;
+
+      const currentTop =
+        currentSpan.getBoundingClientRect().top;
+
+      const currentBottom =
+        currentSpan.getBoundingClientRect().bottom;
+
+      if (currentTop < containerTop) {
+        textContainer.scrollTop -=
+          containerTop - currentTop;
+      }
+
+      if (currentBottom > containerBottom) {
+        textContainer.scrollTop +=
+          currentBottom - containerBottom;
+      }
+    }
+
   }
-
-
-  // ========================================
-  // STATS
-  // ========================================
-
   function getStats() {
 
-    const value =
-      inputEl.value;
+    const value = inputEl.value;
 
-    let correct = 0;
-    let wrong = 0;
+    let currentCorrect = 0;
+    let currentWrong = 0;
 
+    // Current running paragraph ke stats
+    for (let i = 0; i < value.length; i++) {
 
-    for (
-      let i = 0;
-      i < value.length;
-      i++
-    ) {
-
-      if (
-        value[i] === test.text[i]
-      ) {
-
-        correct++;
-
+      if (value[i] === currentText[i]) {
+        currentCorrect++;
       } else {
-
-        wrong++;
-
+        currentWrong++;
       }
 
     }
 
+    // Pehle complete paragraphs + current paragraph
+    const correct =
+      totalCorrect + currentCorrect;
+
+    const wrong =
+      totalWrong + currentWrong;
 
     const total =
-      value.length;
+      correct + wrong;
 
     const accuracy =
       total > 0
-        ? Math.round(
-          (correct / total) * 100
-        )
+        ? Math.round((correct / total) * 100)
         : 100;
-
 
     const elapsed =
       duration - timeLeft;
@@ -569,14 +581,11 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     const minutes =
       elapsed / 60;
 
-
+    // WPM poore test ke correct characters se
     const wpm =
       minutes > 0
-        ? Math.round(
-          (correct / 5) / minutes
-        )
+        ? Math.round((correct / 5) / minutes)
         : 0;
-
 
     return {
       correct,
@@ -711,71 +720,73 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   // SAVE RESULT FOR PROGRESS
   // ========================================
 
-async function saveResultForProgress(stats) {
-  const userId = localStorage.getItem("typemaster-user-id");
+  async function saveResultForProgress(stats) {
+    const userId = localStorage.getItem("typemaster-user-id");
 
-  // User login nahi hai to result save nahi hoga
-  if (!userId) {
-    console.warn("Typing result not saved: user is not logged in.");
-    return;
-  }
-
-  const resultData = {
-    userId: userId,
-
-    typingTextId: null,
-
-    testType: "typing-test",
-
-    durationSeconds: Number(selectedDuration) || 0,
-
-    wpm: Number(stats.wpm) || 0,
-
-    accuracy: Number(stats.accuracy) || 0,
-
-    correctCharacters: Number(stats.correct) || 0,
-
-    wrongCharacters: Number(stats.wrong) || 0,
-
-    errors: Number(stats.wrong) || 0,
-
-    practiceSeconds: Math.max(
-      0,
-      (Number(duration) || 0) - (Number(timeLeft) || 0)
-    )
-  };
-
-  try {
-    const response = await fetch(
-      "https://typemaster-backend-01.onrender.com/api/typing-test/save",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(resultData)
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-      throw new Error(
-        data.message || "Typing test could not be saved."
-      );
+    // User login nahi hai to result save nahi hoga
+    if (!userId) {
+      console.warn("Typing result not saved: user is not logged in.");
+      return;
     }
 
-  } catch (error) {
+    const resultData = {
+      userId: userId,
 
-    console.error(
-      "Typing test save error:",
-      error
-    );
+      typingTextId: null,
 
+      typingText: currentText,
+
+      testType: "typing-test",
+
+      durationSeconds: (Number(selectedDuration) || 0) * 60,
+
+      wpm: Number(stats.wpm) || 0,
+
+      accuracy: Number(stats.accuracy) || 0,
+
+      correctCharacters: Number(stats.correct) || 0,
+
+      wrongCharacters: Number(stats.wrong) || 0,
+
+      errors: Number(stats.wrong) || 0,
+
+      practiceSeconds: Math.max(
+        0,
+        (Number(duration) || 0) - (Number(timeLeft) || 0)
+      )
+    };
+
+    try {
+      const response = await fetch(
+        "https://typemaster-backend-01.onrender.com/api/typing-test/save",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify(resultData)
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Typing test could not be saved."
+        );
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Typing test save error:",
+        error
+      );
+
+    }
   }
-}
   // ========================================
   // FINISH
   // ========================================
@@ -884,10 +895,27 @@ async function saveResultForProgress(stats) {
   // ========================================
   // TYPING
   // ========================================
+  inputEl.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Backspace") {
+        event.preventDefault();
+      }
+
+    }
+  );
 
   inputEl.addEventListener(
     "input",
+
     () => {
+      const finishMessage =
+        document.getElementById("finishMessage");
+
+      if (finishMessage) {
+        finishMessage.remove();
+      }
 
       const settings =
         JSON.parse(
@@ -943,13 +971,44 @@ async function saveResultForProgress(stats) {
         inputEl.value
       );
 
-
       if (
         inputEl.value.length ===
-        test.text.length
+        currentText.length
       ) {
 
-        finishTest();
+        // Current paragraph ke final stats total mein add karo
+        let paragraphCorrect = 0;
+        let paragraphWrong = 0;
+
+        for (
+          let i = 0;
+          i < currentText.length;
+          i++
+        ) {
+
+          if (
+            inputEl.value[i] === currentText[i]
+          ) {
+
+            paragraphCorrect++;
+
+          } else {
+
+            paragraphWrong++;
+
+          }
+
+        }
+
+        totalCorrect += paragraphCorrect;
+        totalWrong += paragraphWrong;
+
+        // Same selected paragraph dobara start
+        inputEl.value = "";
+
+        renderText("");
+
+        inputEl.focus();
 
       }
 
@@ -976,15 +1035,58 @@ async function saveResultForProgress(stats) {
 
   }
 
-  // ========================================
-  // FINISH BUTTON
-  // ========================================
-
   finishButton.addEventListener(
     "click",
     () => {
 
-      finishTest();
+      if (!started || finished) {
+        return;
+      }
+
+      let finishMessage =
+        document.getElementById("finishMessage");
+
+      if (!finishMessage) {
+
+        finishMessage =
+          document.createElement("div");
+
+        finishMessage.id =
+          "finishMessage";
+
+        finishMessage.style.marginTop =
+          "12px";
+
+        finishMessage.style.padding =
+          "10px 14px";
+
+        finishMessage.style.borderRadius =
+          "10px";
+
+        finishMessage.style.background =
+          "#eff6ff";
+
+        finishMessage.style.border =
+          "1px solid #bfdbfe";
+
+        finishMessage.style.color =
+          "#1d4ed8";
+
+        finishMessage.style.fontSize =
+          "13px";
+
+        finishMessage.style.fontWeight =
+          "600";
+
+        finishMessage.style.lineHeight =
+          "1.5";
+
+        finishButton.parentElement.parentElement
+          .appendChild(finishMessage);
+      }
+
+      finishMessage.textContent =
+        "Please continue typing until the timer reaches 00:00. Your result will be saved automatically.";
 
     }
   );
@@ -1011,6 +1113,11 @@ async function saveResultForProgress(stats) {
       timeLeft = duration;
 
       inputEl.value = "";
+      timeLeft = duration;
+      inputEl.value = "";
+
+      totalCorrect = 0;
+      totalWrong = 0;
 
       finishButton.disabled =
         true;
