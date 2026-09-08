@@ -541,7 +541,7 @@ router.get("/history/:userId", async (req, res) => {
         "userId",
         "typingTextId",
         "typingText",
-        typedText,
+        "typedText",
         "testType",
         "durationSeconds",
         wpm,
