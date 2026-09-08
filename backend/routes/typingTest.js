@@ -367,6 +367,7 @@ router.post("/save", async (req, res) => {
       userId,
       typingTextId,
       typingText,
+      typedText,
       testType,
       durationSeconds,
       wpm,
@@ -416,6 +417,7 @@ router.post("/save", async (req, res) => {
     "userId",
     "typingTextId",
     "typingText",
+    "typedText",
     "testType",
     "durationSeconds",
     wpm,
@@ -440,6 +442,7 @@ router.post("/save", async (req, res) => {
     $10,
     $11,
     $12,
+    $13,
     NOW()
   )
   RETURNING *`,
@@ -538,7 +541,7 @@ router.get("/history/:userId", async (req, res) => {
         "userId",
         "typingTextId",
         "typingText",
-        "typedText"
+        typedText,
         "testType",
         "durationSeconds",
         wpm,
