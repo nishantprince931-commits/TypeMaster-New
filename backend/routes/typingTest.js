@@ -449,6 +449,7 @@ router.post("/save", async (req, res) => {
         userId,
         typingTextId || null,
         typingText || null,
+        typedText || null,
         testType || "typing-test",
         Number(durationSeconds) || 0,
         Number(wpm) || 0,
@@ -537,6 +538,7 @@ router.get("/history/:userId", async (req, res) => {
         "userId",
         "typingTextId",
         "typingText",
+        "typedText"
         "testType",
         "durationSeconds",
         wpm,
