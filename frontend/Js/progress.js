@@ -73,6 +73,7 @@ async function loadHistory() {
 
           typedText:
             item.typedText || "",
+
           date:
             item.createdAt
 
@@ -768,35 +769,35 @@ function printHistoryTest(index) {
     console.error("Could not parse typed text:", error);
   }
 
-const typedHtml = (() => {
-  let html = "";
-  let mismatch = "";
-  let expected = "";
+  const typedHtml = (() => {
+    let html = "";
+    let mismatch = "";
+    let expected = "";
 
-  typedReport.forEach((item) => {
-    const typed = item.typed || "";
-    const correct = item.correct || "";
+    typedReport.forEach((item) => {
+      const typed = item.typed || "";
+      const correct = item.correct || "";
 
-    if (typed === correct) {
-      if (mismatch) {
-        html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
-        mismatch = "";
-        expected = "";
+      if (typed === correct) {
+        if (mismatch) {
+          html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
+          mismatch = "";
+          expected = "";
+        }
+
+        html += typed === " " ? "&nbsp;" : typed;
+      } else {
+        mismatch += typed;
+        expected += correct;
       }
+    });
 
-      html += typed === " " ? "&nbsp;" : typed;
-    } else {
-      mismatch += typed;
-      expected += correct;
+    if (mismatch) {
+      html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
     }
-  });
 
-  if (mismatch) {
-    html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
-  }
-
-  return html;
-})();
+    return html;
+  })();
   printWindow.document.write(`
 
     <!DOCTYPE html>
@@ -928,13 +929,17 @@ const typedHtml = (() => {
         }
 
         .typing-box {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 28px 32px;
+          font-size: 18px;
+          line-height: 1.8;
+          white-space: normal;
+          overflow-wrap: anywhere;
+          word-break: normal;
+          overflow: hidden;
           border: 1px solid #e2e8f0;
           border-radius: 12px;
-          padding: 22px;
-          line-height: 1.8;
-          font-size: 15px;
-          white-space: pre-wrap;
-          color: #334155;
         }
           .wrong-char {
           color: #dc2626;
