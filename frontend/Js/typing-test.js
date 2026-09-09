@@ -217,6 +217,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   // Practice se selected paragraph
   const currentText = test.text;
+  let typedTextForReport = "";
+  let typedCharactersForReport = [];
+  let lastReportedLength = 0;
   let totalCorrect = 0;
   let totalWrong = 0;
 
@@ -729,12 +732,15 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       return;
     }
 
+    console.log("TYPED REPORT BEFORE SAVE:", typedCharactersForReport);
+
     const resultData = {
       userId: userId,
 
       typingTextId: null,
 
       typingText: currentText,
+      typedText: JSON.stringify(typedCharactersForReport),
 
       testType: "typing-test",
 
@@ -962,6 +968,18 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           );
 
       }
+      for (
+        let i = lastReportedLength;
+        i < inputEl.value.length;
+        i++
+      ) {
+        typedCharactersForReport.push({
+          typed: inputEl.value[i],
+          correct: currentText[i]
+        });
+      }
+
+      lastReportedLength = inputEl.value.length;
 
 
       updateStats();
@@ -1004,10 +1022,11 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         totalWrong += paragraphWrong;
 
         // Same selected paragraph dobara start
+        // Same selected paragraph dobara start
         inputEl.value = "";
+        lastReportedLength = 0;
 
         renderText("");
-
         inputEl.focus();
 
       }

@@ -768,18 +768,35 @@ function printHistoryTest(index) {
     console.error("Could not parse typed text:", error);
   }
 
-  const typedHtml = typedReport
-    .map((item) => {
-      if (item.typed === item.correct) {
-        return `<span>${item.typed}</span>`;
+const typedHtml = (() => {
+  let html = "";
+  let mismatch = "";
+  let expected = "";
+
+  typedReport.forEach((item) => {
+    const typed = item.typed || "";
+    const correct = item.correct || "";
+
+    if (typed === correct) {
+      if (mismatch) {
+        html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
+        mismatch = "";
+        expected = "";
       }
 
-      return `
-      <span class="wrong-char">${item.typed}</span>
-      <span class="correct-char">→ ${item.correct}</span>
-    `;
-    })
-    .join("");
+      html += typed === " " ? "&nbsp;" : typed;
+    } else {
+      mismatch += typed;
+      expected += correct;
+    }
+  });
+
+  if (mismatch) {
+    html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
+  }
+
+  return html;
+})();
   printWindow.document.write(`
 
     <!DOCTYPE html>
@@ -923,6 +940,20 @@ function printHistoryTest(index) {
           color: #dc2626;
           font-weight: 700;
           text-decoration: underline;
+        }
+         .error-pair {
+          display: inline;
+          white-space: nowrap;
+        }
+
+        .wrong-char {
+          color: #dc2626;
+          font-weight: 700;
+        }
+
+        .correct-char {
+          color: #16a34a;
+          font-weight: 700;
         }
 
         .correct-char {

@@ -636,6 +636,7 @@ document.addEventListener(
           localStorage.getItem(
             "typemaster-profile"
           );
+          
 
 
         let profile = {
