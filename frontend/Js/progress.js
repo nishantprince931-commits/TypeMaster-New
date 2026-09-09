@@ -769,35 +769,30 @@ function printHistoryTest(index) {
     console.error("Could not parse typed text:", error);
   }
 
-  const typedHtml = (() => {
-    let html = "";
-    let mismatch = "";
-    let expected = "";
+const typedHtml = (() => {
+  const typedString = typedReport
+    .map((item) => item.typed || "")
+    .join("");
 
-    typedReport.forEach((item) => {
-      const typed = item.typed || "";
-      const correct = item.correct || "";
+  const expectedString = test.text || "";
 
-      if (typed === correct) {
-        if (mismatch) {
-          html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
-          mismatch = "";
-          expected = "";
-        }
+  const typedWords = typedString.trim().split(/\s+/);
+  const expectedWords = expectedString.trim().split(/\s+/);
 
-        html += typed === " " ? "&nbsp;" : typed;
-      } else {
-        mismatch += typed;
-        expected += correct;
-      }
-    });
+  let html = "";
 
-    if (mismatch) {
-      html += `<span class="wrong-char">${mismatch}</span><span class="correct-char"> [${expected}]</span>`;
+  typedWords.forEach((word, index) => {
+    const expectedWord = expectedWords[index] || "";
+
+    if (word === expectedWord) {
+      html += `${word} `;
+    } else {
+      html += `<span class="wrong-char">${word}</span><span class="correct-char"> [${expectedWord}]</span> `;
     }
+  });
 
-    return html;
-  })();
+  return html.trim();
+})();
   printWindow.document.write(`
 
     <!DOCTYPE html>

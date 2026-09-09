@@ -589,7 +589,12 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       minutes > 0
         ? Math.round((correct / 5) / minutes)
         : 0;
-
+    console.log("STATS CHECK:", {
+      correct,
+      wrong,
+      total,
+      typedReportLength: typedCharactersForReport.length
+    });
     return {
       correct,
       wrong,
