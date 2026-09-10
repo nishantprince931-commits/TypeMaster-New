@@ -769,30 +769,30 @@ function printHistoryTest(index) {
     console.error("Could not parse typed text:", error);
   }
 
-const typedHtml = (() => {
-  const typedString = typedReport
-    .map((item) => item.typed || "")
-    .join("");
+  const typedHtml = (() => {
+    const typedString = typedReport
+      .map((item) => item.typed || "")
+      .join("");
 
-  const expectedString = test.text || "";
+    const expectedString = test.text || "";
 
-  const typedWords = typedString.trim().split(/\s+/);
-  const expectedWords = expectedString.trim().split(/\s+/);
+    const typedWords = typedString.trim().split(/\s+/);
+    const expectedWords = expectedString.trim().split(/\s+/);
 
-  let html = "";
+    let html = "";
 
-  typedWords.forEach((word, index) => {
-    const expectedWord = expectedWords[index] || "";
+    typedWords.forEach((word, index) => {
+      const expectedWord = expectedWords[index] || "";
 
-    if (word === expectedWord) {
-      html += `${word} `;
-    } else {
-      html += `<span class="wrong-char">${word}</span><span class="correct-char"> [${expectedWord}]</span> `;
-    }
-  });
+      if (word === expectedWord) {
+        html += `${word} `;
+      } else {
+        html += `<span class="wrong-char">${word}</span><span class="correct-char"> [${expectedWord}]</span> `;
+      }
+    });
 
-  return html.trim();
-})();
+    return html.trim();
+  })();
   printWindow.document.write(`
 
     <!DOCTYPE html>
@@ -825,11 +825,11 @@ const typedHtml = (() => {
         }
 
         .report {
-          max-width: 900px;
+          max-width: none;
           margin: 0 auto;
           background: white;
           border-radius: 18px;
-          overflow: hidden;
+          overflow: visible;
           border: 1px solid #e2e8f0;
         }
 
@@ -932,7 +932,7 @@ const typedHtml = (() => {
           white-space: normal;
           overflow-wrap: anywhere;
           word-break: normal;
-          overflow: hidden;
+          overflow: visible;
           border: 1px solid #e2e8f0;
           border-radius: 12px;
         }
@@ -969,7 +969,10 @@ const typedHtml = (() => {
           color: #64748b;
           text-align: center;
         }
-
+        @page {
+             size: A4;
+             margin: 12mm;
+            }
         @media print {
 
           body {
