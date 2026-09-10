@@ -447,6 +447,7 @@ if (saveCustomPractice) {
 
         updateCustomPracticeCount();
 
+        await loadSavedCustomPractices();
 
       } catch (error) {
 
