@@ -10,6 +10,7 @@ const typingTestRoutes = require("./routes/typingTest");
 const achievementRoutes = require("./routes/achievements");
 const lessonRoutes = require("./routes/lessons");
 const notificationRoutes = require("./routes/notifications");
+const customPracticeRoutes = require("./routes/customPractice");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/achievements", achievementRoutes);
 app.use("/api/daily-challenge", dailyChallengeRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/custom-practice", customPracticeRoutes);
 
 /* TEST ROUTE */
 app.get("/", (req, res) => {

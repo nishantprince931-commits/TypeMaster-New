@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const TEXTS = {
 
+
     journey: {
       title: "A Journey Through Learning",
       text: `Improving your typing speed is a simple skill that can make everyday computer work much easier. Whether you are writing emails, preparing assignments, chatting with friends, creating reports, or working online, good typing skills can save you a lot of time. The best way to become a faster typist is to practice regularly and focus on accuracy before speed. When you type, try to keep your fingers in the correct position and use all of your fingers instead of relying on only a few. Avoid looking at the keyboard too often because learning where the keys are located will help your hands move naturally.
@@ -68,7 +69,26 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   };
 
+  // ========================================
+  // CUSTOM PRACTICE
+  // ========================================
 
+  const customText =
+    localStorage.getItem("typemaster-custom-text");
+
+  if (
+    localStorage.getItem("typemaster-selected-test") === "custom" &&
+    customText
+  ) {
+    const customTitle =
+      localStorage.getItem("typemaster-custom-title") ||
+      "Custom Practice";
+
+    TEXTS.custom = {
+      title: customTitle,
+      text: customText
+    };
+  }
   // ========================================
   // GET SELECTION
   // ========================================

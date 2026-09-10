@@ -95,10 +95,7 @@
 
         <div class="header-actions">
 
-          <button
-            id="themeButton"
-            class="theme-button"
-            type="button">
+          <button id="themeButton" class="theme-button" type="button">
             🌙 Dark Mode
           </button>
 
@@ -186,10 +183,7 @@
         <!-- PRACTICE CARDS -->
         <section class="practice-grid">
 
-          <article
-            class="practice-card"
-            data-id="journey"
-            tabindex="0">
+          <article class="practice-card" data-id="journey" tabindex="0">
 
             <div class="card-icon">📖</div>
 
@@ -210,10 +204,7 @@
           </article>
 
 
-          <article
-            class="practice-card"
-            data-id="habits"
-            tabindex="0">
+          <article class="practice-card" data-id="habits" tabindex="0">
 
             <div class="card-icon">🌱</div>
 
@@ -233,10 +224,7 @@
           </article>
 
 
-          <article
-            class="practice-card"
-            data-id="technology"
-            tabindex="0">
+          <article class="practice-card" data-id="technology" tabindex="0">
 
             <div class="card-icon">💻</div>
 
@@ -257,10 +245,7 @@
           </article>
 
 
-          <article
-            class="practice-card"
-            data-id="daily"
-            tabindex="0">
+          <article class="practice-card" data-id="daily" tabindex="0">
 
             <div class="card-icon">🎯</div>
 
@@ -281,10 +266,7 @@
           </article>
 
 
-          <article
-            class="practice-card"
-            data-id="places"
-            tabindex="0">
+          <article class="practice-card" data-id="places" tabindex="0">
 
             <div class="card-icon">🌎</div>
 
@@ -305,10 +287,7 @@
           </article>
 
 
-          <article
-            class="practice-card"
-            data-id="future"
-            tabindex="0">
+          <article class="practice-card" data-id="future" tabindex="0">
 
             <div class="card-icon">🚀</div>
 
@@ -329,12 +308,113 @@
           </article>
 
         </section>
+        <!-- CUSTOM PRACTICE -->
+        <section class="custom-practice-section">
+
+          <div class="custom-practice-header">
+
+            <div>
+              <span class="eyebrow">
+                CUSTOM PRACTICE
+              </span>
+
+              <h2>
+                Practice with your own text ✍️
+              </h2>
+
+              <p>
+                Create, save and practice your own typing passage.
+              </p>
+            </div>
+
+          </div>
 
 
+          <div class="custom-practice-form">
+
+            <!-- TITLE -->
+            <div class="custom-field">
+
+              <label for="customPracticeTitle">
+                Practice Title
+              </label>
+
+              <input type="text" id="customPracticeTitle" class="custom-practice-title"
+                placeholder="e.g. My Daily Practice" maxlength="200">
+
+            </div>
+
+
+            <!-- TEXT -->
+            <div class="custom-field">
+
+              <label for="customPracticeText">
+                Your Practice Text
+              </label>
+
+              <textarea id="customPracticeText" class="custom-practice-textarea"
+                placeholder="Type or paste your paragraph here..." rows="7"></textarea>
+
+              <div class="custom-text-info">
+
+                <span id="customWordCount">
+                  0 words
+                </span>
+
+                <span>•</span>
+
+                <span id="customCharacterCount">
+                  0 characters
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+            <div class="custom-practice-actions">
+
+              <button type="button" id="saveCustomPractice" class="save-custom-button">
+                💾 Save Practice
+              </button>
+
+              <button type="button" id="startCustomPractice" class="start-test-button">
+                ▶ Start Practice
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- SAVED CUSTOM PRACTICES -->
+        <section id="savedCustomPracticesSection" class="saved-custom-practices-section">
+
+          <div class="saved-practices-header">
+
+            <div>
+
+              <span class="eyebrow">
+                MY SAVED PRACTICES
+              </span>
+
+              <h2>
+                Your Practice Library
+              </h2>
+
+            </div>
+
+          </div>
+
+          <div id="savedCustomPractices" class="saved-custom-practices-grid">
+          </div>
+
+        </section>
         <!-- SELECTED PRACTICE -->
-        <section
-          id="selectedTextSection"
-          class="selected-text-section">
+        <section id="selectedTextSection" class="selected-text-section">
         </section>
 
       </div>
@@ -344,8 +424,8 @@
   </div>
 
 
-<script src="Js/app.js"></script>
-<script src="Js/practice.js"></script>
+  <script src="Js/app.js"></script>
+  <script src="Js/practice.js"></script>
 
 
 </body>
