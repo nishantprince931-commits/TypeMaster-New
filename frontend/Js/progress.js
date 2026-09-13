@@ -48,7 +48,10 @@ async function loadHistory() {
       Array.isArray(data.history)
         ? data.history.map((item) => ({
 
-          title: "Typing Test",
+          title:
+            item.testType === "weakness-practice"
+              ? "Weakness Practice"
+              : "Typing Test",
 
           wpm:
             Number(item.wpm) || 0,
@@ -57,7 +60,7 @@ async function loadHistory() {
             Number(item.accuracy) || 0,
 
           mistakes:
-            Number(item.wrongCharacters) || 0,
+            Number(item.errors) || 0,
 
           duration:
             Number(item.durationSeconds) || 0,
@@ -770,25 +773,76 @@ function printHistoryTest(index) {
   }
 
   const typedHtml = (() => {
-    const typedString = typedReport
-      .map((item) => item.typed || "")
-      .join("");
+    const paragraphText = test.text || "";
 
-    const expectedString = test.text || "";
+    if (!paragraphText) {
+      return "";
+    }
 
-    const typedWords = typedString.trim().split(/\s+/);
-    const expectedWords = expectedString.trim().split(/\s+/);
+    const paragraphLength = paragraphText.length;
+
+    const typedChars = typedReport.map(
+      (item) => item.typed || ""
+    );
+
+    const paragraphs = [];
+
+    for (
+      let i = 0;
+      i < typedChars.length;
+      i += paragraphLength
+    ) {
+      paragraphs.push(
+        typedChars
+          .slice(i, i + paragraphLength)
+          .join("")
+      );
+    }
+
+    const expectedWords =
+      paragraphText
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+    const escapeHtml = (value) =>
+      String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
     let html = "";
 
-    typedWords.forEach((word, index) => {
-      const expectedWord = expectedWords[index] || "";
+    paragraphs.forEach((paragraph, paragraphIndex) => {
+      const typedWords =
+        paragraph
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
 
-      if (word === expectedWord) {
-        html += `${word} `;
-      } else {
-        html += `<span class="wrong-char">${word}</span><span class="correct-char"> [${expectedWord}]</span> `;
-      }
+      html += `<div class="report-paragraph">`;
+
+      typedWords.forEach((word, wordIndex) => {
+        const expectedWord =
+          expectedWords[wordIndex] || "";
+
+        if (word === expectedWord) {
+          html += `${escapeHtml(word)} `;
+        } else {
+          html += `
+          <span class="wrong-char">
+            ${escapeHtml(word)}
+          </span>
+          <span class="correct-char">
+            [${escapeHtml(expectedWord)}]
+          </span>
+          `;
+        }
+      });
+
+      html += `</div>`;
     });
 
     return html.trim();
@@ -2518,3 +2572,133 @@ async function updateDailyChallengeProgress() {
   await updateDailyChallengeProgress();
 
 })();
+document
+  .getElementById("weaknessPracticeButton")
+  ?.addEventListener("click", () => {
+    const resultBox = document.getElementById("weaknessPracticeResult");
+    if (!resultBox) return;
+
+    const weaknessMap = {};
+    console.log("Weakness button clicked, history:", testHistory);
+    testHistory.forEach((test) => {
+      const expected = String(test.text || "");
+      const typed = String(test.typedText || "");
+
+      for (let i = 0; i < Math.max(expected.length, typed.length); i++) {
+        const expectedChar = expected[i];
+        const typedChar = typed[i];
+
+        if (
+          expectedChar &&
+          typedChar &&
+          expectedChar !== typedChar &&
+          expectedChar !== " "
+        ) {
+          const key = expectedChar.toLowerCase();
+          weaknessMap[key] = (weaknessMap[key] || 0) + 1;
+        }
+      }
+    });
+
+    const weakLetters = Object.entries(weaknessMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    if (weakLetters.length === 0) {
+      resultBox.innerHTML = `
+        <div class="weakness-practice-card">
+          <h3>🎯 Weakness Practice</h3>
+          <p>Complete a few more typing tests first.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const letters = weakLetters.map(([letter]) => letter);
+
+    const wordBank = [
+      "team", "time", "test", "taste", "state",
+      "start", "smart", "master", "matter",
+      "create", "great", "target", "practice",
+      "typing", "keyboard", "accuracy", "improve",
+      "better", "attempt", "repeat", "training",
+      "learning", "progress", "today", "attention"
+    ];
+
+    const practiceWords = wordBank
+      .filter(word =>
+        letters.some(letter => word.includes(letter))
+      )
+      .slice(0, 15);
+
+    const practiceText = practiceWords.join(" ");
+
+    const highlightedText = practiceText
+      .split("")
+      .map(char => {
+        if (letters.includes(char.toLowerCase())) {
+          return `<span class="weakness-highlight">${char}</span>`;
+        }
+        return char;
+      })
+      .join("");
+
+    // Show the practice card first
+    resultBox.innerHTML = `
+      <div class="weakness-practice-card">
+        <h3>🎯 Weakness Practice</h3>
+
+        <p>
+          Focus on your weakest characters:
+          <strong>${letters.join(", ").toUpperCase()}</strong>
+        </p>
+
+        <div class="weakness-text">
+          ${highlightedText}
+        </div>
+
+        <button
+          id="startWeaknessPractice"
+          type="button"
+          class="start-weakness-btn"
+        >
+          🚀 Start Weakness Practice
+        </button>
+      </div>
+    `;
+
+    // Now the button exists, so attach the click event
+    const startButton =
+      document.getElementById("startWeaknessPractice");
+
+    if (startButton) {
+      startButton.addEventListener("click", () => {
+        localStorage.setItem(
+          "typemaster-custom-title",
+          "Weakness Practice"
+        );
+
+        localStorage.setItem(
+          "typemaster-custom-text",
+          practiceText
+        );
+
+        localStorage.setItem(
+          "typemaster-selected-test",
+          "custom"
+        );
+
+        localStorage.setItem(
+          "typemaster-test-duration",
+          "1"
+        );
+
+        localStorage.setItem(
+          "typemaster-duration-source",
+          "practice"
+        );
+
+        window.location.href = "typing-test.html";
+      });
+    }
+  });

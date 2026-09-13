@@ -240,8 +240,10 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   let typedTextForReport = "";
   let typedCharactersForReport = [];
   let lastReportedLength = 0;
+  let currentReportStart = 0;
   let totalCorrect = 0;
   let totalWrong = 0;
+  let totalWrongCharacters = 0;
 
   // ========================================
   // INITIAL
@@ -481,71 +483,104 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
 
   // ========================================
-  // RENDER TEXT
+  // RENDER TEXT - WORD BASED
   // ========================================
 
   function renderText(value) {
-
     textEl.innerHTML = "";
+    const fragment = document.createDocumentFragment();
 
-    const fragment =
-      document.createDocumentFragment();
+    // Expected words
+    const expectedWords = currentText.match(/\S+/g) || [];
 
+    // User ke typed words
+    const typedWords = value.match(/\S+/g) || [];
+
+    // Kya user ne current word ke baad Space press kiya?
+    const hasTrailingSpace = /\s$/.test(value);
+
+    // Sirf completed words count honge
+    const completedWordCount = hasTrailingSpace
+      ? typedWords.length
+      : Math.max(typedWords.length - 1, 0);
+
+    // Current word
+    const currentWordIndex = hasTrailingSpace
+      ? typedWords.length
+      : Math.max(typedWords.length - 1, 0);
+
+    let wordIndex = 0;
     let currentSpan = null;
 
-    [...currentText].forEach(
-      (character, index) => {
+    // Words + spaces preserve karo
+    const parts = currentText.match(/\S+|\s+/g) || [];
 
-        const span =
-          document.createElement("span");
+    parts.forEach((part) => {
 
-        span.textContent =
-          character;
+      const span = document.createElement("span");
+      span.textContent = part;
 
-        if (index < value.length) {
+      // Space
+      if (/^\s+$/.test(part)) {
+        span.className = "";
+      }
 
-          if (
-            value[index] === character
-          ) {
+      // Word
+      else {
 
-            span.className =
-              "correct";
+        const expectedWord =
+          expectedWords[wordIndex] || "";
 
-          } else {
+        const typedWord =
+          typedWords[wordIndex] || "";
 
-            span.className =
-              "incorrect";
-          }
-
+        // Completed correct word
+        if (
+          wordIndex < completedWordCount &&
+          typedWord === expectedWord
+        ) {
+          span.className = "correct";
         }
+
+        // Completed wrong word
         else if (
-          index === value.length &&
+          wordIndex < completedWordCount &&
+          typedWord !== expectedWord
+        ) {
+          span.className = "incorrect";
+        }
+
+        // Current word
+        else if (
+          wordIndex === currentWordIndex &&
           started &&
           !finished
         ) {
-
-          span.className =
-            "current";
-
+          span.className = "current";
           currentSpan = span;
         }
 
-        fragment.appendChild(span);
+        wordIndex++;
       }
-    );
+
+      fragment.appendChild(span);
+    });
 
     textEl.appendChild(fragment);
 
     applyTypingSettings();
 
-    const textContainer = textEl;
-
-    if (currentSpan && started && !finished) {
+    // Current word ko visible rakho
+    if (
+      currentSpan &&
+      started &&
+      !finished
+    ) {
       const containerTop =
-        textContainer.getBoundingClientRect().top;
+        textEl.getBoundingClientRect().top;
 
       const containerBottom =
-        textContainer.getBoundingClientRect().bottom;
+        textEl.getBoundingClientRect().bottom;
 
       const currentTop =
         currentSpan.getBoundingClientRect().top;
@@ -554,49 +589,252 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         currentSpan.getBoundingClientRect().bottom;
 
       if (currentTop < containerTop) {
-        textContainer.scrollTop -=
+        textEl.scrollTop -=
           containerTop - currentTop;
       }
 
       if (currentBottom > containerBottom) {
-        textContainer.scrollTop +=
+        textEl.scrollTop +=
           currentBottom - containerBottom;
       }
     }
-
   }
-  function getStats() {
+  function countWrongCharacters(value) {
+    let wrongCharacters = 0;
 
-    const value = inputEl.value;
-
-    let currentCorrect = 0;
-    let currentWrong = 0;
-
-    // Current running paragraph ke stats
     for (let i = 0; i < value.length; i++) {
-
-      if (value[i] === currentText[i]) {
-        currentCorrect++;
-      } else {
-        currentWrong++;
+      if (value[i] !== currentText[i]) {
+        wrongCharacters++;
       }
-
     }
 
-    // Pehle complete paragraphs + current paragraph
-    const correct =
-      totalCorrect + currentCorrect;
+    return wrongCharacters;
+  }
 
-    const wrong =
-      totalWrong + currentWrong;
+  function getStats() {
+    // ========================================
+    // FINAL TYPING STATS
+    // ========================================
 
-    const total =
-      correct + wrong;
+    let correct = 0;
+    let wrongCharacters = 0;
+    let wrongWords = 0;
+
+    const paragraphSize = currentText.length;
+
+    // ========================================
+    // CHECK ALL TYPED PARAGRAPHS
+    // ========================================
+
+    for (
+      let start = 0;
+      start < typedCharactersForReport.length;
+      start += paragraphSize
+    ) {
+      const paragraphItems =
+        typedCharactersForReport.slice(
+          start,
+          start + paragraphSize
+        );
+
+      if (!paragraphItems.length) {
+        continue;
+      }
+
+      const typedParagraphText =
+        paragraphItems
+          .map((item) => item.typed)
+          .join("");
+
+      // ========================================
+      // WORDS
+      // ========================================
+
+      const typedWords =
+        typedParagraphText.match(/\S+/g) || [];
+
+      const expectedWords =
+        currentText.match(/\S+/g) || [];
+
+      // ========================================
+      // CHARACTER CALCULATION
+      // Each word is checked independently.
+      // ========================================
+
+      for (
+        let i = 0;
+        i < typedWords.length;
+        i++
+      ) {
+        const typedWord =
+          typedWords[i] || "";
+
+        const expectedWord =
+          expectedWords[i] || "";
+
+        // Same word = all characters correct
+        if (
+          typedWord === expectedWord
+        ) {
+          correct += typedWord.length;
+          continue;
+        }
+
+        // ========================================
+        // LEVENSHTEIN FOR THIS WORD ONLY
+        // ========================================
+
+        const a = typedWord;
+        const b = expectedWord;
+
+        const dp = Array.from(
+          {
+            length: a.length + 1
+          },
+          () =>
+            Array(
+              b.length + 1
+            ).fill(0)
+        );
+
+        for (
+          let x = 0;
+          x <= a.length;
+          x++
+        ) {
+          dp[x][0] = x;
+        }
+
+        for (
+          let y = 0;
+          y <= b.length;
+          y++
+        ) {
+          dp[0][y] = y;
+        }
+
+        for (
+          let x = 1;
+          x <= a.length;
+          x++
+        ) {
+          for (
+            let y = 1;
+            y <= b.length;
+            y++
+          ) {
+            const cost =
+              a[x - 1] === b[y - 1]
+                ? 0
+                : 1;
+
+            dp[x][y] =
+              Math.min(
+                dp[x - 1][y] + 1,
+                dp[x][y - 1] + 1,
+                dp[x - 1][y - 1] + cost
+              );
+          }
+        }
+
+        const wordErrors =
+          Math.min(
+            dp[a.length][b.length],
+            a.length
+          );
+
+        wrongCharacters +=
+          wordErrors;
+
+        correct += Math.max(
+          0,
+          a.length - wordErrors
+        );
+      }
+
+      // ========================================
+      // SPACES
+      // ========================================
+
+      const typedSpaces =
+        (
+          typedParagraphText.match(/\s/g) ||
+          []
+        ).length;
+
+      const expectedSpaces =
+        (
+          currentText.match(/\s/g) ||
+          []
+        ).length;
+
+      correct += Math.min(
+        typedSpaces,
+        expectedSpaces
+      );
+
+      // ========================================
+      // WRONG WORDS
+      // Only COMPLETED words count as mistakes.
+      // Current incomplete word does not count yet.
+      // ========================================
+
+      const hasTrailingSpace =
+        /\s$/.test(
+          typedParagraphText
+        );
+
+      const completedWordCount =
+        hasTrailingSpace
+          ? typedWords.length
+          : Math.max(
+            typedWords.length - 1,
+            0
+          );
+
+      for (
+        let i = 0;
+        i < completedWordCount;
+        i++
+      ) {
+        const typedWord =
+          typedWords[i] || "";
+
+        const expectedWord =
+          expectedWords[i] || "";
+
+        if (
+          typedWord !== expectedWord
+        ) {
+          wrongWords++;
+        }
+      }
+    }
+
+    // ========================================
+    // TOTAL TYPED CHARACTERS
+    // ========================================
+
+    const totalCharacters =
+      correct + wrongCharacters;
+
+    // ========================================
+    // ACCURACY
+    // ========================================
 
     const accuracy =
-      total > 0
-        ? Math.round((correct / total) * 100)
+      totalCharacters > 0
+        ? Math.round(
+          (
+            correct /
+            totalCharacters
+          ) * 100
+        )
         : 100;
+
+    // ========================================
+    // WPM
+    // ========================================
 
     const elapsed =
       duration - timeLeft;
@@ -604,27 +842,23 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     const minutes =
       elapsed / 60;
 
-    // WPM poore test ke correct characters se
     const wpm =
       minutes > 0
-        ? Math.round((correct / 5) / minutes)
+        ? Math.round(
+          (correct / 5) /
+          minutes
+        )
         : 0;
-    console.log("STATS CHECK:", {
-      correct,
-      wrong,
-      total,
-      typedReportLength: typedCharactersForReport.length
-    });
+
     return {
       correct,
-      wrong,
+      wrong: wrongWords,
+      wrongCharacters,
+      totalCharacters,
       accuracy,
       wpm
     };
-
   }
-
-
   // ========================================
   // UPDATE STATS
   // ========================================
@@ -767,7 +1001,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       typingText: currentText,
       typedText: JSON.stringify(typedCharactersForReport),
 
-      testType: "typing-test",
+      testType: localStorage.getItem("typemaster-custom-title") === "Weakness Practice"
+        ? "weakness-practice"
+        : "typing-test",
 
       durationSeconds: (Number(selectedDuration) || 0) * 60,
 
@@ -777,7 +1013,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       correctCharacters: Number(stats.correct) || 0,
 
-      wrongCharacters: Number(stats.wrong) || 0,
+      wrongCharacters: Number(stats.wrongCharacters) || 0,
 
       errors: Number(stats.wrong) || 0,
 
@@ -993,8 +1229,16 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           );
 
       }
+      // ====================================
+      // UPDATE REPORT FOR CURRENT PARAGRAPH
+      // ====================================
+
+      typedCharactersForReport.splice(
+        currentReportStart
+      );
+
       for (
-        let i = lastReportedLength;
+        let i = 0;
         i < inputEl.value.length;
         i++
       ) {
@@ -1004,57 +1248,31 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         });
       }
 
-      lastReportedLength = inputEl.value.length;
-
+      lastReportedLength =
+        inputEl.value.length;
 
       updateStats();
 
+      renderText(inputEl.value);
+      if (inputEl.value.length === currentText.length) {
+        // ====================================
+        // CURRENT PARAGRAPH COMPLETE
+        // ====================================
 
-      renderText(
-        inputEl.value
-      );
+        // Current paragraph already report mein save hai.
+        // Ab next paragraph ke liye naya report block start hoga.
 
-      if (
-        inputEl.value.length ===
-        currentText.length
-      ) {
+        currentReportStart =
+          typedCharactersForReport.length;
 
-        // Current paragraph ke final stats total mein add karo
-        let paragraphCorrect = 0;
-        let paragraphWrong = 0;
-
-        for (
-          let i = 0;
-          i < currentText.length;
-          i++
-        ) {
-
-          if (
-            inputEl.value[i] === currentText[i]
-          ) {
-
-            paragraphCorrect++;
-
-          } else {
-
-            paragraphWrong++;
-
-          }
-
-        }
-
-        totalCorrect += paragraphCorrect;
-        totalWrong += paragraphWrong;
-
-        // Same selected paragraph dobara start
-        // Same selected paragraph dobara start
+        // Next paragraph
         inputEl.value = "";
         lastReportedLength = 0;
 
         renderText("");
-        inputEl.focus();
-
       }
+
+      inputEl.focus();
 
     }
   );
@@ -1162,6 +1380,11 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       totalCorrect = 0;
       totalWrong = 0;
+      totalWrongCharacters = 0;
+      typedTextForReport = "";
+      typedCharactersForReport = [];
+      lastReportedLength = 0;
+      currentReportStart = 0;
 
       finishButton.disabled =
         true;

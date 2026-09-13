@@ -601,11 +601,12 @@ function renderDailyChallengeHistory() {
                     const score =
                         Math.max(
                             0,
-                            Math.round(
-                                wpm *
-                                (
-                                    accuracy /
-                                    100
+                            Math.min(
+                                1000,
+                                Math.round(
+                                    wpm *
+                                    20 *
+                                    (accuracy / 100)
                                 )
                             )
                         );
@@ -1593,75 +1594,60 @@ document.addEventListener(
                 return;
             }
 
+            const text = getChallengeText();
+            const typed = input ? input.value : "";
 
-            const text =
-                getChallengeText();
+            const expectedWords = text.match(/\S+/g) || [];
+            const typedWords = typed.match(/\S+/g) || [];
 
+            const hasTrailingSpace = /\s$/.test(typed);
 
-            const typed =
-                input
-                    ? input.value
-                    : "";
+            const completedWordCount = hasTrailingSpace
+                ? typedWords.length
+                : Math.max(typedWords.length - 1, 0);
 
+            const currentWordIndex = typedWords.length > 0
+                ? (hasTrailingSpace
+                    ? typedWords.length
+                    : typedWords.length - 1)
+                : 0;
 
+            const parts = text.match(/\S+|\s+/g) || [];
+
+            let wordIndex = 0;
             let html = "";
 
+            parts.forEach((part) => {
 
-            for (
-                let i = 0;
-                i < text.length;
-                i++
-            ) {
+                if (/^\s+$/.test(part)) {
+                    html += part;
+                    return;
+                }
 
-                const character =
-                    text[i];
+                const expectedWord = expectedWords[wordIndex] || "";
+                const typedWord = typedWords[wordIndex] || "";
 
+                const escaped = part
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
 
-                const escaped =
-                    character
-                        .replace(
-                            /&/g,
-                            "&amp;"
-                        )
-                        .replace(
-                            /</g,
-                            "&lt;"
-                        )
-                        .replace(
-                            />/g,
-                            "&gt;"
-                        )
-                        .replace(
-                            /"/g,
-                            "&quot;"
-                        );
+                if (wordIndex < completedWordCount) {
 
-
-                if (
-                    i < typed.length
-                ) {
-
-                    if (
-                        typed[i] ===
-                        character
-                    ) {
-
-                        html +=
-                            `<span class="correct">${escaped}</span>`;
-
+                    if (typedWord === expectedWord) {
+                        html += `<span class="correct">${escaped}</span>`;
                     } else {
-
-                        html +=
-                            `<span class="incorrect">${escaped}</span>`;
-
+                        html += `<span class="incorrect">${escaped}</span>`;
                     }
 
                 } else if (
-                    i === typed.length
+                    wordIndex === currentWordIndex &&
+                    started &&
+                    !finished
                 ) {
 
-                    html +=
-                        `<span class="current">${escaped}</span>`;
+                    html += `<span class="current">${escaped}</span>`;
 
                 } else {
 
@@ -1669,12 +1655,10 @@ document.addEventListener(
 
                 }
 
-            }
+                wordIndex++;
+            });
 
-
-            textElement.innerHTML =
-                html;
-
+            textElement.innerHTML = html;
         }
 
 
@@ -1766,32 +1750,18 @@ document.addEventListener(
         // -------------------------------------------------
 
         function calculateAccuracy() {
-
-            if (
-                totalKeystrokes <= 0
-            ) {
-
+            if (totalKeystrokes <= 0) {
                 return 100;
-
             }
 
-
-            const correct =
-                totalKeystrokes -
-                mistakes;
-
-
-            return Math.max(
+            const correctKeystrokes = Math.max(
                 0,
-                Math.round(
-                    (
-                        correct /
-                        totalKeystrokes
-                    ) *
-                    100
-                )
+                totalKeystrokes - mistakes
             );
 
+            return Math.round(
+                (correctKeystrokes / totalKeystrokes) * 100
+            );
         }
 
 
@@ -1800,53 +1770,34 @@ document.addEventListener(
         // -------------------------------------------------
 
         function calculateWpm() {
+            const typed = input ? input.value : "";
+
+            const correctCharacters = Math.max(
+                0,
+                typed.length - mistakes
+            );
 
             if (!startTime) {
                 return 0;
             }
 
-
             const elapsed =
-                (
-                    Date.now() -
-                    startTime
-                ) / 1000;
+                (Date.now() - startTime) / 1000;
 
+            const minutes = elapsed / 60;
 
-            if (
-                elapsed <= 0
-            ) {
-
+            if (minutes <= 0) {
                 return 0;
-
             }
 
-
-            const typed =
-                input
-                    ? input.value.length
-                    : 0;
-
-
-            const words =
-                typed / 5;
-
-
-            const minutes =
-                elapsed / 60;
-
+            const wpm =
+                (correctCharacters / 5) / minutes;
 
             return Math.max(
                 0,
-                Math.round(
-                    words /
-                    minutes
-                )
+                Math.round(wpm)
             );
-
         }
-
-
         // -------------------------------------------------
         // LIVE STATS
         // -------------------------------------------------
@@ -2111,11 +2062,12 @@ document.addEventListener(
             const score =
                 Math.max(
                     0,
-                    Math.round(
-                        finalWpm *
-                        (
-                            finalAccuracy /
-                            100
+                    Math.min(
+                        1000,
+                        Math.round(
+                            finalWpm *
+                            20 *
+                            (finalAccuracy / 100)
                         )
                     )
                 );
@@ -2249,19 +2201,17 @@ document.addEventListener(
 
             if (resultMessage) {
 
-                const streak =
-                    Number(
-                        dailyStatsFromDB.streak
-                    ) || 0;
+                let rating = "";
 
+                if (score >= 800) {
+                    rating = "Excellent! 🔥";
+                } else if (score >= 600) {
+                    rating = "Good job! 👍";
+                } else {
+                    rating = "Needs Practice 💪";
+                }
 
-                resultMessage.textContent =
-                    `Daily Challenge completed! 🔥 ${streak
-                    } ${streak === 1
-                        ? "day"
-                        : "days"
-                    } streak`;
-
+                resultMessage.textContent = rating;
             }
 
         }

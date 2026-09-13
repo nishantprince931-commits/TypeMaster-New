@@ -636,7 +636,7 @@ document.addEventListener(
           localStorage.getItem(
             "typemaster-profile"
           );
-          
+
 
 
         let profile = {
@@ -1516,7 +1516,14 @@ function showSignIn() {
     document.getElementById(
       "forgotPasswordButton"
     );
-
+  [email, password].forEach((field) => {
+    field.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submit.click();
+      }
+    });
+  });
 
   // ======================================
   // FORGOT PASSWORD - BACKEND
