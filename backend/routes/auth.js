@@ -5,15 +5,26 @@ const nodemailer = require("nodemailer");
 const { createId } = require("@paralleldrive/cuid2");
 
 const router = express.Router();
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+const sendResetEmail = async ({ to, subject, html }) => {
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: "TypeMaster <onboarding@resend.dev>",
+      to: [to],
+      subject,
+      html
+    })
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend API error: ${response.status} ${errorText}`);
   }
-});
+};
 /* ========================================
    REGISTER
 ======================================== */
@@ -320,7 +331,7 @@ router.post(
       const resetLink =
         `http://127.0.0.1:5500/frontend/reset-password.html?token=${encodeURIComponent(token)}`;
 
-      await transporter.sendMail({
+      await sendResetEmail({
         from: `"TypeMaster" <${process.env.EMAIL_USER}>`,
         to: user.email,
         subject: "TypeMaster - Reset Your Password",
