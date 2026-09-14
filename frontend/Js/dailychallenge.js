@@ -977,6 +977,15 @@ document.addEventListener(
                 "dailyMessage"
             );
 
+        const resultGrossWpm =
+            document.getElementById(
+                "resultGrossWpm"
+            );
+
+        const resultErrorRate =
+            document.getElementById(
+                "resultErrorRate"
+            );
 
         const resultWpm =
             document.getElementById(
@@ -1748,54 +1757,79 @@ document.addEventListener(
         // -------------------------------------------------
         // ACCURACY
         // -------------------------------------------------
-
         function calculateAccuracy() {
-            if (totalKeystrokes <= 0) {
+            const typed =
+                input ? input.value : "";
+
+            const challengeText =
+                getChallengeText();
+
+            const expectedWords =
+                challengeText.match(/\S+/g) || [];
+
+            const typedWords =
+                typed.match(/\S+/g) || [];
+
+            const hasTrailingSpace =
+                /\s$/.test(typed);
+
+            const completedWordCount =
+                hasTrailingSpace
+                    ? typedWords.length
+                    : Math.max(typedWords.length - 1, 0);
+
+            if (completedWordCount === 0) {
                 return 100;
             }
 
-            const correctKeystrokes = Math.max(
-                0,
-                totalKeystrokes - mistakes
-            );
+            let correctWords = 0;
+
+            for (let i = 0; i < completedWordCount; i++) {
+                if (
+                    (typedWords[i] || "") ===
+                    (expectedWords[i] || "")
+                ) {
+                    correctWords++;
+                }
+            }
 
             return Math.round(
-                (correctKeystrokes / totalKeystrokes) * 100
+                (correctWords / completedWordCount) * 100
             );
         }
-
-
         // -------------------------------------------------
         // WPM
         // -------------------------------------------------
-
         function calculateWpm() {
-            const typed = input ? input.value : "";
+            const typed =
+                input ? input.value : "";
 
-            const correctCharacters = Math.max(
-                0,
-                typed.length - mistakes
-            );
-
-            if (!startTime) {
+            if (!startTime || typed.length === 0) {
                 return 0;
             }
 
-            const elapsed =
+            const elapsedSeconds =
                 (Date.now() - startTime) / 1000;
 
-            const minutes = elapsed / 60;
+            const minutes =
+                elapsedSeconds / 60;
 
             if (minutes <= 0) {
                 return 0;
             }
 
-            const wpm =
-                (correctCharacters / 5) / minutes;
+            const grossWpm =
+                (typed.length / 5) / minutes;
+
+            const errorRate =
+                mistakes / minutes;
+
+            const netWpm =
+                grossWpm - errorRate;
 
             return Math.max(
                 0,
-                Math.round(wpm)
+                Math.round(netWpm)
             );
         }
         // -------------------------------------------------
@@ -1904,28 +1938,26 @@ document.addEventListener(
                     }
 
 
-                    totalKeystrokes =
-                        typed.length;
+                    totalKeystrokes = typed.length;
 
+                    const expectedWords = text.match(/\S+/g) || [];
+                    const typedWords = typed.match(/\S+/g) || [];
+
+                    const hasTrailingSpace = /\s$/.test(typed);
+
+                    const completedWordCount = hasTrailingSpace
+                        ? typedWords.length
+                        : Math.max(typedWords.length - 1, 0);
 
                     mistakes = 0;
 
-
-                    for (
-                        let i = 0;
-                        i < typed.length;
-                        i++
-                    ) {
-
+                    for (let i = 0; i < completedWordCount; i++) {
                         if (
-                            typed[i] !==
-                            text[i]
+                            (typedWords[i] || "") !==
+                            (expectedWords[i] || "")
                         ) {
-
                             mistakes++;
-
                         }
-
                     }
 
 
@@ -1933,8 +1965,6 @@ document.addEventListener(
 
 
                     updateLiveStats();
-
-
                     // -----------------------------------------
                     // COMPLETED TEXT
                     // -----------------------------------------
@@ -2046,19 +2076,47 @@ document.addEventListener(
 
             timer = null;
 
-
-            const finalWpm =
-                calculateWpm();
-
-
             const finalAccuracy =
                 calculateAccuracy();
+            const finalText = getChallengeText();
+            const typed = input ? input.value : "";
 
+            const expectedWords = finalText.match(/\S+/g) || [];
+            const typedWords = typed.match(/\S+/g) || [];
 
-            const finalMistakes =
-                mistakes;
+            let finalMistakes = 0;
 
+            for (let i = 0; i < typedWords.length; i++) {
+                if (
+                    (typedWords[i] || "") !==
+                    (expectedWords[i] || "")
+                ) {
+                    finalMistakes++;
+                }
+            }
+            const elapsedSeconds =
+                (Date.now() - startTime) / 1000;
 
+            const minutes =
+                elapsedSeconds / 60;
+
+            const grossWpm =
+                minutes > 0
+                    ? (typed.length / 5) / minutes
+                    : 0;
+
+            const errorRate =
+                minutes > 0
+                    ? finalMistakes / minutes
+                    : 0;
+
+            const finalWpm =
+                Math.max(
+                    0,
+                    Math.round(
+                        grossWpm - errorRate
+                    )
+                );
             const score =
                 Math.max(
                     0,
@@ -2083,8 +2141,24 @@ document.addEventListener(
                     String(finalWpm);
 
             }
+            if (resultGrossWpm) {
 
+                resultGrossWpm.textContent =
+                    String(Math.round(grossWpm));
 
+            }
+            if (resultErrorRate) {
+
+                resultErrorRate.textContent =
+                    String(Math.round(errorRate));
+
+            }
+            if (resultNetWpm) {
+
+                resultNetWpm.textContent =
+                    String(finalWpm);
+
+            }
             if (resultAccuracy) {
 
                 resultAccuracy.textContent =

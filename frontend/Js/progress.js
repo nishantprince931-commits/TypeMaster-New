@@ -51,8 +51,9 @@ async function loadHistory() {
           title:
             item.testType === "weakness-practice"
               ? "Weakness Practice"
-              : "Typing Test",
-
+              : item.testType === "custom-practice"
+                ? "Custom Practice"
+                : "Typing Test",
           wpm:
             Number(item.wpm) || 0,
 
@@ -1878,6 +1879,7 @@ if (clearHistoryButton) {
         testHistory = [];
 
         updateStatistics();
+        renderHistory();
         drawCharts();
 
         alert(

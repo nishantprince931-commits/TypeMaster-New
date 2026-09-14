@@ -619,6 +619,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     let correct = 0;
     let wrongCharacters = 0;
     let wrongWords = 0;
+    let correctWords = 0;
 
     const paragraphSize = currentText.length;
 
@@ -678,6 +679,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         ) {
           correct += typedWord.length;
           continue;
+        }
+        else {
+          correctWords++;
         }
 
         // ========================================
@@ -775,7 +779,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       // ========================================
       // WRONG WORDS
-      // Only COMPLETED words count as mistakes.
       // Current incomplete word does not count yet.
       // ========================================
 
@@ -807,6 +810,8 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           typedWord !== expectedWord
         ) {
           wrongWords++;
+        } else {
+          correctWords++;
         }
       }
     }
@@ -836,13 +841,13 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     // ACCURACY
     // ========================================
 
+    const totalWords =
+      correctWords + wrongWords;
+
     const accuracy =
-      totalCharacters > 0
+      totalWords > 0
         ? Math.round(
-          (
-            correct /
-            totalCharacters
-          ) * 100
+          (correctWords / totalWords) * 100
         )
         : 100;
     // ========================================
@@ -855,13 +860,23 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     const minutes =
       elapsed / 60;
 
-    const wpm =
+    const grossWpm =
       minutes > 0
-        ? Math.round(
-          (correct / 5) /
-          minutes
-        )
+        ? (totalCharacters / 5) / minutes
         : 0;
+
+    const errorRate =
+      minutes > 0
+        ? wrongWords / minutes
+        : 0;
+
+    const wpm =
+      Math.max(
+        0,
+        Math.round(
+          grossWpm - errorRate
+        )
+      );
 
     return {
       correct,
@@ -869,6 +884,8 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       wrongCharacters,
       totalCharacters,
       accuracy,
+      grossWpm,
+      errorRate,
       wpm
     };
   }
@@ -1014,9 +1031,14 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       typingText: currentText,
       typedText: JSON.stringify(typedCharactersForReport),
 
-      testType: localStorage.getItem("typemaster-custom-title") === "Weakness Practice"
-        ? "weakness-practice"
-        : "typing-test",
+      testType:
+        selectedId === "custom"
+          ? (
+            localStorage.getItem("typemaster-custom-title") === "Weakness Practice"
+              ? "weakness-practice"
+              : "custom-practice"
+          )
+          : "typing-test",
 
       durationSeconds: (Number(selectedDuration) || 0) * 60,
 
@@ -1129,32 +1151,49 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         Test Complete!
       </strong>
 
-      <div class="result-grid">
+<div class="result-grid">
 
-        <div>
-          <span>WPM</span>
+  <div>
+    <span>GROSS WPM</span>
 
-          <strong>
-            ${stats.wpm}
-          </strong>
-        </div>
+    <strong>
+      ${Math.round(stats.grossWpm)}
+    </strong>
+  </div>
 
-        <div>
-          <span>Accuracy</span>
+  <div>
+    <span>ERROR RATE</span>
 
-          <strong>
-            ${stats.accuracy}%
-          </strong>
-        </div>
+    <strong>
+      ${Math.round(stats.errorRate)}
+    </strong>
+  </div>
 
-        <div>
-          <span>Mistakes</span>
+  <div>
+    <span>NET WPM</span>
 
-          <strong>
-            ${stats.wrong}
-          </strong>
-        </div>
+    <strong>
+      ${stats.wpm}
+    </strong>
+  </div>
 
+  <div>
+    <span>Accuracy</span>
+
+    <strong>
+      ${stats.accuracy}%
+    </strong>
+  </div>
+
+  <div>
+    <span>Mistakes</span>
+
+    <strong>
+      ${stats.wrong}
+    </strong>
+  </div>
+
+</div>
       </div>
 
     `;

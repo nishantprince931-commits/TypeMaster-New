@@ -532,6 +532,13 @@ function setMilestone(
 // ========================================
 
 function updateMilestones() {
+    if (localStorage.getItem("typemaster-signed-in") !== "true") {
+    setMilestone("First Test", false, "Complete your first typing test.");
+    setMilestone("Speed Demon", false, "Reach 50 WPM.");
+    setMilestone("Accuracy Master", false, "Reach 95% accuracy.");
+    setMilestone("On Fire", false, "Maintain a 7 day streak.");
+    return;
+  }
 
   if (!Array.isArray(dbAchievements)) {
     return;
@@ -1878,6 +1885,7 @@ if (logoutButton) {
       localStorage.removeItem("typemasterDailyStreak");
 
       updateAuthButtons();
+      loadSavedProfile();
 
       updateProfileDisplay({
         name: "Guest",
