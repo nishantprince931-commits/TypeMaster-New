@@ -1022,6 +1022,16 @@ function updateProfileDisplay(
 // ========================================
 
 function loadSavedProfile() {
+  const signedIn =
+    localStorage.getItem("typemaster-signed-in") === "true";
+
+  if (!signedIn) {
+    updateProfileDisplay({
+      name: "Guest",
+      description: "Please sign in to view your profile."
+    });
+    return;
+  }
 
   const saved =
     localStorage.getItem(
@@ -1905,8 +1915,7 @@ if (logoutButton) {
 // ========================================
 
 updateAuthButtons();
-const urlParams = new URLSearchParams(window.location.search);
-
-if (urlParams.get("openSignin") === "true") {
+if (localStorage.getItem("typemaster-open-signin") === "true") {
+  localStorage.removeItem("typemaster-open-signin");
   showSignIn();
 }
