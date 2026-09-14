@@ -13,7 +13,7 @@ const sendResetEmail = async ({ to, subject, html }) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      from: "TypeMaster <onboarding@resend.dev>",
+      from: "TypeMaster <noreply@mytypemaster.in>",
       to: [to],
       subject,
       html
