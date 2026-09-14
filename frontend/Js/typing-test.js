@@ -812,8 +812,22 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     }
 
     // ========================================
-    // TOTAL TYPED CHARACTERS
+    // FINAL CHARACTER COUNTS
     // ========================================
+
+    let reportCorrect = 0;
+    let reportWrongCharacters = 0;
+
+    for (const item of typedCharactersForReport) {
+      if (item.typed === item.correct) {
+        reportCorrect++;
+      } else {
+        reportWrongCharacters++;
+      }
+    }
+
+    correct = reportCorrect;
+    wrongCharacters = reportWrongCharacters;
 
     const totalCharacters =
       correct + wrongCharacters;
@@ -831,7 +845,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           ) * 100
         )
         : 100;
-
     // ========================================
     // WPM
     // ========================================
@@ -1255,17 +1268,10 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       renderText(inputEl.value);
       if (inputEl.value.length === currentText.length) {
-        // ====================================
-        // CURRENT PARAGRAPH COMPLETE
-        // ====================================
-
-        // Current paragraph already report mein save hai.
-        // Ab next paragraph ke liye naya report block start hoga.
 
         currentReportStart =
           typedCharactersForReport.length;
 
-        // Next paragraph
         inputEl.value = "";
         lastReportedLength = 0;
 
