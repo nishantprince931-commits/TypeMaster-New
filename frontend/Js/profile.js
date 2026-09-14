@@ -1431,12 +1431,15 @@ function showSignIn() {
 
         <label>Password</label>
 
-<input
-  id="signinPassword"
-  type="password"
-  placeholder="Enter your password"
-  autocomplete="current-password"
->
+<div class="password-input-wrapper">
+  <input
+    id="signinPassword"
+    type="password"
+    placeholder="Enter your password"
+    autocomplete="current-password"
+  >
+  <button type="button" id="toggleSigninPassword">👁️</button>
+</div>
 <button
   id="forgotPasswordButton"
   type="button"
@@ -1497,6 +1500,15 @@ function showSignIn() {
     document.getElementById(
       "signinPassword"
     );
+  const toggleSigninPassword =
+    document.getElementById("toggleSigninPassword");
+
+  toggleSigninPassword.addEventListener("click", () => {
+    password.type =
+      password.type === "password"
+        ? "text"
+        : "password";
+  });
 
   const cancel =
     document.getElementById(
@@ -1893,3 +1905,8 @@ if (logoutButton) {
 // ========================================
 
 updateAuthButtons();
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.get("openSignin") === "true") {
+  showSignIn();
+}
