@@ -40,25 +40,6 @@ app.get("/api/test", (req, res) => {
     message: "TypeMaster API is working!"
   });
 });
-
-/* USERS API */
-app.get("/api/users", async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM "User"');
-
-    res.json({
-      success: true,
-      users: result.rows
-    });
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch users"
-    });
-  }
-});
 console.log(
   "Typing test routes:",
   typingTestRoutes.stack
