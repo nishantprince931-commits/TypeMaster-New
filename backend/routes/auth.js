@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const { createId } = require("@paralleldrive/cuid2");
 
 const router = express.Router();
