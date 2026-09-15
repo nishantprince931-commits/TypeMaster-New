@@ -1378,3 +1378,22 @@ body.dark-mode .lesson-breakdown-card.completed .lesson-breakdown-status {
     font-weight: 800;
     text-decoration: underline;
 }
+/* ========================================
+   WEAKNESS PRACTICE - DARK MODE FIX
+======================================== */
+
+body.dark-mode .weakness-practice-result {
+  background: #111827;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+body.dark-mode .weakness-practice-result h3,
+body.dark-mode .weakness-practice-result strong {
+  color: #f8fafc;
+}
+
+body.dark-mode .weakness-practice-result p,
+body.dark-mode .weakness-practice-result span {
+  color: #94a3b8;
+}

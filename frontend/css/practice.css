@@ -948,3 +948,33 @@ body.dark-mode .close-selected:hover {
   }
 
 }
+/* ========================================
+   CUSTOM PRACTICE - DARK MODE FIX
+======================================== */
+
+body.dark-mode .custom-practice-section {
+  background: #111827;
+  border-color: #334155;
+}
+
+body.dark-mode .custom-practice-header h2,
+body.dark-mode .custom-field label {
+  color: #f8fafc;
+}
+
+body.dark-mode .custom-practice-header p,
+body.dark-mode .custom-text-info {
+  color: #94a3b8;
+}
+
+body.dark-mode .custom-practice-title,
+body.dark-mode .custom-practice-textarea {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+body.dark-mode .custom-practice-title::placeholder,
+body.dark-mode .custom-practice-textarea::placeholder {
+  color: #64748b;
+}
