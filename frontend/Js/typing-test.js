@@ -779,6 +779,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       // ========================================
       // WRONG WORDS
+      // Only COMPLETED words count as mistakes.
       // Current incomplete word does not count yet.
       // ========================================
 

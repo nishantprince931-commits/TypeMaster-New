@@ -743,13 +743,11 @@ function printHistoryTest(index) {
     return;
   }
 
-  const duration =
-    Math.round(
-      (Number(test.duration) || 0) / 60
-    );
+  const durationSeconds =
+    Number(test.duration) || 0;
 
-  const wpm =
-    getWpm(test);
+  const duration =
+    Math.round(durationSeconds / 60);
 
   const accuracy =
     getAccuracy(test);
@@ -757,21 +755,47 @@ function printHistoryTest(index) {
   const mistakes =
     Number(test.mistakes) || 0;
 
-  const correctCharacters =
-    Number(test.correctCharacters) || 0;
-
-  const wrongCharacters =
-    Number(test.wrongCharacters) || mistakes;
-
-  const totalCharacters =
-    correctCharacters + wrongCharacters;
   let typedReport = [];
 
   try {
-    typedReport = JSON.parse(test.typedText || "[]");
+    typedReport =
+      JSON.parse(test.typedText || "[]");
   } catch (error) {
-    console.error("Could not parse typed text:", error);
+    console.error(
+      "Could not parse typed text:",
+      error
+    );
   }
+
+  const typedCharacters =
+    typedReport
+      .map(item => item.typed || "")
+      .join("");
+
+  const totalCharacters =
+    typedCharacters.length;
+
+  const minutes =
+    durationSeconds / 60;
+
+  const grossWpm =
+    minutes > 0
+      ? (totalCharacters / 5) / minutes
+      : 0;
+
+  const errorRate =
+    minutes > 0
+      ? mistakes / minutes
+      : 0;
+
+  const netWpm =
+    Math.max(
+      0,
+      Math.round(
+        grossWpm - errorRate
+      )
+    );
+  const wpm = netWpm;
 
   const typedHtml = (() => {
     const paragraphText = test.text || "";
@@ -864,184 +888,217 @@ function printHistoryTest(index) {
 
       <style>
 
-        * {
-          box-sizing: border-box;
-        }
+       * {
+  box-sizing: border-box;
+}
 
-        body {
-          margin: 0;
-          padding: 40px;
-          background: #f8fafc;
-          font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-          color: #0f172a;
-        }
+body {
+  margin: 0;
+  padding: 28px;
+  background: #eef3f9;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0f172a;
+}
 
-        .report {
-          max-width: none;
-          margin: 0 auto;
-          background: white;
-          border-radius: 18px;
-          overflow: visible;
-          border: 1px solid #e2e8f0;
-        }
+.report {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #dbe4ef;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+}
 
-        .header {
-          padding: 30px 35px;
-          border-bottom: 1px solid #e2e8f0;
-        }
+/* HEADER */
 
-        .brand {
-          font-size: 28px;
-          font-weight: 800;
-          margin-bottom: 6px;
-        }
+.header {
+  padding: 32px 40px 30px;
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+  color: white;
+}
 
-        .subtitle {
-          font-size: 14px;
-          color: #64748b;
-        }
+.brand {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
 
-        .test-title {
-          margin-top: 25px;
-          font-size: 22px;
-          font-weight: 700;
-        }
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.9;
+}
 
-        .date {
-          margin-top: 7px;
-          font-size: 13px;
-          color: #64748b;
-        }
+.test-title {
+  margin-top: 26px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
 
-        .content {
-          padding: 30px 35px;
-        }
+.user-name {
+  margin-top: 6px;
+  font-size: 17px;
+  font-weight: 600;
+}
 
-        .section-title {
-          font-size: 15px;
-          font-weight: 700;
-          margin-bottom: 15px;
-        }
+.date {
+  margin-top: 5px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+/* CONTENT */
 
-        .stats {
-          display: grid;
-          grid-template-columns:
-            repeat(4, 1fr);
-          gap: 14px;
-          margin-bottom: 30px;
-        }
+.content {
+  padding: 34px 40px;
+}
 
-        .stat {
-          border: 1px solid #e2e8f0;
-          border-radius: 12px;
-          padding: 18px;
-        }
+.section-title {
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #334155;
+}
 
-        .stat-label {
-          font-size: 11px;
-          font-weight: 700;
-          color: #64748b;
-          letter-spacing: 0.5px;
-          margin-bottom: 8px;
-        }
+/* PERFORMANCE */
 
-        .stat-value {
-          font-size: 25px;
-          font-weight: 800;
-        }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
 
-        .details {
-          display: grid;
-          grid-template-columns:
-            repeat(3, 1fr);
-          gap: 14px;
-          margin-bottom: 30px;
-        }
+.stat {
+  padding: 20px;
+  border: 1px solid #dbe4ef;
+  border-radius: 14px;
+  background: #f8fafc;
+}
 
-        .detail {
-          background: #f8fafc;
-          border-radius: 10px;
-          padding: 15px;
-        }
+.stat-label {
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #64748b;
+}
 
-        .detail-label {
-          font-size: 11px;
-          color: #64748b;
-          margin-bottom: 5px;
-        }
+.stat-value {
+  font-size: 27px;
+  font-weight: 800;
+  color: #2563eb;
+}
 
-        .detail-value {
-          font-size: 17px;
-          font-weight: 700;
-        }
+/* DETAILS */
 
-        .typing-box {
-          width: 100%;
-          box-sizing: border-box;
-          padding: 28px 32px;
-          font-size: 18px;
-          line-height: 1.8;
-          white-space: normal;
-          overflow-wrap: anywhere;
-          word-break: normal;
-          overflow: visible;
-          border: 1px solid #e2e8f0;
-          border-radius: 12px;
-        }
-          .wrong-char {
-          color: #dc2626;
-          font-weight: 700;
-          text-decoration: underline;
-        }
-         .error-pair {
-          display: inline;
-          white-space: nowrap;
-        }
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
 
-        .wrong-char {
-          color: #dc2626;
-          font-weight: 700;
-        }
+.detail {
+  padding: 17px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+}
 
-        .correct-char {
-          color: #16a34a;
-          font-weight: 700;
-        }
+.detail-label {
+  margin-bottom: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #64748b;
+}
 
-        .correct-char {
-          color: #16a34a;
-          font-weight: 700;
-          margin-left: 4px;
-        }
+.detail-value {
+  font-size: 21px;
+  font-weight: 800;
+  color: #0f172a;
+}
 
-        .footer {
-          padding: 20px 35px;
-          border-top: 1px solid #e2e8f0;
-          font-size: 12px;
-          color: #64748b;
-          text-align: center;
-        }
-        @page {
-             size: A4;
-             margin: 12mm;
-            }
-        @media print {
+/* TYPING TEXT */
 
-          body {
-            padding: 0;
-            background: white;
-          }
+.typing-box {
+  width: 100%;
+  padding: 24px 26px;
+  font-size: 17px;
+  line-height: 1.9;
+  background: #f8fafc;
+  border: 1px solid #dbe4ef;
+  border-radius: 14px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
 
-          .report {
-            border: none;
-            border-radius: 0;
-            max-width: none;
-          }
+.wrong-char {
+  color: #dc2626;
+  font-weight: 700;
+  text-decoration: underline;
+}
 
-        }
+.correct-char {
+  color: #16a34a;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 20px 40px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* PRINT */
+
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+
+  body {
+    padding: 0;
+    background: white;
+  }
+
+  .report {
+    max-width: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .header {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .stat,
+  .detail,
+  .typing-box,
+  .footer {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
 
       </style>
 
@@ -1088,7 +1145,7 @@ function printHistoryTest(index) {
             <div class="stat">
 
               <div class="stat-label">
-                WPM
+                NET WPM
               </div>
 
               <div class="stat-value">
@@ -1144,47 +1201,63 @@ function printHistoryTest(index) {
           </div>
 
 
-          <div class="details">
+  <div class="details">
 
-            <div class="detail">
+  <div class="detail">
+    <div class="detail-label">
+      GROSS WPM
+    </div>
+    <div class="detail-value">
+      ${Math.round(grossWpm)}
+    </div>
+  </div>
 
-              <div class="detail-label">
-                CORRECT CHARACTERS
-              </div>
+  <div class="detail">
+    <div class="detail-label">
+      ERROR RATE
+    </div>
+    <div class="detail-value">
+      ${Math.round(errorRate)}
+    </div>
+  </div>
 
-              <div class="detail-value">
-                ${correctCharacters}
-              </div>
+  <div class="detail">
+    <div class="detail-label">
+      NET WPM
+    </div>
+    <div class="detail-value">
+      ${netWpm}
+    </div>
+  </div>
 
-            </div>
+  <div class="detail">
+    <div class="detail-label">
+      ACCURACY
+    </div>
+    <div class="detail-value">
+      ${accuracy}%
+    </div>
+  </div>
 
+  <div class="detail">
+    <div class="detail-label">
+      MISTAKES
+    </div>
+    <div class="detail-value">
+      ${mistakes}
+    </div>
+  </div>
 
-            <div class="detail">
+  <div class="detail">
+    <div class="detail-label">
+      TOTAL CHARACTERS
+    </div>
+    <div class="detail-value">
+      ${totalCharacters}
+    </div>
+  </div>
 
-              <div class="detail-label">
-                WRONG CHARACTERS
-              </div>
-
-              <div class="detail-value">
-                ${wrongCharacters}
-              </div>
-
-            </div>
-
-
-            <div class="detail">
-
-              <div class="detail-label">
-                TOTAL CHARACTERS
-              </div>
-
-              <div class="detail-value">
-                ${totalCharacters}
-              </div>
-
-            </div>
-
-          </div>
+</div>
 
 
           <div class="section-title">
