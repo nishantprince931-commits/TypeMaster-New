@@ -2,6 +2,7 @@ const express = require("express");
 const { createId } = require("@paralleldrive/cuid2");
 
 const router = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 // =====================================================
 // UPDATE USER STREAK IN POSTGRESQL
 // =====================================================

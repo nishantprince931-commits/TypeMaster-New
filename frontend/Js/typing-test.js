@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const TEXTS = {
 
-
     journey: {
       title: "A Journey Through Learning",
       text: `Improving your typing speed is a simple skill that can make everyday computer work much easier. Whether you are writing emails, preparing assignments, chatting with friends, creating reports, or working online, good typing skills can save you a lot of time. The best way to become a faster typist is to practice regularly and focus on accuracy before speed. When you type, try to keep your fingers in the correct position and use all of your fingers instead of relying on only a few. Avoid looking at the keyboard too often because learning where the keys are located will help your hands move naturally.
@@ -89,6 +88,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       text: customText
     };
   }
+
   // ========================================
   // GET SELECTION
   // ========================================
@@ -101,7 +101,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   const test =
     TEXTS[selectedId] || TEXTS.journey;
 
-
   // ========================================
   // GET TEST DURATION
   // ========================================
@@ -112,7 +111,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     localStorage.getItem(
       "typemaster-duration-source"
     );
-
 
   // ========================================
   // PRACTICE DURATION HAS PRIORITY
@@ -160,7 +158,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
-
   // ========================================
   // KEEP BETWEEN 1 AND 30 MINUTES
   // ========================================
@@ -174,14 +171,12 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       30
     );
 
-
   // ========================================
   // CONVERT MINUTES → SECONDS
   // ========================================
 
   const duration =
     selectedDuration * 60;
-
 
   // ========================================
   // ELEMENTS
@@ -225,7 +220,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   const backButton =
     document.getElementById("backButton");
 
-
   // ========================================
   // VARIABLES
   // ========================================
@@ -237,13 +231,24 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   // Practice se selected paragraph
   const currentText = test.text;
+
+  // Completion ke liye newlines/spaces ko
+  // equivalent maana jayega.
+  const completionText =
+    currentText
+      .replace(/\r?\n/g, " ")
+      .replace(/[ \t]+/g, " ")
+      .trim();
+
   let typedTextForReport = "";
   let typedCharactersForReport = [];
   let lastReportedLength = 0;
   let currentReportStart = 0;
+  let completedParagraphs = [];
   let totalCorrect = 0;
   let totalWrong = 0;
   let totalWrongCharacters = 0;
+  let paragraphCompleteWaiting = false;
 
   // ========================================
   // INITIAL
@@ -255,7 +260,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   inputEl.value = "";
 
   finishButton.disabled = true;
-
 
   // ========================================
   // AUTO START SETTING
@@ -280,7 +284,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
-
   // ========================================
   // INITIAL STATE
   // ========================================
@@ -303,7 +306,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   renderText("");
 
-
   // ========================================
   // TIMER FORMAT
   // ========================================
@@ -323,7 +325,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     return `${minutes}:${secs}`;
 
   }
-
 
   // ========================================
   // APPLY TYPING SETTINGS
@@ -351,7 +352,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     // ======================================
     // PARAGRAPH FONT SIZE
     // ======================================
@@ -364,7 +364,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       "extra-large": "26px"
 
     };
-
 
     if (textEl) {
 
@@ -383,7 +382,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       );
 
     }
-
 
     // ======================================
     // TEXT WIDTH
@@ -404,7 +402,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     // ======================================
     // CURSOR STYLE
     // ======================================
@@ -423,7 +420,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     // ======================================
     // SHOW TIMER
     // ======================================
@@ -436,7 +432,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           : "";
 
     }
-
 
     // ======================================
     // LIVE WPM
@@ -451,7 +446,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     // ======================================
     // LIVE ACCURACY
     // ======================================
@@ -464,7 +458,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           : "";
 
     }
-
 
     // ======================================
     // HIGHLIGHT MISTAKES
@@ -481,48 +474,66 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
-
   // ========================================
   // RENDER TEXT - WORD BASED
   // ========================================
 
   function renderText(value) {
+
     textEl.innerHTML = "";
-    const fragment = document.createDocumentFragment();
+
+    const fragment =
+      document.createDocumentFragment();
 
     // Expected words
-    const expectedWords = currentText.match(/\S+/g) || [];
+    const expectedWords =
+      currentText.match(/\S+/g) || [];
 
     // User ke typed words
-    const typedWords = value.match(/\S+/g) || [];
+    const typedWords =
+      value.match(/\S+/g) || [];
 
     // Kya user ne current word ke baad Space press kiya?
-    const hasTrailingSpace = /\s$/.test(value);
+    const hasTrailingSpace =
+      /\s$/.test(value);
 
     // Sirf completed words count honge
-    const completedWordCount = hasTrailingSpace
-      ? typedWords.length
-      : Math.max(typedWords.length - 1, 0);
+    const completedWordCount =
+      hasTrailingSpace
+        ? typedWords.length
+        : Math.max(
+          typedWords.length - 1,
+          0
+        );
 
     // Current word
-    const currentWordIndex = hasTrailingSpace
-      ? typedWords.length
-      : Math.max(typedWords.length - 1, 0);
+    const currentWordIndex =
+      hasTrailingSpace
+        ? typedWords.length
+        : Math.max(
+          typedWords.length - 1,
+          0
+        );
 
     let wordIndex = 0;
     let currentSpan = null;
 
     // Words + spaces preserve karo
-    const parts = currentText.match(/\S+|\s+/g) || [];
+    const parts =
+      currentText.match(/\S+|\s+/g) || [];
 
     parts.forEach((part) => {
 
-      const span = document.createElement("span");
+      const span =
+        document.createElement("span");
+
       span.textContent = part;
 
       // Space
       if (/^\s+$/.test(part)) {
+
         span.className = "";
+
       }
 
       // Word
@@ -539,7 +550,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           wordIndex < completedWordCount &&
           typedWord === expectedWord
         ) {
+
           span.className = "correct";
+
         }
 
         // Completed wrong word
@@ -547,7 +560,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           wordIndex < completedWordCount &&
           typedWord !== expectedWord
         ) {
+
           span.className = "incorrect";
+
         }
 
         // Current word
@@ -556,14 +571,19 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           started &&
           !finished
         ) {
+
           span.className = "current";
+
           currentSpan = span;
+
         }
 
         wordIndex++;
+
       }
 
       fragment.appendChild(span);
+
     });
 
     textEl.appendChild(fragment);
@@ -576,6 +596,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       started &&
       !finished
     ) {
+
       const containerTop =
         textEl.getBoundingClientRect().top;
 
@@ -589,29 +610,25 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         currentSpan.getBoundingClientRect().bottom;
 
       if (currentTop < containerTop) {
+
         textEl.scrollTop -=
           containerTop - currentTop;
+
       }
 
       if (currentBottom > containerBottom) {
+
         textEl.scrollTop +=
           currentBottom - containerBottom;
-      }
-    }
-  }
-  function countWrongCharacters(value) {
-    let wrongCharacters = 0;
 
-    for (let i = 0; i < value.length; i++) {
-      if (value[i] !== currentText[i]) {
-        wrongCharacters++;
       }
+
     }
 
-    return wrongCharacters;
   }
 
   function getStats() {
+
     // ========================================
     // FINAL TYPING STATS
     // ========================================
@@ -621,35 +638,19 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     let wrongWords = 0;
     let correctWords = 0;
 
-    const paragraphSize = currentText.length;
+    const rounds = [
+      ...completedParagraphs,
+      typedCharactersForReport.slice(currentReportStart)
+    ];
 
     // ========================================
     // CHECK ALL TYPED PARAGRAPHS
     // ========================================
 
-    for (
-      let start = 0;
-      start < typedCharactersForReport.length;
-      start += paragraphSize
-    ) {
-      const paragraphItems =
-        typedCharactersForReport.slice(
-          start,
-          start + paragraphSize
-        );
-
-      if (!paragraphItems.length) {
-        continue;
-      }
-
-      const typedParagraphText =
-        paragraphItems
-          .map((item) => item.typed)
-          .join("");
-
-      // ========================================
-      // WORDS
-      // ========================================
+    for (const round of rounds) {
+      const typedParagraphText = round
+        .map((item) => item.typed)
+        .join("");
 
       const typedWords =
         typedParagraphText.match(/\S+/g) || [];
@@ -657,162 +658,18 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       const expectedWords =
         currentText.match(/\S+/g) || [];
 
-      // ========================================
-      // CHARACTER CALCULATION
-      // Each word is checked independently.
-      // ========================================
-
-      for (
-        let i = 0;
-        i < typedWords.length;
-        i++
-      ) {
-        const typedWord =
-          typedWords[i] || "";
-
-        const expectedWord =
-          expectedWords[i] || "";
-
-        // Same word = all characters correct
-        if (
-          typedWord === expectedWord
-        ) {
-          correct += typedWord.length;
-          continue;
-        }
-        else {
-          correctWords++;
-        }
-
-        // ========================================
-        // LEVENSHTEIN FOR THIS WORD ONLY
-        // ========================================
-
-        const a = typedWord;
-        const b = expectedWord;
-
-        const dp = Array.from(
-          {
-            length: a.length + 1
-          },
-          () =>
-            Array(
-              b.length + 1
-            ).fill(0)
-        );
-
-        for (
-          let x = 0;
-          x <= a.length;
-          x++
-        ) {
-          dp[x][0] = x;
-        }
-
-        for (
-          let y = 0;
-          y <= b.length;
-          y++
-        ) {
-          dp[0][y] = y;
-        }
-
-        for (
-          let x = 1;
-          x <= a.length;
-          x++
-        ) {
-          for (
-            let y = 1;
-            y <= b.length;
-            y++
-          ) {
-            const cost =
-              a[x - 1] === b[y - 1]
-                ? 0
-                : 1;
-
-            dp[x][y] =
-              Math.min(
-                dp[x - 1][y] + 1,
-                dp[x][y - 1] + 1,
-                dp[x - 1][y - 1] + cost
-              );
-          }
-        }
-
-        const wordErrors =
-          Math.min(
-            dp[a.length][b.length],
-            a.length
-          );
-
-        wrongCharacters +=
-          wordErrors;
-
-        correct += Math.max(
-          0,
-          a.length - wordErrors
-        );
-      }
-
-      // ========================================
-      // SPACES
-      // ========================================
-
-      const typedSpaces =
-        (
-          typedParagraphText.match(/\s/g) ||
-          []
-        ).length;
-
-      const expectedSpaces =
-        (
-          currentText.match(/\s/g) ||
-          []
-        ).length;
-
-      correct += Math.min(
-        typedSpaces,
-        expectedSpaces
-      );
-
-      // ========================================
-      // WRONG WORDS
-      // Only COMPLETED words count as mistakes.
-      // Current incomplete word does not count yet.
-      // ========================================
-
       const hasTrailingSpace =
-        /\s$/.test(
-          typedParagraphText
-        );
+        /\s$/.test(typedParagraphText);
 
-      const completedWordCount =
-        hasTrailingSpace
-          ? typedWords.length
-          : Math.max(
-            typedWords.length - 1,
-            0
-          );
+      const completedWordCount = hasTrailingSpace
+        ? typedWords.length
+        : Math.max(typedWords.length - 1, 0);
 
-      for (
-        let i = 0;
-        i < completedWordCount;
-        i++
-      ) {
-        const typedWord =
-          typedWords[i] || "";
-
-        const expectedWord =
-          expectedWords[i] || "";
-
-        if (
-          typedWord !== expectedWord
-        ) {
-          wrongWords++;
-        } else {
+      for (let i = 0; i < completedWordCount; i++) {
+        if (typedWords[i] === expectedWords[i]) {
           correctWords++;
+        } else {
+          wrongWords++;
         }
       }
     }
@@ -824,16 +681,27 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     let reportCorrect = 0;
     let reportWrongCharacters = 0;
 
-    for (const item of typedCharactersForReport) {
-      if (item.typed === item.correct) {
+    for (
+      const item of typedCharactersForReport
+    ) {
+
+      if (
+        item.typed === item.correct
+      ) {
+
         reportCorrect++;
+
       } else {
+
         reportWrongCharacters++;
+
       }
+
     }
 
     correct = reportCorrect;
-    wrongCharacters = reportWrongCharacters;
+    wrongCharacters =
+      reportWrongCharacters;
 
     const totalCharacters =
       correct + wrongCharacters;
@@ -848,9 +716,13 @@ Confidence grows through action. Waiting until everything feels easy can prevent
     const accuracy =
       totalWords > 0
         ? Math.round(
-          (correctWords / totalWords) * 100
+          (
+            correctWords /
+            totalWords
+          ) * 100
         )
         : 100;
+
     // ========================================
     // WPM
     // ========================================
@@ -863,7 +735,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     const grossWpm =
       minutes > 0
-        ? (totalCharacters / 5) / minutes
+        ? (
+          totalCharacters / 5
+        ) / minutes
         : 0;
 
     const errorRate =
@@ -875,7 +749,8 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       Math.max(
         0,
         Math.round(
-          grossWpm - errorRate
+          grossWpm -
+          errorRate
         )
       );
 
@@ -889,7 +764,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       errorRate,
       wpm
     };
+
   }
+
   // ========================================
   // UPDATE STATS
   // ========================================
@@ -913,7 +790,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
-
   // ========================================
   // START TIMER
   // ========================================
@@ -929,7 +805,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     timerId =
       setInterval(
         () => {
@@ -937,7 +812,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
           timeLeft--;
 
           updateStats();
-
 
           if (
             timeLeft <= 0
@@ -952,7 +826,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       );
 
   }
-
 
   // ========================================
   // START TEST
@@ -969,20 +842,12 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
-    // Test started
     started = true;
 
-
-    // Enable typing
     inputEl.disabled = false;
 
-
-    // Enable Finish button
     finishButton.disabled = false;
 
-
-    // Hide Start Test button
     if (startTestButton) {
 
       startTestButton.style.setProperty(
@@ -993,18 +858,12 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
-    // Start timer
     startTimer();
 
-
-    // Render text
     renderText(
       inputEl.value
     );
 
-
-    // Focus textarea
     inputEl.focus();
 
   }
@@ -1014,71 +873,128 @@ Confidence grows through action. Waiting until everything feels easy can prevent
   // ========================================
 
   async function saveResultForProgress(stats) {
-    const userId = localStorage.getItem("typemaster-user-id");
+
+    const userId =
+      localStorage.getItem(
+        "typemaster-user-id"
+      );
 
     // User login nahi hai to result save nahi hoga
     if (!userId) {
-      console.warn("Typing result not saved: user is not logged in.");
+
+      console.warn(
+        "Typing result not saved: user is not logged in."
+      );
+
       return;
+
     }
 
-    console.log("TYPED REPORT BEFORE SAVE:", typedCharactersForReport);
+    console.log(
+      "TYPED REPORT BEFORE SAVE:",
+      typedCharactersForReport
+    );
 
     const resultData = {
+
       userId: userId,
 
       typingTextId: null,
 
       typingText: currentText,
-      typedText: JSON.stringify(typedCharactersForReport),
+
+      typedText:
+        JSON.stringify([
+          ...completedParagraphs.flatMap(
+            (round) => [
+              ...round,
+              { roundBreak: true }
+            ]
+          ),
+          ...typedCharactersForReport.slice(
+            currentReportStart
+          )
+        ]),
 
       testType:
         selectedId === "custom"
           ? (
-            localStorage.getItem("typemaster-custom-title") === "Weakness Practice"
+            localStorage.getItem(
+              "typemaster-custom-title"
+            ) === "Weakness Practice"
               ? "weakness-practice"
               : "custom-practice"
           )
           : "typing-test",
 
-      durationSeconds: (Number(selectedDuration) || 0) * 60,
+      durationSeconds:
+        (
+          Number(selectedDuration) ||
+          0
+        ) * 60,
 
-      wpm: Number(stats.wpm) || 0,
+      wpm:
+        Number(stats.wpm) || 0,
 
-      accuracy: Number(stats.accuracy) || 0,
+      accuracy:
+        Number(stats.accuracy) || 0,
 
-      correctCharacters: Number(stats.correct) || 0,
+      correctCharacters:
+        Number(stats.correct) || 0,
 
-      wrongCharacters: Number(stats.wrongCharacters) || 0,
+      wrongCharacters:
+        Number(stats.wrongCharacters) || 0,
 
-      errors: Number(stats.wrong) || 0,
+      errors:
+        Number(stats.wrong) || 0,
 
-      practiceSeconds: Math.max(
-        0,
-        (Number(duration) || 0) - (Number(timeLeft) || 0)
-      )
+      practiceSeconds:
+        Math.max(
+          0,
+          (
+            Number(duration) || 0
+          ) -
+          (
+            Number(timeLeft) || 0
+          )
+        )
+
     };
 
     try {
-      const response = await fetch(
-        "https://typemaster-backend-01.onrender.com/api/typing-test/save",
-        {
-          method: "POST",
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+      const response =
+        await fetch(
+          "https://typemaster-backend-01.onrender.com/api/typing-test/save",
+          {
+            method: "POST",
 
-          body: JSON.stringify(resultData)
-        }
-      );
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
 
-      const data = await response.json();
+            body:
+              JSON.stringify(
+                resultData
+              )
 
-      if (!response.ok || !data.success) {
-        throw new Error(
-          data.message || "Typing test could not be saved."
+          }
         );
+
+      const data =
+        await response.json();
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "Typing test could not be saved."
+        );
+
       }
 
     } catch (error) {
@@ -1089,7 +1005,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       );
 
     }
+
   }
+
   // ========================================
   // FINISH
   // ========================================
@@ -1102,9 +1020,7 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     finished = true;
-
 
     clearInterval(
       timerId
@@ -1112,13 +1028,11 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     timerId = null;
 
-
     inputEl.disabled =
       true;
 
     finishButton.disabled =
       true;
-
 
     if (startTestButton) {
 
@@ -1130,80 +1044,97 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
 
-
     updateStats();
-
 
     const stats =
       getStats();
-
 
     // SAVE RESULT
     saveResultForProgress(
       stats
     );
 
-
     // SHOW RESULT
-
     resultBox.innerHTML = `
+
+    ${stats.accuracy >= 95
+        ? `
+    <div class="test-status">
+      🏆 Excellent Performance!
+      <small>
+        You completed the test with the required 95% accuracy.
+        Keep up the great work!
+      </small>
+    </div>
+  `
+        : `
+    <div class="test-status">
+      🎯 Keep Practicing!
+      <small>
+        Your test is complete, but your accuracy is below the required 95%.
+        Practice again and improve your accuracy.
+      </small>
+    </div>
+  `
+      }
 
       <strong>
         Test Complete!
       </strong>
 
-<div class="result-grid">
+      <div class="result-grid">
 
-  <div>
-    <span>GROSS WPM</span>
+        <div>
+          <span>GROSS WPM</span>
 
-    <strong>
-      ${Math.round(stats.grossWpm)}
-    </strong>
-  </div>
+          <strong>
+            ${Math.round(
+        stats.grossWpm
+      )}
+          </strong>
+        </div>
 
-  <div>
-    <span>ERROR RATE</span>
+        <div>
+          <span>ERROR RATE</span>
 
-    <strong>
-      ${Math.round(stats.errorRate)}
-    </strong>
-  </div>
+          <strong>
+            ${Math.round(
+        stats.errorRate
+      )}
+          </strong>
+        </div>
 
-  <div>
-    <span>NET WPM</span>
+        <div>
+          <span>NET WPM</span>
 
-    <strong>
-      ${stats.wpm}
-    </strong>
-  </div>
+          <strong>
+            ${stats.wpm}
+          </strong>
+        </div>
 
-  <div>
-    <span>Accuracy</span>
+        <div>
+          <span>Accuracy</span>
 
-    <strong>
-      ${stats.accuracy}%
-    </strong>
-  </div>
+          <strong>
+            ${stats.accuracy}%
+          </strong>
+        </div>
 
-  <div>
-    <span>Mistakes</span>
+        <div>
+          <span>Mistakes</span>
 
-    <strong>
-      ${stats.wrong}
-    </strong>
-  </div>
+          <strong>
+            ${stats.wrong}
+          </strong>
+        </div>
 
-</div>
       </div>
 
     `;
 
-
     resultBox.classList.add(
       "show"
     );
-
 
     renderText(
       inputEl.value
@@ -1211,57 +1142,98 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
+  // ========================================
+  // KEYDOWN LISTENER (PARAGRAPH RESTART FIX)
+  // ========================================
 
-  // ========================================
-  // TYPING
-  // ========================================
   inputEl.addEventListener(
     "keydown",
     (event) => {
 
-      if (event.key === "Backspace") {
-        event.preventDefault();
-      }
+      // FIXED: Backspace is allowed now so users can edit mistakes!
 
+      if (paragraphCompleteWaiting) {
+        if (event.key !== " ") {
+          event.preventDefault();
+          return;
+        }
+
+        event.preventDefault();
+
+        paragraphCompleteWaiting = false;
+        const restartMessage =
+          document.getElementById("paragraphRestartMessage");
+
+        if (restartMessage) {
+          restartMessage.remove();
+        }
+
+        currentReportStart =
+          typedCharactersForReport.length;
+
+        lastReportedLength = 0;
+
+        inputEl.value = "";
+
+        renderText("");
+
+        inputEl.focus();
+
+      }
     }
   );
 
+  // ========================================
+  // INPUT LISTENER
+  // ========================================
+
   inputEl.addEventListener(
     "input",
-
     () => {
+
       const finishMessage =
-        document.getElementById("finishMessage");
-
-      if (finishMessage) {
-        finishMessage.remove();
-      }
-
-      const settings =
-        JSON.parse(
-          localStorage.getItem(
-            "typemaster-settings"
-          ) || "{}"
+        document.getElementById(
+          "finishMessage"
         );
 
+      if (finishMessage) {
+
+        finishMessage.remove();
+
+      }
+
+      let settings = {};
+
+      try {
+
+        settings =
+          JSON.parse(
+            localStorage.getItem(
+              "typemaster-settings"
+            ) || "{}"
+          );
+
+      } catch (error) {
+
+        settings = {};
+
+      }
 
       // ====================================
       // AUTO START ONLY WHEN TRUE
       // ====================================
 
-      const autoStart =
+      const currentAutoStart =
         settings.autoStart === true;
-
 
       if (
         !started &&
-        autoStart
+        currentAutoStart
       ) {
 
         startTest();
 
       }
-
 
       if (finished) {
 
@@ -1269,21 +1241,25 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       }
 
+      // ====================================
+      // LIMIT INPUT
+      // ====================================
 
       if (
         inputEl.value.length >
-        test.text.length
+        currentText.length
       ) {
 
         inputEl.value =
           inputEl.value.slice(
             0,
-            test.text.length
+            currentText.length
           );
 
       }
+
       // ====================================
-      // UPDATE REPORT FOR CURRENT PARAGRAPH
+      // UPDATE REPORT
       // ====================================
 
       typedCharactersForReport.splice(
@@ -1295,34 +1271,147 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         i < inputEl.value.length;
         i++
       ) {
+
         typedCharactersForReport.push({
-          typed: inputEl.value[i],
-          correct: currentText[i]
+
+          typed:
+            inputEl.value[i],
+
+          correct:
+            currentText[i]
+
         });
+
       }
 
       lastReportedLength =
         inputEl.value.length;
 
+      // ====================================
+      // UPDATE SCREEN
+      // ====================================
+
       updateStats();
 
-      renderText(inputEl.value);
-      if (inputEl.value.length === currentText.length) {
-
-        currentReportStart =
-          typedCharactersForReport.length;
-
-        inputEl.value = "";
-        lastReportedLength = 0;
-
-        renderText("");
-      }
+      renderText(
+        inputEl.value
+      );
 
       inputEl.focus();
 
+      // ====================================
+      // CHECK PARAGRAPH COMPLETION IMMEDIATELY
+      // ====================================
+
+      const typed =
+        inputEl.value
+          .replace(/\r?\n/g, " ");
+
+      const typedNormalized =
+        typed
+          .replace(/[ \t]+/g, " ")
+          .trim();
+
+      const targetNormalized =
+        completionText;
+
+      const targetWords =
+        targetNormalized.split(" ");
+
+      const typedWords =
+        typedNormalized.split(" ");
+
+      const targetLastWord =
+        targetWords[targetWords.length - 1];
+
+      const typedLastWord =
+        typedWords[typedWords.length - 1];
+
+      const progressEnough =
+        typedNormalized.length >=
+        Math.floor(
+          targetNormalized.length * 0.98
+        );
+
+      const lastWordComplete =
+        typedLastWord ===
+        targetLastWord;
+
+      if (
+        progressEnough &&
+        lastWordComplete &&
+        !paragraphCompleteWaiting
+      ) {
+
+        const completedRound =
+          typedCharactersForReport
+            .slice(currentReportStart);
+
+        completedParagraphs.push(
+          completedRound
+        );
+
+        paragraphCompleteWaiting =
+          true;
+
+        let restartMessage =
+          document.getElementById(
+            "paragraphRestartMessage"
+          );
+
+        if (!restartMessage) {
+
+          restartMessage =
+            document.createElement(
+              "div"
+            );
+
+          restartMessage.id =
+            "paragraphRestartMessage";
+
+          restartMessage.style.marginTop =
+            "12px";
+
+          restartMessage.style.padding =
+            "10px 14px";
+
+          restartMessage.style.borderRadius =
+            "10px";
+
+          restartMessage.style.background =
+            "#eff6ff";
+
+          restartMessage.style.border =
+            "1px solid #bfdbfe";
+
+          restartMessage.style.color =
+            "#1d4ed8";
+
+          restartMessage.style.fontSize =
+            "13px";
+
+          restartMessage.style.fontWeight =
+            "600";
+
+          restartMessage.style.lineHeight =
+            "1.5";
+
+          finishButton
+            .parentElement
+            .parentElement
+            .appendChild(
+              restartMessage
+            );
+
+        }
+
+        restartMessage.textContent =
+          "Paragraph complete! Press Space to restart the paragraph.";
+
+      }
+
     }
   );
-
 
   // ========================================
   // START BUTTON
@@ -1343,21 +1432,34 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
   }
 
+  // ========================================
+  // FINISH BUTTON
+  // ========================================
+
   finishButton.addEventListener(
     "click",
     () => {
 
-      if (!started || finished) {
+      if (
+        !started ||
+        finished
+      ) {
+
         return;
+
       }
 
       let finishMessage =
-        document.getElementById("finishMessage");
+        document.getElementById(
+          "finishMessage"
+        );
 
       if (!finishMessage) {
 
         finishMessage =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
         finishMessage.id =
           "finishMessage";
@@ -1389,8 +1491,13 @@ Confidence grows through action. Waiting until everything feels easy can prevent
         finishMessage.style.lineHeight =
           "1.5";
 
-        finishButton.parentElement.parentElement
-          .appendChild(finishMessage);
+        finishButton
+          .parentElement
+          .parentElement
+          .appendChild(
+            finishMessage
+          );
+
       }
 
       finishMessage.textContent =
@@ -1398,7 +1505,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
   );
-
 
   // ========================================
   // RESET
@@ -1421,20 +1527,36 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       timeLeft = duration;
 
       inputEl.value = "";
-      timeLeft = duration;
-      inputEl.value = "";
 
       totalCorrect = 0;
+
       totalWrong = 0;
+
       totalWrongCharacters = 0;
+
       typedTextForReport = "";
+
       typedCharactersForReport = [];
+
+      completedParagraphs = [];
+
       lastReportedLength = 0;
+
       currentReportStart = 0;
+
+      paragraphCompleteWaiting = false;
+
+      const restartMessage =
+        document.getElementById(
+          "paragraphRestartMessage"
+        );
+
+      if (restartMessage) {
+        restartMessage.remove();
+      }
 
       finishButton.disabled =
         true;
-
 
       // ====================================
       // READ AUTO START AGAIN
@@ -1457,10 +1579,8 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       }
 
-
       const resetAutoStart =
         resetSettings.autoStart === true;
-
 
       // ====================================
       // RESET INPUT
@@ -1468,7 +1588,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       inputEl.disabled =
         !resetAutoStart;
-
 
       // ====================================
       // RESET START BUTTON
@@ -1486,7 +1605,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
       }
 
-
       resultBox.classList.remove(
         "show"
       );
@@ -1494,11 +1612,9 @@ Confidence grows through action. Waiting until everything feels easy can prevent
       resultBox.innerHTML =
         "";
 
-
       updateStats();
 
       renderText("");
-
 
       if (resetAutoStart) {
 
@@ -1508,7 +1624,6 @@ Confidence grows through action. Waiting until everything feels easy can prevent
 
     }
   );
-
 
   // ========================================
   // BACK

@@ -804,23 +804,32 @@ function printHistoryTest(index) {
       return "";
     }
 
-    const paragraphLength = paragraphText.length;
-
-    const typedChars = typedReport.map(
-      (item) => item.typed || ""
-    );
-
     const paragraphs = [];
+    let currentParagraph = [];
 
-    for (
-      let i = 0;
-      i < typedChars.length;
-      i += paragraphLength
-    ) {
+    typedReport.forEach((item) => {
+      if (item && item.roundBreak === true) {
+        if (currentParagraph.length) {
+          paragraphs.push(
+            currentParagraph.join("")
+          );
+        }
+
+        currentParagraph = [];
+        return;
+      }
+
+      if (
+        item &&
+        typeof item.typed === "string"
+      ) {
+        currentParagraph.push(item.typed);
+      }
+    });
+
+    if (currentParagraph.length) {
       paragraphs.push(
-        typedChars
-          .slice(i, i + paragraphLength)
-          .join("")
+        currentParagraph.join("")
       );
     }
 

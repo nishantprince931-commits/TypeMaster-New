@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { createId } = require("@paralleldrive/cuid2");
@@ -202,11 +203,14 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
     delete user.passwordHash;
 
     res.json({
       success: true,
       message: "Login successful",
+      token,
       user
     });
 
@@ -839,3 +843,4 @@ router.put(
 );
 
 module.exports = router;
+
